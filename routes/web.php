@@ -9,6 +9,7 @@ use App\Http\Controllers\user\Auth\FrontendLogController;
 use App\Http\Controllers\admin\BackendController;
 use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\OffreController;
+use App\Http\Controllers\admin\FormationController;
 use App\Http\Controllers\admin\CategorieController;
 use App\Http\Controllers\admin\ArticleController;
 use App\Http\Controllers\admin\MediathequeController;
@@ -43,6 +44,7 @@ Route::get('/', function () {
 
 // HOME BACKEND
 Route::get('admin/home', [BackendController::class, 'home'])->name('backend.home');
+Route::get('users/liste', [BackendController::class, 'liste'])->name('users.index');
 
 // ADMIN AUTH
 Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->name('admin.login');
@@ -59,6 +61,7 @@ Route::get('frontend/logout', [LoginsController::class, 'logout'])->name('user.l
 // RESOURCES
 Route::resource('events', EventController::class);
 Route::resource('offres', OffreController::class);
+Route::resource('formations', FormationController::class);
 Route::resource('categories', CategorieController::class);
 Route::resource('articles', ArticleController::class);
 Route::resource('mediatheques', MediathequeController::class);

@@ -19,7 +19,9 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        $categories = Valeur::where('is_delete', FALSE)->get();
+        $localites = Valeur::where('is_delete', FALSE)->get();
+        return view('backend.events.create', compact('categories', 'localites'));
     }
 
     /**
@@ -27,7 +29,28 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'id_categorie'=>'required',
+            'id_localite'=>'required',
+            'id_structure'=>'required',
+            'libelle'=>'required',
+            'date_event'=>'required',
+            'description'=>'required',
+        ]);
+
+        Evenement::create([
+            'id_categorie'=>$request->id_categorie,
+            'id_localite'=>$request->id_localite,
+            'id_structure'=>$request->id_structure,
+            'libelle'=>$request->libelle,
+            'url_img'=>$request->libelle,
+            'date_event'=>$request->date_event,
+            'slug'=>str_slug($request->libelle , "-"),
+            'description'=>$request->description,
+            'id_user_created'=>Auth::user()->id,
+        ]);
+
+        return redirect()->action('${App\Http\Controllers\EventController@index}');
     }
 
     /**
@@ -35,7 +58,8 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $event = Evenement::where('id', $id)->first();
+        return view('events.show', compact('event'));
     }
 
     /**
@@ -43,7 +67,10 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $event = Evenement::where('id', $id)->first();
+        $categories = Valeur::where('is_delete', FALSE)->get();
+        $localites = Valeur::where('is_delete', FALSE)->get();
+        return view('backend.events.create', compact('event', 'categories', 'localites'));
     }
 
     /**
@@ -51,7 +78,28 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $this->validate($request, [
+            'id_categorie'=>'required',
+            'id_localite'=>'required',
+            'id_structure'=>'required',
+            'libelle'=>'required',
+            'date_event'=>'required',
+            'description'=>'required',
+        ]);
+        $event = Evenement::where('id', $id)->first();
+        $event->update([
+            'id_categorie'=>$request->id_categorie,
+            'id_localite'=>$request->id_localite,
+            'id_structure'=>$request->id_structure,
+            'libelle'=>$request->libelle,
+            'url_img'=>$request->libelle,
+            'date_event'=>$request->date_event,
+            'slug'=>str_slug($request->libelle , "-"),
+            'description'=>$request->description,
+            'id_user_created'=>Auth::user()->id,
+        ]);
+
+        return redirect()->action('${App\Http\Controllers\EventController@index}');
     }
 
     /**
