@@ -2,8 +2,8 @@
 <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container-fluid d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;">contact@example.com</span>
-        <i class="bi bi-phone"></i> <span style="font-size: 0.8rem;">+1 5589 55488 55</span>
+        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;" class="me-2"><a href="mailto:infos@corus.bf"> infos@corus.bf</span>
+        <i class="bi bi-phone"></i> <span style="font-size: 0.8rem;"><a href="tel:+22625335183">(+226) 25335183</a></span>
         <a href="#" style="margin-left: 1rem; margin-right:0.5rem;">Prévention</a> |
         <a href="#" style="margin-left: 0.5rem;">Préparation et riposte aux urgences de santé publique</a>
       </div>
@@ -55,35 +55,35 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li><a class="nav-link scrollto active" href="{{ route('frontend.welcome') }}">Accueil</a></li>
-          <li class="dropdown"><a href="#"><span>Urgences de santé publique</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="text-uppercase"><a class="nav-link scrollto active" href="{{ route('frontend.welcome') }}">Accueil</a></li>
+          <li class="dropdown"><a href="#" class="text-uppercase"><span>Urgences Sanitaires</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
                 <li><a href="#">Evènements en cours </a></li>
                 <li><a href="#">Réponse sanitaire en cours </a></li>
                 <li><a href="#">Réponse sanitaire réalisée </a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Informations publiques</a></li>
               <li><a href="#">Evaluation des risques </a></li>
               <li><a href="#">Capacités opérationnelles (ressources pour la préparation et la réponse) </a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Formations disponibles</a></li>
               <li><a href="#">Formations planifiées</a></li>
               <li><a href="#">Formations réalisées</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Exercices de simulations</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Exercice de simulations planifiées</a></li>
               <li><a href="#">Exercices de simulations réalisés</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Evaluations et recherches opérationnelles</a></li>
               <li><a href="#">Textes réglementaires</a></li>
@@ -92,14 +92,14 @@
               <li><a href="#">Médiathèques</a></li>
             </ul>
           </li>
-          <li class="dropdown"><a href="#"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Mission</a></li>
               <li><a href="#">Vision</a></li>
               <li><a href="#">Equipe et expertises</a></li>
             </ul>
           </li>
-          <li><a class="nav-link scrollto" href="#contact">Actualités</a></li>
+          <li class="text-uppercase"><a class="nav-link scrollto" href="#contact">Actualités</a></li>
         </ul>
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->

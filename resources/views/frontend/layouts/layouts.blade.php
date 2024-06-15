@@ -2,19 +2,20 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Centre des Opérations de Réponse aux Urgences Sanitaire | CORUS</title>
+    <meta name="description" content="Explorez le Centre des Opérations de Réponse aux Urgences Sanitaire (CORUS) du Ministère de la Santé et de l'Hygiène Publique du Burkina Faso, votre allié pour la gestion rapide et efficace des situations d'urgence sanitaire. Nos experts sont disponibles 24/7 pour assurer une réponse immédiate et coordonnée face aux crises de santé publique.">
+    <meta name="keywords" content="CORUS, Centre des Opérations de Réponse aux Urgences Sanitaire, Ministère de la Santé et de l'Hygiène Publique, MSHP, Burkina Faso, gestion des urgences sanitaires, crises de santé publique, réponse rapide, santé publique, coordination des urgences, intervention d'urgence, services d'urgence sanitaire, gestion des crises sanitaires">
 
-  <title>Medilab Bootstrap Template - Index</title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+    <!-- Favicons -->
+    <link href="{{ asset('frontend/assets/img/favicon.png') }}" rel="icon">
+    <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
-  <!-- Favicons -->
-  <link href="{{ asset('frontend/assets/img/favicon.png') }}" rel="icon">
-  <link href="{{ asset('frontend/assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
-
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i|Quicksand:300,300i,400,400i,500,500i,600,600i,700,700i&display=swap" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{{ asset('frontend/assets/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet">
