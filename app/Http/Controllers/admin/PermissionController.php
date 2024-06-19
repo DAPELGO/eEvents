@@ -18,7 +18,7 @@ class PermissionController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -30,9 +30,9 @@ class PermissionController extends Controller
     {
         if (Auth::user()->can('permissions.view')) {
             $permissions = Permission::where('is_delete', false)->orderBy('group_slug')->orderBy('slug')->get();
-            return view('permissions.index', compact('permissions'));
+            return view('backend.permissions.index', compact('permissions'));
         }
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
 
@@ -46,10 +46,10 @@ class PermissionController extends Controller
     {
         if (Auth::user()->can('permissions.update')) {
             $permission = Permission::where('id', $id)->first();
-            return view('permissions.edit', compact('permission'));
+            return view('backend.permissions.edit', compact('permission'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -81,6 +81,6 @@ class PermissionController extends Controller
             return redirect()->route('permissions.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 }

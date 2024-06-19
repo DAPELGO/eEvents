@@ -20,7 +20,7 @@ class StructureController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -31,10 +31,10 @@ class StructureController extends Controller
     public function index()
     {
         if(Auth::user()->can('structures.view')){
-            return view('structures.index');
+            return view('backend.structures.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
 
@@ -167,7 +167,7 @@ class StructureController extends Controller
             }
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
 
@@ -187,10 +187,10 @@ class StructureController extends Controller
                 $q->where('libelle', '!=', env('FS'));
             })->get()->groupBy('niveau_structure.libelle');
 
-            return view('structures.create', compact('valeurs_niveau_structures', 'valeurs_structures_non_fs'));
+            return view('backend.structures.create', compact('valeurs_niveau_structures', 'valeurs_structures_non_fs'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -264,7 +264,7 @@ class StructureController extends Controller
             return redirect()->route('structures.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -302,10 +302,10 @@ class StructureController extends Controller
                 $q->where('libelle', '!=', env('FS'));
             })->get()->groupBy('niveau_structure.libelle');
 
-            return view('structures.edit', compact('structure', 'valeurs_niveau_structures', 'valeurs_type_structures', 'valeurs_structures_non_fs'));
+            return view('backend.structures.edit', compact('structure', 'valeurs_niveau_structures', 'valeurs_type_structures', 'valeurs_structures_non_fs'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -378,7 +378,7 @@ class StructureController extends Controller
             return redirect()->route('structures.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -418,6 +418,6 @@ class StructureController extends Controller
             return redirect()->route('structures.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 }

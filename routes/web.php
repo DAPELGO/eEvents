@@ -73,6 +73,9 @@ Route::resource('valeurs', ValeurController::class);
 Route::resource('structures', StructureController::class);
 Route::resource('localites', LocaliteController::class);
 
+// DELETE
+Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');
+
 /****** FRONTEND ROUTES ************************/
 // WELCOME
 Route::get('', [FrontendController::class, 'frontend'])->name('frontend.welcome');

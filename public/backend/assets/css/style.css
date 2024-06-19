@@ -8123,3 +8123,11 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
     background-color: rgba(255, 255, 255, 0.5); }
     .switch label input[type=checkbox]:checked + .lever.switch-col-white:after {
       background-color: #ffffff; }
+
+      .card-title {
+        margin-bottom: .75rem;
+        color: #000;
+        text-transform: uppercase;
+        font-size: 15px;
+        font-family: "Open Sans", sans-serif;
+      }

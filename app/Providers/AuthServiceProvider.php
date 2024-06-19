@@ -1,8 +1,15 @@
 <?php
 
 namespace App\Providers;
+use App\Policies\RolePolicy;
+use App\Policies\ParametrePolicy;
+use App\Policies\StructurePolicy;
+use App\Policies\MonitoringPolicy;
+use App\Policies\PermissionPolicy;
+use App\Policies\ValeurPolicy;
+use App\Policies\LocalitePolicy;
 
-// use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 
 class AuthServiceProvider extends ServiceProvider
@@ -21,6 +28,16 @@ class AuthServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        $this->registerPolicies();
+        Gate::resource('structures', StructurePolicy::class);
+        Gate::resource('data', DataPolicy::class);
+        Gate::resource('users', UserPolicy::class);
+        Gate::resource('roles', RolePolicy::class);
+        Gate::resource('permissions', PermissionPolicy::class);
+        Gate::resource('parametres', ParametrePolicy::class);
+        Gate::resource('valeurs', ValeurPolicy::class);
+        Gate::resource('gerants', GerantPolicy::class);
+        Gate::resource('prescripteurs', PrescripteurPolicy::class);
+        Gate::resource('localites', LocalitePolicy::class);
     }
 }

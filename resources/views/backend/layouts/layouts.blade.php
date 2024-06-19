@@ -13,6 +13,8 @@
     <title>Admin Press Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('backend/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('backend/assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('backend//assets/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
     <!-- morris CSS -->
     <link href="{{ asset('backend/assets/plugins/morrisjs/morris.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
@@ -78,6 +80,9 @@
     <script src="{{ asset('backend/assets/plugins/sticky-kit-master/dist/sticky-kit.min.js') }}"></script>
     <!--Custom JavaScript -->
     <script src="{{ asset('backend/assets/js/custom.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/js/validation.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('backend//assets/plugins/multiselect/js/jquery.multi-select.js') }}"></script>
+        <script src="{{ asset('backend/assets/plugins/select2/dist/js/select2.full.min.js') }}" type="text/javascript"></script>
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
@@ -138,13 +143,32 @@
                     }
                 });
             });
+
+            $('#example23').DataTable({
+                dom: 'Bfrtip',
+                buttons: [
+                    'copy', 'csv', 'excel', 'pdf', 'print'
+                ]
+            });
+
+            $(".select2").select2();
         });
-        $('#example23').DataTable({
-            dom: 'Bfrtip',
-            buttons: [
-                'copy', 'csv', 'excel', 'pdf', 'print'
-            ]
-        });
+
+
+        function slugify(text) {
+        return text
+            .toString() // Cast to string
+            .toLowerCase() // Convert the string to lowercase letters
+            .normalize('NFD') // The normalize() method returns the Unicode Normalization Form of a given string.
+            .trim() // Remove whitespace from both sides of a string
+            .replace(/\s+/g, '-') // Replace spaces with -
+            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
+            .replace(/\-\-+/g, '-'); // Replace multiple - with single -
+        }
+
+        function listingslug(text) {
+            document.getElementById("slug").value = slugify(text);
+        }
         </script>
 
     <!-- ============================================================== -->

@@ -19,7 +19,7 @@ class ParametreController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -31,9 +31,9 @@ class ParametreController extends Controller
     {
         if (Auth::user()->can('users.view')) {
             $parametres = Parametre::where('is_delete', false)->orderBy('libelle')->get();
-            return view('parametres.index', compact('parametres'));
+            return view('backend.parametres.index', compact('parametres'));
         }else{
-            return redirect()->route('app.home');
+            return redirect()->route('backend.home');
         }
     }
 
@@ -47,10 +47,10 @@ class ParametreController extends Controller
         if (Auth::user()->can('parametres.create')) {
             $parametres = Parametre::where('is_delete', false)->orderByDesc('libelle')->get();
 
-            return view('parametres.create', compact('parametres'));
+            return view('backend.parametres.create', compact('parametres'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -91,7 +91,7 @@ class ParametreController extends Controller
             return redirect()->route('parametres.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -122,10 +122,10 @@ class ParametreController extends Controller
 
             $parametres = Parametre::where('is_delete', false)->orderBy('libelle')->get();
 
-            return view('parametres.edit', compact('parametreup', 'parametres'));
+            return view('backend.parametres.edit', compact('parametreup', 'parametres'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -172,7 +172,7 @@ class ParametreController extends Controller
             return redirect()->route('parametres.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**

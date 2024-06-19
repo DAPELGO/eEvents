@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
-use App\Models\user\Categorie;
+use App\Models\admin\Categorie;
 use Illuminate\Support\Facades\Auth;
 
 class CategorieController extends Controller
@@ -25,10 +25,10 @@ class CategorieController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->can('category.view')) {
+        // if (Auth::user()->can('category.view')) {
             $categories = Categorie::where('is_delete', 0)->get();
             return view('backend.categories.index', compact('categories'));
-        }
+        // }
         return redirect(route('backend.home'));
     }
 
@@ -39,9 +39,10 @@ class CategorieController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('categories.create')) {
-            return view('backend.categories.create');
-        }
+        // if (Auth::user()->can('categories.create')) {
+            $categories = Categorie::where('is_delete', FALSE)->get();
+            return view('backend.categories.create', compact('categories'));
+        // }
         return redirect(route('backend.home'));
     }
 
@@ -53,21 +54,22 @@ class CategorieController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('categories.create')) {
+        // if (Auth::user()->can('categories.create')) {
          $this->validate($request, [
                 'titre'=>'required',
             ]);
 
             Categorie::create([
-                'titre'=>$request->titre,
-                'chapeau'=>$request->chapeau,
-                'is_delete'=>0,
-                'corps'=>'',
+                'id_parent'=>$request->id_parent,
+                'nom_categorie'=>$request->titre,
+                'slug'=>$request->slug,
+                'description'=>$request->description,
+                'id_user_created'=>Auth::user()->id,
 
             ]);
 
             return redirect()->route('categories.index');
-        }
+        //}
         return redirect(route('backend.home'));
     }
 

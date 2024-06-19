@@ -1,11 +1,13 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\admin;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Evenement extends Model
+class Categorie extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
 }

@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\Controller;
 
 class RoleController extends Controller
 {
@@ -21,7 +22,7 @@ class RoleController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware('auth:admin');
     }
 
     /**
@@ -31,14 +32,13 @@ class RoleController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->can('roles.view')) {
-
+        // if (Auth::user()->can('roles.view')) {
             $roles = Role::where('slug', '!=', 'super_admin')->where('is_delete', false)->get();
 
-            return view('roles.index', compact('roles'));
-       }
+            return view('backend.roles.index', compact('roles'));
+       //}
 
-       return redirect()->route('home');
+       return redirect()->route('backend.home');
     }
 
     /**
@@ -48,12 +48,12 @@ class RoleController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('roles.create')) {
+        // if (Auth::user()->can('roles.create')) {
             $permissions = Permission::where('is_delete', false)->orderBy('group_name')->get()->groupBy('group_name');
-            return view('roles.create', compact('permissions'));
-        }
+            return view('backend.roles.create', compact('permissions'));
+        // }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -64,7 +64,7 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('roles.create')) {
+        //if (Auth::user()->can('roles.create')) {
             $this->validate($request, [
                 'nom_role' => 'required',
             ]);
@@ -106,9 +106,9 @@ class RoleController extends Controller
 
             toastr()->success('Rôle enregistré avec succès');
             return redirect()->route('roles.index');
-        }
+        //}
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -141,10 +141,10 @@ class RoleController extends Controller
 
             $permissions = Permission::where('is_delete', false)->orderBy('group_name')->get()->groupBy('group_name');
 
-            return view('roles.edit', compact('role', 'permissions'));
+            return view('backend.roles.edit', compact('role', 'permissions'));
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -187,7 +187,7 @@ class RoleController extends Controller
             return redirect()->route('roles.index');
         }
 
-        return redirect()->route('home');
+        return redirect()->route('backend.home');
     }
 
     /**
