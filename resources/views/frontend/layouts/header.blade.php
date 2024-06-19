@@ -55,35 +55,35 @@
 
       <nav id="navbar" class="navbar order-last order-lg-0">
         <ul>
-          <li class="text-uppercase"><a class="nav-link scrollto active" href="{{ route('frontend.welcome') }}">Accueil</a></li>
-          <li class="dropdown"><a href="#" class="text-uppercase"><span>Urgences Sanitaires</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="text-uppercase"><a class="nav-link scrollto @yield('accueil')" href="{{ route('frontend.welcome') }}">Accueil</a></li>
+          <li class="dropdown"><a href="#"  class="@yield('urgence')"><span>Urgences Sanitaires</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-                <li><a href="#">Evènements en cours </a></li>
-                <li><a href="#">Réponse sanitaire en cours </a></li>
-                <li><a href="#">Réponse sanitaire réalisée </a></li>
+                <li><a href="{{ route('menu.urgence', 'evenement') }}">Evènements en cours </a></li>
+                <li><a href="{{ route('menu.urgence', 'reponse-cours') }}">Réponse sanitaire en cours </a></li>
+                <li><a href="{{ route('menu.urgence', 'reponse-realisee') }}">Réponse sanitaire réalisée </a></li>
             </ul>
           </li>
-          <li class="dropdown text-uppercase"><a href="#"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"  class="@yield('risque')"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Informations publiques</a></li>
               <li><a href="#">Evaluation des risques </a></li>
               <li><a href="#">Capacités opérationnelles (ressources pour la préparation et la réponse) </a></li>
             </ul>
           </li>
-          <li class="dropdown text-uppercase"><a href="#"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Formations disponibles</a></li>
               <li><a href="#">Formations planifiées</a></li>
               <li><a href="#">Formations réalisées</a></li>
             </ul>
           </li>
-          <li class="dropdown text-uppercase"><a href="#"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#"  class="@yield('simulation')"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Exercice de simulations planifiées</a></li>
               <li><a href="#">Exercices de simulations réalisés</a></li>
             </ul>
           </li>
-          <li class="dropdown text-uppercase"><a href="#"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#" class="@yield('ressource')"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li><a href="#">Evaluations et recherches opérationnelles</a></li>
               <li><a href="#">Textes réglementaires</a></li>
@@ -92,11 +92,11 @@
               <li><a href="#">Médiathèques</a></li>
             </ul>
           </li>
-          <li class="dropdown text-uppercase"><a href="#"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
+          <li class="dropdown text-uppercase"><a href="#" class="@yield('corus')"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
-              <li><a href="#">Mission</a></li>
-              <li><a href="#">Vision</a></li>
-              <li><a href="#">Equipe et expertises</a></li>
+              <li><a href="{{ route('corus.mission') }}">Mission</a></li>
+              <li><a href="{{ route('corus.vision') }}">Vision</a></li>
+              <li><a href="{{ route('corus.team') }}">Equipe et expertises</a></li>
             </ul>
           </li>
           <li class="text-uppercase"><a class="nav-link scrollto" href="#contact">Actualités</a></li>

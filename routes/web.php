@@ -97,6 +97,12 @@ Route::get("callback/{provider}", "user\SocialiteController@callback")->name('so
 // VERIFY EMAIL
 Route::get('/email/verify', 'user\FrontendLogController@verif')->name('user.verification');
 
+// MENU
+Route::get('corus/mission', [FrontendController::class, 'mission'])->name('corus.mission');
+Route::get('corus/vision', [FrontendController::class, 'vision'])->name('corus.vision');
+Route::get('corus/team', [FrontendController::class, 'team'])->name('corus.team');
+Route::get('urgence/{submenu}', [FrontendController::class, 'urgence'])->name('menu.urgence');
+
 
 Auth::routes();
 

@@ -41,4 +41,35 @@ class FrontendController extends Controller
 
         return redirect()->route('user.login');
     }
+
+    public function mission()
+    {
+        return view('frontend.menu.corus.mission');
+    }
+
+    public function vision()
+    {
+        return view('frontend.menu.corus.vision');
+    }
+
+    public function team()
+    {
+        return view('frontend.menu.corus.team');
+    }
+
+    public function urgence($submenu)
+    {
+        switch ($submenu) {
+            case 'evenement':
+                return view('frontend.menu.urgence.evenement');
+                break;
+            case 'reponse-cours':
+                return view('frontend.menu.urgence.reponse-cours');
+                break;
+            default:
+            return view('frontend.menu.urgence.reponse-realisee');
+                break;
+        }
+
+    }
 }

@@ -10,8 +10,9 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Open Sans", sans-serif;
   color: #444444;
+  font-size: 15px;
 }
 
 a {
@@ -30,7 +31,7 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Quicksand", sans-serif;
+  font-family: "Open Sans", sans-serif;
 }
 
 /*--------------------------------------------------------------
@@ -563,10 +564,6 @@ section {
   overflow: hidden;
 }
 
-.section-bg {
-  background: linear-gradient(to right,#fff,#efa823);
-}
-
 .section-title {
   text-align: center;
   padding-bottom: 30px;
@@ -931,48 +928,24 @@ section {
 /*--------------------------------------------------------------
 # Services
 --------------------------------------------------------------*/
+#services{
+    /*background: rgba(221,208,179,0.75) !important;*/
+    background: #EFEDE8;
+}
 .services .icon-box {
   text-align: center;
-  border: 1px solid #d5e1ed;
   padding: 20px;
   transition: all ease-in-out 0.3s;
 }
 
-.services .icon-box .icon {
-  margin: 0 auto;
-  width: 64px;
-  height: 64px;
-  background: #c55a15;
-  border-radius: 5px;
-  transition: all 0.3s ease-out 0s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  transform-style: preserve-3d;
-  position: relative;
-  z-index: 2;
+.services .icon-box .icon img {
+    width: 84px;
+    height: 84px;
+    background: #fff;
+    z-index: 2;
+    border-radius: 50%;
 }
 
-.services .icon-box .icon i {
-  color: #fff;
-  font-size: 28px;
-  transition: ease-in-out 0.3s;
-}
-
-.services .icon-box .icon::before {
-  position: absolute;
-  content: "";
-  left: -8px;
-  top: -8px;
-  height: 100%;
-  width: 100%;
-  background: rgba(25, 119, 204, 0.2);
-  border-radius: 5px;
-  transition: all 0.3s ease-out 0s;
-  transform: translateZ(-1px);
-  z-index: -1;
-}
 
 .services .icon-box h4 {
   font-weight: 700;
@@ -990,15 +963,6 @@ section {
   margin-bottom: 0;
 }
 
-.services .icon-box:hover {
-  background: #c55a15;
-  border-color: #c55a15;
-}
-
-.services .icon-box:hover .icon {
-  background: #fff;
-}
-
 .services .icon-box:hover .icon i {
   color: #c55a15;
 }
@@ -1009,12 +973,15 @@ section {
 
 .services .icon-box:hover h4 a,
 .services .icon-box:hover p {
-  color: #fff;
+  color: #c55a15;
 }
 
 /*--------------------------------------------------------------
 # Appointments
 --------------------------------------------------------------*/
+.appointment{
+    background: linear-gradient(to right,#fff,#efa823);
+}
 .appointment .php-email-form {
   width: 100%;
 }
@@ -1175,7 +1142,7 @@ section {
 # Doctors
 --------------------------------------------------------------*/
 .doctors {
-  background: rgba(221,208,179,0.75) !important;
+  background: #FFF !important;
 }
 
 .doctors .member {
@@ -1274,19 +1241,19 @@ section {
 }
 
 .faq .faq-list li {
-  padding: 20px;
+  padding: 10px 20px;
   background: #fff;
   border-radius: 4px;
   position: relative;
+  border: 1px solid #494949;
 }
 
 .faq .faq-list a {
   display: block;
   position: relative;
   font-family: "Poppins", sans-serif;
-  font-size: 16px;
+  font-size: 14px;
   line-height: 24px;
-  font-weight: 500;
   padding: 0 30px;
   outline: none;
   cursor: pointer;
@@ -1824,4 +1791,47 @@ section {
     text-align: left;
     padding-left: 5rem;
     text-decoration: none;
+  }
+
+  .mission ul li {
+    list-style: disclosure-closed;
+    padding-top: 1rem;
+  }
+
+  .title{
+    font-size: 15px;
+    line-height: 18px;
+    font-weight: bold;
+    color: #000;
+    margin: 0px 0px 15px 0px;
+    text-transform: uppercase;
+  }
+
+  .sub-title {
+    color: black;
+    font-weight: bold;
+  }
+
+  .menu ul li a {
+    padding: 5px 0px 5px 0px;
+    position: relative;
+    display: block;
+    text-decoration: none;
+    color: #333;
+  }
+
+  .menu ul li a:hover {
+    background-color: #f2f2f2;
+    color: #333;
+  }
+
+  .menu ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .menu {
+    font-size: 12px;
+    line-height: 17px;
+    word-wrap: break-word;
   }

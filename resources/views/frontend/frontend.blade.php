@@ -1,4 +1,5 @@
 @extends('frontend.layouts.layouts')
+@section('accueil', 'active')
 @section('content')
 <!-- ======= Hero Section ======= -->
 <section id="hero" class="d-flex align-items-center">
@@ -247,7 +248,7 @@
             <div class="col-lg-3 mt-0">
                 <div class="member">
                     <img src="{{ asset('frontend/assets/img/news3.jpg') }}" class="img-fluid" alt="">
-                    <h4>Covid-19 : L’Organisation Ouest-africaine de la Santé offre...</h4>
+                    <h4>Covid-19 : L’Organisation Ouest-africaine de la Santé...</h4>
                     <span><small>{{ date('d/m/Y') }}</small> | Neurosurgeon</span>
                     <p>La CEDEAO, à travers son institution spécialisée qu’est l’Organisation Ouest-africaine de la Santé (OOAS),
                         a procédé, ce 8 avril 2020, à la remise d’un don au... </p>
@@ -270,31 +271,31 @@
         </div>
 
         <div class="row">
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
-              <div class="icon"><i class="fas fa-heartbeat"></i></div>
-              <h4><a href="">MINISTERE DE LA SANTE ET DE L'HYGIENE PUBLIQUE</a></h4>
+              <div class="icon"><img src="{{ asset('frontend/assets/img/burkina.webp') }}" alt="MSHP"></div>
+              <h4><a href="https://sante.bf" target="_blank">MINISTERE DE LA SANTE ET DE L'HYGIENE PUBLIQUE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
-              <div class="icon"><i class="fas fa-pills"></i></div>
-              <h4><a href="">INSTITUT NATIONAL DE SANTE PUBLIQUE du BURKINA FASO</a></h4>
+              <div class="icon"><img src="{{ asset('frontend/assets/img/insp.png') }}" alt="INSP"></div>
+              <h4><a href="https://insp.bf/" target="_blank">INSTITUT NATIONAL DE SANTE PUBLIQUE du BURKINA FASO</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
-              <div class="icon"><i class="fas fa-hospital-user"></i></div>
-              <h4><a href="">BANQUE MONDIALE</a></h4>
+              <div class="icon"><img src="{{ asset('frontend/assets/img/bm.png') }}" alt="BM"></div>
+              <h4><a href="https://www.banquemondiale.org/fr/home" target="_blank">BANQUE MONDIALE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff;">
             <div class="icon-box">
-              <div class="icon"><i class="fas fa-dna"></i></div>
-              <h4><a href="">AGENCE NATIONALE DE PROMOTION DES TIC</a></h4>
+              <div class="icon"><img src="{{ asset('frontend/assets/img/logo_anptic_ok.png') }}" alt="ANPTIC"></div>
+              <h4><a href="" target="_blank">AGENCE NATIONALE DE PROMOTION DES TIC</a></h4>
             </div>
           </div>
 
@@ -369,16 +370,16 @@
                         </div>
                       </li>
                       <li data-aos="fade-up" data-aos-delay="400">
-                        <i class="bx bx-mobile-vibration icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Outils de communications<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                        <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                        <i class="bx bx-mobile-vibration icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-7" class="collapsed">Outils de communications<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                        <div id="faq-list-7" class="collapse" data-bs-parent=".faq-list">
                           <p>
                             Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
                           </p>
                         </div>
                       </li>
                       <li data-aos="fade-up" data-aos-delay="400">
-                        <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-5" class="collapsed">Exercices de simulations<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
-                        <div id="faq-list-5" class="collapse" data-bs-parent=".faq-list">
+                        <i class="bx bx-help-circle icon-help"></i> <a data-bs-toggle="collapse" data-bs-target="#faq-list-8" class="collapsed">Exercices de simulations<i class="bx bx-chevron-down icon-show"></i><i class="bx bx-chevron-up icon-close"></i></a>
+                        <div id="faq-list-8" class="collapse" data-bs-parent=".faq-list">
                           <p>
                             Laoreet sit amet cursus sit amet dictum sit amet justo. Mauris vitae ultricies leo integer malesuada nunc vel. Tincidunt eget nullam non nisi est sit amet. Turpis nunc eget lorem dolor sed. Ut venenatis tellus in metus vulputate eu scelerisque.
                           </p>
