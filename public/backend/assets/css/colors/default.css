@@ -23,7 +23,7 @@ File: scss
   top: 0px;
   position: fixed;
   z-index: 99999;
-  background: #455a64;
+  background: #19682b;
 }
 
 .preloader .cssload-speeding-wheel {
@@ -36,7 +36,7 @@ File: scss
 /*Top bar
 *******************/
 .topbar {
-  background: #455a64;
+  background: #19682b;
 }
 
 .topbar .navbar-header {
@@ -120,7 +120,7 @@ a.link:hover, a.link:focus {
 .btn-themecolor.active, .btn-themecolor:focus,
 .btn-themecolor.disabled.active,
 .btn-themecolor.disabled:focus {
-  background: #028ee1;
+  background: #28a745;
 }
 
 /*******************

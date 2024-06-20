@@ -9,10 +9,10 @@
             <ul id="sidebarnav">
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">APPLICATION</li>
-                <li> <a href="{{ route('events.index') }}" class="@yield('event')"><i class="mdi mdi-gauge"></i>Evènements</a></li>
-                <li> <a href="{{ route('users.index') }}" class="@yield('user')"><i class="mdi mdi-gauge"></i>Internautes</a></li>
-                <li> <a href="{{ route('offres.index') }}" class="@yield('offre')"><i class="mdi mdi-gauge"></i>Offres</a></li>
-                <li> <a href="{{ route('formations.index') }}" class="@yield('formation')"><i class="mdi mdi-gauge"></i>Formations</a></li>
+                <li> <a href="{{ route('events.index') }}" class="@yield('event')"><i class="mdi mdi-alert-outline"></i>Evènements</a></li>
+                <li> <a href="{{ route('users.index') }}" class="@yield('user')"><i class="mdi mdi-account-multiple-outline"></i>Internautes</a></li>
+                <li> <a href="{{ route('offres.index') }}" class="@yield('offre')"><i class="mdi mdi-briefcase"></i>Offres</a></li>
+                <li> <a href="{{ route('formations.index') }}" class="@yield('formation')"><i class="mdi mdi-school"></i>Formations</a></li>
                 <li class="nav-small-cap">SITE</li>
                 <li> <a href="{{ route('categories.index') }}" class="@yield('categorie')"><i class="mdi mdi-gauge"></i>Catégorie</a></li>
                 <li> <a href="{{ route('articles.index') }}" class="@yield('article')"><i class="mdi mdi-gauge"></i>Articles</a></li>

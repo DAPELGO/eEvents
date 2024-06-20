@@ -38,7 +38,7 @@
                     </div>
                     <form class="form-horizontal form-material" id="loginform" action="{{ route('admin.login') }}" method="POST">
                         {{ csrf_field() }}
-                        <h3 class="fw-bold mb-4 text-center">Espace Administrateur</h3>
+                        <h3 class="mb-4 text-center"><b>Espace Administrateur</b></h3>
                         <div class="form-group ">
                             <div class="col-xs-12">
                                 <input class="form-control" type="email" required="" placeholder="Identifiant..." name="email" value="{{ old('email') }}"> </div>
@@ -57,7 +57,7 @@
                         </div>
                         <div class="form-group text-center m-t-20">
                             <div class="col-xs-12">
-                                <button class="btn btn-primary btn-block fw-bold waves-effect waves-light" type="submit">Se connecter</button>
+                                <button class="btn btn-primary btn-block" type="submit"><b>Se connecter</b></button>
                             </div>
                         </div>
                     </form>

@@ -1,5 +1,6 @@
 @extends('backend.layouts.layouts')
 @section('event', 'active')
+@section('title', 'Evènements')
 @section('content')
 <!-- ============================================================== -->
             <!-- Bread crumb and right sidebar toggle -->
@@ -11,12 +12,9 @@
                 <div class="col-md-7 align-self-center">
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="javascript:void(0)">Accueil</a></li>
-                        <li class="breadcrumb-item">évènement</li>
+                        <li class="breadcrumb-item">Evènements</li>
                         <li class="breadcrumb-item active">Liste</li>
                     </ol>
-                </div>
-                <div>
-                    <button class="right-side-toggle waves-effect waves-light btn-inverse btn btn-circle btn-sm pull-right m-l-10"><i class="ti-settings text-white"></i></button>
                 </div>
             </div>
             <!-- ============================================================== -->
@@ -47,16 +45,6 @@
                                                 <th>Salary</th>
                                             </tr>
                                         </thead>
-                                        <tfoot>
-                                            <tr>
-                                                <th>Name</th>
-                                                <th>Position</th>
-                                                <th>Office</th>
-                                                <th>Age</th>
-                                                <th>Start date</th>
-                                                <th>Salary</th>
-                                            </tr>
-                                        </tfoot>
                                         <tbody>
                                             <tr>
                                                 <td>Tiger Nixon</td>
