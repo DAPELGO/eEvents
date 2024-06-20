@@ -6,11 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="robots" content="noindex, nofollow">
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('backend/assets/images/favicon.png') }}">
-    <title>Admin Press Admin Template - The Ultimate Bootstrap 4 Admin Template</title>
+    <title>@yield('title') | Espace Administrateur | CORUS</title>
     <!-- Bootstrap Core CSS -->
     <link href="{{ asset('backend/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
@@ -51,7 +50,7 @@
             <!-- ============================================================== -->
             <!-- footer -->
             <!-- ============================================================== -->
-            <footer class="footer"> © 2017 Admin Press Admin by themedesigner.in </footer>
+            <footer class="footer"> © {{Date('Y')}} CORUS - Centre des Opérations de Réponse aux Urgences Sanitaire. Tous droits réservés.</footer>
             <!-- ============================================================== -->
             <!-- End footer -->
             <!-- ============================================================== -->
@@ -145,10 +144,42 @@
             });
 
             $('#example23').DataTable({
-                dom: 'Bfrtip',
+                retrieve: true,
+                "pagingType": "full_numbers",
+                "lengthMenu": [
+                    [10, 25, 50, -1],
+                    [10, 25, 50, "Toutes"]
+                ],
+                "order": [],
+                responsive: true,
                 buttons: [
                     'copy', 'csv', 'excel', 'pdf', 'print'
-                ]
+                ],
+                language: {
+                    search: "_INPUT_",
+                    searchPlaceholder: "Rechercher...",
+                    "decimal":        "",
+                    "emptyTable":     "Aucune donnée disponible dans ce tableau",
+                    "info":           "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
+                    "infoEmpty":      "Affichage de 0 à 0 sur 0 entrées",
+                    "infoFiltered":   "(filtré sur un total de _MAX_ entrées)",
+                    "infoPostFix":    "",
+                    "thousands":      ",",
+                    "lengthMenu":     "Affichage de _MENU_ entrées",
+                    "loadingRecords": "Chargement...",
+                    "processing":     "Traitement...",
+                    "zeroRecords":    "Aucune correspondance trouvée",
+                    "paginate": {
+                        "first":      "Début",
+                        "last":       "Fin",
+                        "next":       "<i class='mdi mdi-chevron-double-right'></i>",
+                        "previous":   "<i class='mdi mdi-chevron-double-left'></i>"
+                    },
+                    "aria": {
+                        "sortAscending":  ": Cliquez pour activer le tri ascendant",
+                        "sortDescending": ": Cliquez pour activer le tri descendant"
+                    }
+                }
             });
 
             $(".select2").select2();

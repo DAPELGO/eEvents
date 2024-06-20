@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use Illuminate\Http\Request;
 use App\Models\admin\Structure;
 use App\Models\admin\Permission;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class PermissionController extends Controller

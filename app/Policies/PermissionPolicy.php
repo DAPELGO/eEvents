@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Models\admin\Admin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class PermissionPolicy
@@ -22,11 +22,11 @@ class PermissionPolicy
     /**
      * Determine whether the user can view the permission.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $user
      * @param  \App\Permission  $permission
      * @return mixed
      */
-    public function view(User $user)
+    public function view(Admin $user)
     {
         return $this->getPermissions($user, 'permission.view');
     }
@@ -34,10 +34,10 @@ class PermissionPolicy
     /**
      * Determine whether the user can create permissions.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $user
      * @return mixed
      */
-    public function create(User $user)
+    public function create(Admin $user)
     {
         return $this->getPermissions($user, 'permission.create');
     }
@@ -45,11 +45,11 @@ class PermissionPolicy
     /**
      * Determine whether the user can update the permission.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $user
      * @param  \App\Permission  $permission
      * @return mixed
      */
-    public function update(User $user)
+    public function update(Admin $user)
     {
         return $this->getPermissions($user, 'permission.update');
     }
@@ -57,11 +57,11 @@ class PermissionPolicy
     /**
      * Determine whether the user can delete the permission.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $user
      * @param  \App\Permission  $permission
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(Admin $user)
     {
         return $this->getPermissions($user, 'permission.delete');
     }

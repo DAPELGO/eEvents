@@ -44,6 +44,7 @@ Route::get('/', function () {
 
 // HOME BACKEND
 Route::get('admin/home', [BackendController::class, 'home'])->name('backend.home');
+Route::get('admin', [BackendController::class, 'home'])->name('admin.home');
 Route::get('users/liste', [BackendController::class, 'liste'])->name('users.index');
 
 // ADMIN AUTH
@@ -66,7 +67,7 @@ Route::resource('categories', CategorieController::class);
 Route::resource('articles', ArticleController::class);
 Route::resource('mediatheques', MediathequeController::class);
 Route::resource('roles', RoleController::class);
-Route::resource('permissions', PermissionController::class);
+Route::resource('admin/permissions', PermissionController::class);
 Route::resource('admins', AdminController::class);
 Route::resource('parametres', ParametreController::class);
 Route::resource('valeurs', ValeurController::class);
