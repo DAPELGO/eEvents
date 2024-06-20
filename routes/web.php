@@ -60,19 +60,19 @@ Route::post('/connexion', [LoginsController::class, 'login']);
 Route::get('frontend/logout', [LoginsController::class, 'logout'])->name('user.logout');
 
 // RESOURCES
-Route::resource('events', EventController::class);
-Route::resource('offres', OffreController::class);
-Route::resource('formations', FormationController::class);
-Route::resource('categories', CategorieController::class);
-Route::resource('articles', ArticleController::class);
-Route::resource('mediatheques', MediathequeController::class);
-Route::resource('roles', RoleController::class);
+Route::resource('admin/events', EventController::class);
+Route::resource('admin/offres', OffreController::class);
+Route::resource('admin/formations', FormationController::class);
+Route::resource('admin/categories', CategorieController::class);
+Route::resource('admin/articles', ArticleController::class);
+Route::resource('admin/mediatheques', MediathequeController::class);
+Route::resource('admin/roles', RoleController::class);
 Route::resource('admin/permissions', PermissionController::class);
-Route::resource('admins', AdminController::class);
-Route::resource('parametres', ParametreController::class);
-Route::resource('valeurs', ValeurController::class);
-Route::resource('structures', StructureController::class);
-Route::resource('localites', LocaliteController::class);
+Route::resource('admin/admins', AdminController::class);
+Route::resource('admin/parametres', ParametreController::class);
+Route::resource('admin/valeurs', ValeurController::class);
+Route::resource('admin/structures', StructureController::class);
+Route::resource('admin/localites', LocaliteController::class);
 
 // DELETE
 Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');

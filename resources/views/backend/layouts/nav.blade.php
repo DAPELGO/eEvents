@@ -18,9 +18,9 @@
                 <li> <a href="{{ route('articles.index') }}" class="@yield('article')"><i class="mdi mdi-gauge"></i>Articles</a></li>
                 <li> <a href="{{ route('frontend.welcome') }}" class="@yield('media')"><i class="mdi mdi-gauge"></i>Médiathèque</a></li>
                 <li class="nav-small-cap">ADMINISTRATION</li>
-                <li> <a href="{{ route('roles.index') }}" class="@yield('role')"><i class="mdi mdi-gauge"></i>Rôles</a></li>
-                <li> <a href="{{ route('permissions.index') }}" class="@yield('permission')"><i class="mdi mdi-gauge"></i>Permissions</a></li>
-                <li> <a href="{{ route('admins.index') }}" class="@yield('admin')"><i class="mdi mdi-gauge"></i>Utilisateurs</a></li>
+                <li> <a href="{{ route('roles.index') }}" class="@yield('role')"><i class="mdi mdi mdi-account-box-outline"></i>Rôles</a></li>
+                <li> <a href="{{ route('permissions.index') }}" class="@yield('permission')"><i class="mdi mdi-security"></i>Permissions</a></li>
+                <li> <a href="{{ route('admins.index') }}" class="@yield('admin')"><i class="mdi mdi-account-star"></i>Utilisateurs</a></li>
                 <li> <a href="{{ route('parametres.index') }}" class="@yield('parametre')"><i class="mdi mdi-gauge"></i>Paramètres</a></li>
                 <li> <a href="{{ route('valeurs.index') }}" class="@yield('valeur')"><i class="mdi mdi-gauge"></i>Valeurs</a></li>
                 <li> <a href="{{ route('structures.index') }}" class="@yield('structure')"><i class="mdi mdi-gauge"></i>Structures</a></li>
