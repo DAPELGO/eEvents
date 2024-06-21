@@ -1,8 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\admin;
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\admin\Evenement;
+use App\Http\Controllers\Controller;
 
 class EventController extends Controller
 {
@@ -21,7 +22,8 @@ class EventController extends Controller
      */
     public function index()
     {
-        return view('backend.events.index');
+        $evenements = Evenement::where('is_delete', FALSE)->get();
+        return view('backend.events.index' , compact('evenements'));
     }
 
     /**

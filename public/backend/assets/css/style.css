@@ -2167,7 +2167,7 @@ ul#themecolors {
   margin-bottom: 30px; }
   .card .card-subtitle {
     font-weight: 300;
-    color: #99abb4; }
+    color: #525b75; }
 
 .card-inverse .card-bodyquote .blockquote-footer,
 .card-inverse .card-link,
@@ -8129,5 +8129,5 @@ input[type=checkbox]:not(:disabled).tabbed:focus ~ .lever::after {
         color: #000;
         text-transform: uppercase;
         font-size: 15px;
-        font-family: "Open Sans", sans-serif;
+        font-family: "Quicksand", "Open Sans", sans-serif;
       }
