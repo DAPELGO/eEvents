@@ -11,23 +11,25 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 class Structure extends Model
 {
     use HasFactory;
-    protected $guarded = [];
+
+    protected $fillable = [
+        'id_localite',
+        'parent_id',
+        'code_structure',
+        'nom_structure',
+        'id_niveau_structure',
+        'id_type_structure',
+        'is_public_structure',
+        'slug',
+        'is_delete',
+        'id_user_created',
+        'id_user_modified',
+        'id_user_delete',
+    ];
 
     public function parent()
     {
         return $this->belongsTo(Structure::class, 'parent_id', 'id');
-    }
-
-    public function getAllParents()
-    {
-        $structures = new Collection();
-        $structure = $this;
-        while ($structure->parent) {
-            $structure = $structure->parent;
-            $structures->push($structure);
-        }
-
-        return $structures;
     }
 
     public function children()
@@ -35,22 +37,27 @@ class Structure extends Model
         return $this->hasMany(Structure::class, 'parent_id', 'id');
     }
 
-    public function descendants()
-    {
-        return $this->children()->with('descendants');
-    }
-
     public function getAllChildren()
     {
-        $structures = new Collection();
-        foreach ($this->children as $structure) {
-            $structures->push($structure);
-            $structures = $structures->merge($structure->getAllChildren());
+        $children = $this->children;
+        $allChildren = collect();
+        foreach ($children as $child) {
+            $allChildren->push($child);
+            $allChildren = $allChildren->merge($child->getAllChildren());
         }
-
-        return $structures;
+        return $allChildren;
     }
 
+    public function getAllParents()
+    {
+        $parents = collect();
+        $parent = $this->parent;
+        while ($parent) {
+            $parents->push($parent);
+            $parent = $parent->parent;
+        }
+        return $parents;
+    }
 
     public function niveau_structure()
     {
@@ -60,30 +67,5 @@ class Structure extends Model
     public function type_structure()
     {
         return $this->belongsTo(Valeur::class, 'id_type_structure', 'id');
-    }
-
-    public function feuille_soins()
-    {
-        return $this->hasMany(FeuilleSoin::class, 'id_structure', 'id');
-    }
-
-    public function gerants()
-    {
-        return $this->hasMany(Gerant::class, 'id_structure', 'id');
-    }
-
-    public function prescripteurs()
-    {
-        return $this->hasMany(Prescripteur::class, 'id_structure', 'id');
-    }
-
-    public function villages()
-    {
-        return $this->hasMany(Village::class, 'id_structure', 'id');
-    }
-
-    public function users()
-    {
-        return $this->hasMany(User::class, 'id_structure', 'id');
     }
 }

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
+use App\Models\admin\Localite;
+use App\Http\Controllers\Controller;
 
 class LocaliteController extends Controller
 {
@@ -21,7 +23,8 @@ class LocaliteController extends Controller
      */
     public function index()
     {
-        //
+        $localites = Localite::where('is_delete', FALSE)->get();
+        return view('backend.localites.index' , compact('localites'));
     }
 
     /**

@@ -13,6 +13,8 @@
                 <li> <a href="{{ route('users.index') }}" class="@yield('user')"><i class="mdi mdi-account-multiple-outline"></i>Internautes</a></li>
                 <li> <a href="{{ route('offres.index') }}" class="@yield('offre')"><i class="mdi mdi-briefcase"></i>Offres</a></li>
                 <li> <a href="{{ route('formations.index') }}" class="@yield('formation')"><i class="mdi mdi-school"></i>Formations</a></li>
+                <li> <a href="{{ route('structures.index') }}" class="@yield('structure')"><i class="mdi mdi-gauge"></i>Structures</a></li>
+                <li> <a href="{{ route('localites.index') }}" class="@yield('localite')"><i class="mdi mdi-map-marker-plus"></i>Localités</a></li>
                 <li class="nav-small-cap">SITE</li>
                 <li> <a href="{{ route('categories.index') }}" class="@yield('categorie')"><i class="mdi mdi-gauge"></i>Catégorie</a></li>
                 <li> <a href="{{ route('articles.index') }}" class="@yield('article')"><i class="mdi mdi-gauge"></i>Articles</a></li>
@@ -23,8 +25,6 @@
                 <li> <a href="{{ route('admins.index') }}" class="@yield('admin')"><i class="mdi mdi-account-star"></i>Utilisateurs</a></li>
                 <li> <a href="{{ route('parametres.index') }}" class="@yield('parametre')"><i class="mdi mdi-gauge"></i>Paramètres</a></li>
                 <li> <a href="{{ route('valeurs.index') }}" class="@yield('valeur')"><i class="mdi mdi-gauge"></i>Valeurs</a></li>
-                <li> <a href="{{ route('structures.index') }}" class="@yield('structure')"><i class="mdi mdi-gauge"></i>Structures</a></li>
-                <li> <a href="{{ route('localites.index') }}" class="@yield('localite')"><i class="mdi mdi-gauge"></i>Localités</a></li>
             </ul>
         </nav>
         <!-- End Sidebar navigation -->
