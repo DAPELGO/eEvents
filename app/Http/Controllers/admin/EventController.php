@@ -7,6 +7,7 @@ use App\Models\admin\Localite;
 use App\Models\admin\Categorie;
 use App\Models\admin\Evenement;
 use App\Models\admin\Structure;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -41,7 +42,6 @@ class EventController extends Controller
         $localites = Localite::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
 
-        flash()->error('Page affiché');
         return view('backend.events.create', compact('categories', 'localites', 'structures'));
     }
 
@@ -66,7 +66,7 @@ class EventController extends Controller
                             ->first();
 
         if($event){
-            flash()->error('Cet événement existe déjà');
+            flash()->addError('Cet événement existe déjà');
             return redirect()->back();
         }
 
@@ -94,11 +94,11 @@ class EventController extends Controller
         }
         catch(\Exception $e){
             Log::error('Erreur lors de l\'enregistrement de l\'événement: '.$e->getMessage());
-            flash()->error('Une erreur est survenue lors de l\'enregistrement de l\'événement');
+            flash()->addError('Une erreur est survenue lors de l\'enregistrement de l\'événement');
             return redirect()->back();
         }
 
-        flash()->success('Evénement enregistré avec succès');
+        flash()->addSuccess('Evénement enregistré avec succès');
         return redirect()->route('events.index');
     }
 

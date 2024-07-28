@@ -1,6 +1,9 @@
 @extends('backend.layouts.layouts')
 @section('event', 'active')
 @section('title', 'Enregistrer un évènement')
+{{-- @section('css')
+    <link href="{{ asset('vendor/flasher/flasher.min.css') }}" rel="stylesheet" type="text/css" />
+@endsection --}}
 @section('content')
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
@@ -133,3 +136,6 @@
     </div>
 </div>
 @endsection
+{{-- @section('script')
+    <script src="{{ asset('vendor/flasher/flasher.min.js') }}"></script>
+@endsection --}}

@@ -1835,6 +1835,10 @@ File: scss
           color: #00a217;
           text-decoration: none; }
 
+.fl-wrapper {
+    z-index: 1000 !important;
+}
+
 .search-box .app-search {
   position: absolute;
   margin: 0px;
