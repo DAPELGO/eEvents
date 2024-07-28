@@ -20,6 +20,7 @@
     <link href="{{ asset('backend/assets/css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{ asset('backend/assets/css/colors/default.css') }}" id="theme" rel="stylesheet">
+    @yield('css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -103,6 +104,7 @@
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
     <!-- end - This is for export functionality only -->
+    @yield('script')
     <script>
         $(document).ready(function() {
             $('#myTable').DataTable();
@@ -142,46 +144,6 @@
                     }
                 });
             });
-
-            $('#example23').DataTable({
-                retrieve: true,
-                "pagingType": "full_numbers",
-                "lengthMenu": [
-                    [10, 25, 50, -1],
-                    [10, 25, 50, "Toutes"]
-                ],
-                "order": [],
-                responsive: true,
-                buttons: [
-                    'copy', 'csv', 'excel', 'pdf', 'print'
-                ],
-                language: {
-                    search: "_INPUT_",
-                    searchPlaceholder: "Rechercher...",
-                    "decimal":        "",
-                    "emptyTable":     "Aucune donnée disponible dans ce tableau",
-                    "info":           "Affichage de _START_ à _END_ sur _TOTAL_ entrées",
-                    "infoEmpty":      "Affichage de 0 à 0 sur 0 entrées",
-                    "infoFiltered":   "(filtré sur un total de _MAX_ entrées)",
-                    "infoPostFix":    "",
-                    "thousands":      ",",
-                    "lengthMenu":     "Affichage de _MENU_ entrées",
-                    "loadingRecords": "Chargement...",
-                    "processing":     "Traitement...",
-                    "zeroRecords":    "Aucune correspondance trouvée",
-                    "paginate": {
-                        "first":      "Début",
-                        "last":       "Fin",
-                        "next":       "<i class='mdi mdi-chevron-double-right'></i>",
-                        "previous":   "<i class='mdi mdi-chevron-double-left'></i>"
-                    },
-                    "aria": {
-                        "sortAscending":  ": Cliquez pour activer le tri ascendant",
-                        "sortDescending": ": Cliquez pour activer le tri descendant"
-                    }
-                }
-            });
-
             $(".select2").select2();
         });
 

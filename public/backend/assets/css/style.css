@@ -5437,8 +5437,7 @@ Main sidebar
   top: 0px;
   z-index: 20;
   padding-top: 40px;
-  background: #fff;
-  padding-left: 20px; }
+  background: #fff;}
 
 .fix-sidebar .left-sidebar {
   position: fixed; }
@@ -5520,7 +5519,7 @@ sidebar navigation
       list-style: none; }
       .sidebar-nav ul li a {
         color: #000;
-        padding: 0 15px;
+        padding: 5px 15px;
         display: block;
         font-size: 14px; }
         .sidebar-nav ul li a.active, .sidebar-nav ul li a:hover {
@@ -5552,6 +5551,7 @@ sidebar navigation
     .sidebar-nav > ul > li > a i {
       width: 27px;
       font-size: 19px;
+      text-align: center;
       display: inline-block;
       vertical-align: middle;
       color: #99abb4; }

@@ -4,6 +4,7 @@ namespace App\Models\admin;
 
 use App\Models\admin\Admin;
 use App\Models\admin\Valeur;
+use App\Models\admin\Evenement;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -67,5 +68,10 @@ class Structure extends Model
     public function type_structure()
     {
         return $this->belongsTo(Valeur::class, 'id_type_structure', 'id');
+    }
+
+    public function evenements()
+    {
+        return $this->hasMany(Evenement::class, 'id_structure');
     }
 }

@@ -61,6 +61,7 @@ Route::get('frontend/logout', [LoginsController::class, 'logout'])->name('user.l
 
 // RESOURCES
 Route::resource('admin/events', EventController::class);
+Route::get('admin/events/{id}/delete', [EventController::class, 'delete'])->name('events.delete');
 Route::resource('admin/offres', OffreController::class);
 Route::resource('admin/formations', FormationController::class);
 Route::resource('admin/categories', CategorieController::class);

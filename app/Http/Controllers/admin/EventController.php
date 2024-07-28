@@ -1,9 +1,15 @@
 <?php
 
 namespace App\Http\Controllers\admin;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\admin\Localite;
+use App\Models\admin\Categorie;
 use App\Models\admin\Evenement;
+use App\Models\admin\Structure;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class EventController extends Controller
 {
@@ -31,9 +37,12 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = Valeur::where('is_delete', FALSE)->get();
-        $localites = Valeur::where('is_delete', FALSE)->get();
-        return view('backend.events.create', compact('categories', 'localites'));
+        $categories = Categorie::where('is_delete', FALSE)->get();
+        $localites = Localite::where('is_delete', FALSE)->get();
+        $structures = Structure::where('is_delete', FALSE)->get();
+
+        flash()->error('Page affiché');
+        return view('backend.events.create', compact('categories', 'localites', 'structures'));
     }
 
     /**
@@ -42,27 +51,55 @@ class EventController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_categorie'=>'required',
-            'id_localite'=>'required',
-            'id_structure'=>'required',
-            'libelle'=>'required',
-            'date_event'=>'required',
-            'description'=>'required',
+            'titre'=>'required',
+            'categorie'=>'required|exists:categories,id',
+            'localite'=>'required|exists:localites,id',
+            'structure'=>'required|exists:structures,id',
+            'date_event'=>'required|date',
+            'description'=>'required'
         ]);
 
-        Evenement::create([
-            'id_categorie'=>$request->id_categorie,
-            'id_localite'=>$request->id_localite,
-            'id_structure'=>$request->id_structure,
-            'libelle'=>$request->libelle,
-            'url_img'=>$request->libelle,
-            'date_event'=>$request->date_event,
-            'slug'=>str_slug($request->libelle , "-"),
-            'description'=>$request->description,
-            'id_user_created'=>Auth::user()->id,
-        ]);
+        // verify if event already exist
+        $event = Evenement::where('libelle', $request->titre)
+                            ->where('id_categorie', $request->categorie)
+                            ->where('date_event', $request->date_event)
+                            ->first();
 
-        return redirect()->action('${App\Http\Controllers\EventController@index}');
+        if($event){
+            flash()->error('Cet événement existe déjà');
+            return redirect()->back();
+        }
+
+        try {
+            $image = $request->file('image');
+            $image_name = time().'.'.$image->getClientOriginalExtension();
+            $image->move(public_path('images/events'), $image_name);
+        }
+        catch (\Exception $e) {
+            $image_name = 'default.png';
+        }
+
+        try{
+            Evenement::create([
+                'id_categorie'=>$request->categorie,
+                'id_localite'=>$request->localite,
+                'id_structure'=>$request->structure,
+                'libelle'=>$request->titre,
+                'url_img'=>$request->image,
+                'date_event'=>$request->date_event,
+                'slug'=>Str::slug($request->titre , "_"),
+                'description'=>$request->description,
+                'id_user_created'=>Auth::user()->id,
+            ]);
+        }
+        catch(\Exception $e){
+            Log::error('Erreur lors de l\'enregistrement de l\'événement: '.$e->getMessage());
+            flash()->error('Une erreur est survenue lors de l\'enregistrement de l\'événement');
+            return redirect()->back();
+        }
+
+        flash()->success('Evénement enregistré avec succès');
+        return redirect()->route('events.index');
     }
 
     /**
@@ -106,7 +143,7 @@ class EventController extends Controller
             'libelle'=>$request->libelle,
             'url_img'=>$request->libelle,
             'date_event'=>$request->date_event,
-            'slug'=>str_slug($request->libelle , "-"),
+            'slug'=>Str::slug($request->libelle , "_"),
             'description'=>$request->description,
             'id_user_created'=>Auth::user()->id,
         ]);

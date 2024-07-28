@@ -2,8 +2,9 @@
 
 namespace App\Models\admin;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\admin\Evenement;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Localite extends Model
 {
@@ -48,5 +49,10 @@ class Localite extends Model
             $parent = $parent->parent;
         }
         return $parents;
+    }
+
+    public function evenements()
+    {
+        return $this->hasMany(Evenement::class, 'id_localite');
     }
 }
