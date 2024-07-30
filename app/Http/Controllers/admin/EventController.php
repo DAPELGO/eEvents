@@ -71,9 +71,14 @@ class EventController extends Controller
         }
 
         try {
-            $image = $request->file('image');
-            $image_name = time().'.'.$image->getClientOriginalExtension();
-            $image->move(public_path('images/events'), $image_name);
+            if($request->file('image')){
+                $image = $request->file('image');
+                $image_name = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('images/events'), $image_name);
+            }
+            else{
+                $image_name = 'default.png';
+            }
         }
         catch (\Exception $e) {
             $image_name = 'default.png';
@@ -107,8 +112,9 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        $event = Evenement::where('id', $id)->first();
-        return view('events.show', compact('event'));
+        // $event = Evenement::where('id', $id)->first();
+        // return view('events.show', compact('event'));
+        return view('backend.events.index');
     }
 
     /**
@@ -117,9 +123,16 @@ class EventController extends Controller
     public function edit(string $id)
     {
         $event = Evenement::where('id', $id)->first();
-        $categories = Valeur::where('is_delete', FALSE)->get();
-        $localites = Valeur::where('is_delete', FALSE)->get();
-        return view('backend.events.create', compact('event', 'categories', 'localites'));
+        if(!$event){
+            flash()->addError('Cet événement n\'existe pas');
+            return redirect()->back();
+        }
+
+        $categories = Categorie::where('is_delete', FALSE)->get();
+        $localites = Localite::where('is_delete', FALSE)->get();
+        $structures = Structure::where('is_delete', FALSE)->get();
+
+        return view('backend.events.edit', compact('event', 'categories', 'localites', 'structures'));
     }
 
     /**
@@ -128,27 +141,56 @@ class EventController extends Controller
     public function update(Request $request, string $id)
     {
         $this->validate($request, [
-            'id_categorie'=>'required',
-            'id_localite'=>'required',
-            'id_structure'=>'required',
-            'libelle'=>'required',
-            'date_event'=>'required',
-            'description'=>'required',
-        ]);
-        $event = Evenement::where('id', $id)->first();
-        $event->update([
-            'id_categorie'=>$request->id_categorie,
-            'id_localite'=>$request->id_localite,
-            'id_structure'=>$request->id_structure,
-            'libelle'=>$request->libelle,
-            'url_img'=>$request->libelle,
-            'date_event'=>$request->date_event,
-            'slug'=>Str::slug($request->libelle , "_"),
-            'description'=>$request->description,
-            'id_user_created'=>Auth::user()->id,
+            'titre'=>'required',
+            'categorie'=>'required|exists:categories,id',
+            'localite'=>'required|exists:localites,id',
+            'structure'=>'required|exists:structures,id',
+            'date_event'=>'required|date',
+            'description'=>'required'
         ]);
 
-        return redirect()->action('${App\Http\Controllers\EventController@index}');
+        $event = Evenement::where('id', $id)->first();
+
+        if(!$event){
+            flash()->addError('Cet événement n\'existe pas');
+            return redirect()->back();
+        }
+
+        try {
+            if($request->file('image')){
+                $image = $request->file('image');
+                $image_name = time().'.'.$image->getClientOriginalExtension();
+                $image->move(public_path('images/events'), $image_name);
+            }
+            else{
+                $image_name = $event->url_img;
+            }
+        }
+        catch (\Exception $e) {
+            $image_name = $event->url_img;
+        }
+
+        try{
+            $event->update([
+                'id_categorie'=>$request->categorie,
+                'id_localite'=>$request->localite,
+                'id_structure'=>$request->structure,
+                'libelle'=>$request->titre,
+                'url_img'=>$request->image,
+                'date_event'=>$request->date_event,
+                'slug'=>Str::slug($request->titre , "_"),
+                'description'=>$request->description,
+                'id_user_updated'=>Auth::user()->id,
+            ]);
+        }
+        catch(\Exception $e){
+            Log::error('Erreur lors de la mise à jour de l\'événement: '.$e->getMessage());
+            flash()->addError('Une erreur est survenue lors de la mise à jour de l\'événement');
+            return redirect()->back();
+        }
+
+        flash()->addSuccess('Evénement mis à jour avec succès');
+        return redirect()->route('events.index');
     }
 
     /**
