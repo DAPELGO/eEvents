@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('structures', function (Blueprint $table) {
             $table->id();
-            $table->integer('id_localite')->nullable();
             $table->integer('parent_id')->nullable();
             $table->string('code_structure')->nullable();
             $table->string('nom_structure')->nullable();

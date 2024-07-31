@@ -2,7 +2,6 @@
 
 namespace App\Models\admin;
 
-use App\Models\admin\Localite;
 use App\Models\admin\Categorie;
 use App\Models\admin\Structure;
 use Illuminate\Database\Eloquent\Model;
@@ -14,7 +13,6 @@ class Evenement extends Model
 
     protected $fillable = [
         'id_categorie',
-        'id_localite',
         'id_structure',
         'libelle',
         'url_img',
@@ -31,11 +29,6 @@ class Evenement extends Model
     public function categorie()
     {
         return $this->belongsTo(Categorie::class, 'id_categorie');
-    }
-
-    public function localite()
-    {
-        return $this->belongsTo(Localite::class, 'id_localite');
     }
 
     public function structure()

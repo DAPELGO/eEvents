@@ -38,7 +38,7 @@
                                     <h6 class="card-subtitle">Surveillance épidémiologique, Urgence, Alerte, ...</h6>
                                 </div>
                                 <div class="col-6 d-flex align-items-center justify-content-end">
-                                    <a href="{{ route('events.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter un evênement</a>
+                                    <a href="{{ route('evenements.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter un evênement</a>
                                 </div>
                             </div>
                         </div>
@@ -48,7 +48,6 @@
                                     <tr>
                                         <th>Evênement</th>
                                         <th>Catégorie</th>
-                                        <th>Localité</th>
                                         <th>Structure</th>
                                         <th>Date</th>
                                         <th>Actions</th>
@@ -59,18 +58,17 @@
                                     <tr>
                                         <td>{{ $evenement->libelle }}</td>
                                         <td>{{ $evenement->categorie->nom_categorie }}</td>
-                                        <td>{{ $evenement->localite->libelle }}</td>
                                         <td>{{ $evenement->structure->nom_structure }}</td>
-                                        <td>{{ $evenement->date_event }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($evenement->date_event)->format('d/m/Y')}}</td>
                                         <td>
                                             <div class="btn-group">
-                                                <a class="btn btn-sm btn-info" href="#" data-toggle="modal" data-target="#viewEvent{{ $evenement->id }}" title="Voir l'évênement">
+                                                <a class="btn btn-sm btn-info" href="#" onclick="viewEvent({{$evenement->id}})" title="Voir l'évênement">
                                                     <i class="fa fa-eye"></i>
                                                 </a>
-                                                <a href="{{ route('events.edit', $evenement->id) }}" class="btn btn-sm btn-warning" title="Modifier le parametre">
+                                                <a href="{{ route('evenements.edit', $evenement->id) }}" class="btn btn-sm btn-warning" title="Modifier l'évènement">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
-                                                <a href="{{ route('events.delete', $evenement->id) }}" class="btn btn-sm btn-delete btn-danger sweet-conf" data="Voulez vous supprimer ce parametre ?" title="Supprimer le parametre">
+                                                <a href="{{ route('evenements.delete', $evenement->id) }}" class="btn btn-sm btn-delete btn-danger sweet-conf" data="Voulez vous supprimer cet évènement ?" title="Supprimer l'évènement">
                                                     <i class="fa fa-trash"></i>
                                                 </a>
                                             </div>
@@ -87,6 +85,52 @@
         <!-- ============================================================== -->
         <!-- End PAge Content -->
         <!-- ============================================================== -->
+    </div>
+    <!-- Modal de détail d'évênement -->
+    <div class="modal fade" id="viewEventModal" tabindex="-1" role="dialog" aria-labelledby="viewEventModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewEventModalLabel">Détails de l'événement</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th>Date</th>
+                                <td id="eventDate"></td>
+                            </tr>
+                            <tr>
+                                <th>Libellé</th>
+                                <td id="eventLibelle"></td>
+                            </tr>
+                            <tr>
+                                <th>Catégorie</th>
+                                <td id="eventCategorie"></td>
+                            </tr>
+                            <tr>
+                                <th>Structure</th>
+                                <td id="eventStructure"></td>
+                            </tr>
+                            <tr>
+                                <th>Description</th>
+                                <td id="eventDescription"></td>
+                            </tr>
+                            <tr>
+                                <th>Image</th>
+                                <td id="eventImage"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 @section('script')
@@ -152,5 +196,44 @@
             }
         });
     });
+
+    function viewEvent(id) {
+        $.ajax({
+            url: "{{ route('evenements.show', ':id') }}".replace(':id', id),
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                if(response.success === false) {
+                    swal({
+                        title: 'Attention !',
+                        text: response.message,
+                        icon: 'error',
+                        button: 'Fermer'
+                    });
+                    return;
+                }
+                $('#eventDate').text(new Date(response.data.date_event).toLocaleDateString('fr-FR'));
+                $('#eventLibelle').text(response.data.libelle);
+                $('#eventCategorie').text(response.data.categorie.nom_categorie);
+                $('#eventStructure').text(response.data.structure.nom_structure);
+                $('#eventDescription').text(response.data.description);
+                if(response.data.url_img === null) {
+                    $('#eventImage').html(`<img src="{{ asset('images/events/default_event.png') }}" class="img-fluid" style="max-width: 300px; border: 1px solid #ddd; padding: 5px;" alt="Pas d\'image" />`);
+                }
+                else{
+                    $('#eventImage').html(`<img src="{{ asset('images/events/${response.data.url_img}')}}" class="img-fluid" style="max-width: 300px; border: 1px solid #ddd; padding: 5px;" alt="${response.data.libelle}" />`);
+                }
+                $('#viewEventModal').modal('show');
+            },
+            error: function() {
+                swal({
+                    title: 'Attention !',
+                    text: 'Une erreur est survenue lors de la récupération des données',
+                    icon: 'error',
+                    button: 'Fermer'
+                });
+            }
+        });
+    }
 </script>
 @endsection
