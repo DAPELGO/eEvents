@@ -32,16 +32,6 @@
                 <div class="col-lg-6"><a href="#"><small>Mot de passe oublié?</small></a></div>
                 <div class="col-lg-6"><a href="#"><small>Créer un compte</small></a></div>
             </div>
-            <div class="form-group mt-3">
-                <p>
-                    <!-- Lien de redirection vers Google -->
-                    <a href="{{ route('socialite.redirect', 'google') }}" title="Connexion/Inscription avec Google" class="btn btn-link" style="color:#ef4d3f;"><img src="{{ asset('frontend/assets/img/logo-google.jpg') }}" class="logo-login" alt="GOOGLE"> Connexion avec Google</a>
-                    <!-- Lien de redirection vers Facebook -->
-                    <a href="{{ route('socialite.redirect', 'facebook') }}" title="Connexion/Inscription avec Facebook" class="btn btn-link mt-3" style="color: #1c5cf2;"><img src="{{ asset('frontend/assets/img/logo-facebook.png') }}" class="logo-login" alt="GOOGLE"> Connexion avec Facebook</a>
-                    <!-- Lien de redirection vers Github -->
-                    <a href="{{ route('socialite.redirect', 'github') }}" title="Connexion/Inscription avec Github" class="btn btn-link mt-3" style="color: #000;"><img src="{{ asset('frontend/assets/img/logo-github.png') }}" class="logo-login" alt="GOOGLE"> Connexion avec Github</a>
-                </p>
-            </div>
           </form>
 
         </div>

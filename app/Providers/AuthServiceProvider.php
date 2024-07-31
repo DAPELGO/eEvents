@@ -7,7 +7,6 @@ use App\Policies\StructurePolicy;
 use App\Policies\MonitoringPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ValeurPolicy;
-use App\Policies\LocalitePolicy;
 
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -38,6 +37,5 @@ class AuthServiceProvider extends ServiceProvider
         Gate::resource('valeurs', ValeurPolicy::class);
         Gate::resource('gerants', GerantPolicy::class);
         Gate::resource('prescripteurs', PrescripteurPolicy::class);
-        Gate::resource('localites', LocalitePolicy::class);
     }
 }

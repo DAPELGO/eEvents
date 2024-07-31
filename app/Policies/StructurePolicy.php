@@ -2,7 +2,7 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+use App\Models\admin\Admin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class StructurePolicy
@@ -22,55 +22,52 @@ class StructurePolicy
     /**
      * Determine whether the user can view the structure.
      *
-     * @param  \App\User  $user
-     * @param  \App\Permission  $structure
+     * @param  \App\Admin  $admin
      * @return mixed
      */
-    public function view(User $user)
+    public function view(Admin $admin)
     {
-        return $this->getPermissions($user, 'structure.view');
+        return $this->getPermissions($admin, 'structure.view');
     }
 
     /**
      * Determine whether the user can create permissions.
      *
-     * @param  \App\User  $user
+     * @param  \App\Admin  $admin
      * @return mixed
      */
-    public function create(User $user)
+    public function create(Admin $admin)
     {
-        return $this->getPermissions($user, 'structure.create');
+        return $this->getPermissions($admin, 'structure.create');
     }
 
     /**
      * Determine whether the user can update the permission.
      *
-     * @param  \App\User  $user
-     * @param  \App\Permission  $permission
+     * @param  \App\Admin  $admin
      * @return mixed
      */
-    public function update(User $user)
+    public function update(Admin $admin)
     {
-        return $this->getPermissions($user, 'structure.update');
+        return $this->getPermissions($admin, 'structure.update');
     }
 
     /**
      * Determine whether the user can delete the permission.
      *
-     * @param  \App\User  $user
-     * @param  \App\Permission  $permission
+     * @param  \App\Admin $admin
      * @return mixed
      */
-    public function delete(User $user)
+    public function delete(Admin $admin)
     {
-        return $this->getPermissions($user, 'structure.delete');
+        return $this->getPermissions($admin, 'structure.delete');
     }
 
 
     // GET PERMISSIONS
-    protected function getPermissions($user, $permission_slug)
+    protected function getPermissions($admin, $permission_slug)
     {
-        foreach ($user->roles as $role) {
+        foreach ($admin->roles as $role) {
 
             foreach ($role->permissions as $role_permit) {
                 if ($role_permit->slug == $permission_slug) {

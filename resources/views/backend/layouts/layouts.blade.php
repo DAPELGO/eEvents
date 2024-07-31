@@ -14,12 +14,13 @@
     <link href="{{ asset('backend/assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('backend/assets/plugins/select2/dist/css/select2.min.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('backend//assets/plugins/bootstrap-select/bootstrap-select.min.css') }}" rel="stylesheet" />
-    <!-- morris CSS -->
-    <link href="{{ asset('backend/assets/plugins/morrisjs/morris.css') }}" rel="stylesheet">
     <!-- Custom CSS -->
     <link href="{{ asset('backend/assets/css/style.css') }}" rel="stylesheet">
     <!-- You can change the theme colors from here -->
     <link href="{{ asset('backend/assets/css/colors/default.css') }}" id="theme" rel="stylesheet">
+    <!-- SweetAlert -->
+    <link href="{{ asset('backend/assets/plugins/sweetalert/sweetalert2.css') }}" rel="stylesheet" type="text/css">
+    <link href="https://cdn.datatables.net/searchbuilder/1.7.1/css/searchBuilder.dataTables.min.css" rel="stylesheet">
     @yield('css')
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -86,24 +87,22 @@
     <!-- ============================================================== -->
     <!-- This page plugins -->
     <!-- ============================================================== -->
-    <!--sparkline JavaScript -->
-    <script src="{{ asset('backend/assets/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-    <!--morris JavaScript -->
-    <script src="{{ asset('backend/assets/plugins/raphael/raphael-min.js') }}"></script>
-    <script src="{{ asset('backend/assets/plugins/morrisjs/morris.min.js') }}"></script>
-    <!-- Chart JS -->
-    <script src="{{ asset('backend/assets/js/dashboard1.js') }}"></script>
-    <!-- start - This is for export functionality only -->
-    <!-- This is data table -->
-    <script src="{{ asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
-    <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
-    <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+     <!-- This is data table -->
+     <script src="{{ asset('backend/assets/plugins/datatables/jquery.dataTables.min.js') }}"></script>
+     <script src="https://cdn.datatables.net/buttons/1.2.2/js/dataTables.buttons.min.js"></script>
+     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.flash.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+     <script src="https://cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.html5.min.js"></script>
+     <script src="https://cdn.datatables.net/buttons/1.2.2/js/buttons.print.min.js"></script>
+     <script src="https://cdn.datatables.net/searchbuilder/1.7.1/js/dataTables.searchBuilder.min.js"></script>
     <!-- end - This is for export functionality only -->
+    <!-- Sweet-Alert  -->
+    <script src="{{ asset('backend/assets/plugins/sweetalert/sweetalert.min.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/sweetalert/jquery.sweet-alert.custom.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/sweetalert/app.js') }}"></script>
+    <!-- ============================================================== -->
     @yield('script')
     <script>
         $(document).ready(function() {

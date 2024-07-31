@@ -1,9 +1,9 @@
 <?php
 
 namespace App\Http\Controllers\admin;
+use Exception;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\admin\Localite;
 use App\Models\admin\Categorie;
 use App\Models\admin\Evenement;
 use App\Models\admin\Structure;
@@ -39,10 +39,9 @@ class EventController extends Controller
     public function create()
     {
         $categories = Categorie::where('is_delete', FALSE)->get();
-        $localites = Localite::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
 
-        return view('backend.events.create', compact('categories', 'localites', 'structures'));
+        return view('backend.events.create', compact('categories', 'structures'));
     }
 
     /**
@@ -53,17 +52,15 @@ class EventController extends Controller
         $this->validate($request, [
             'titre'=>'required',
             'categorie'=>'required|exists:categories,id',
-            'localite'=>'required|exists:localites,id',
             'structure'=>'required|exists:structures,id',
             'date_event'=>'required|date',
             'description'=>'required'
         ]);
 
-        // verify if event already exist
-        $event = Evenement::where('libelle', $request->titre)
-                            ->where('id_categorie', $request->categorie)
-                            ->where('date_event', $request->date_event)
-                            ->first();
+        $event = Evenement::where('slug', Str::slug($request->titre , "_"))
+                                ->where('date_event', $request->date_event)
+                                ->first();
+
 
         if($event){
             flash()->addError('Cet événement existe déjà');
@@ -73,24 +70,48 @@ class EventController extends Controller
         try {
             if($request->file('image')){
                 $image = $request->file('image');
-                $image_name = time().'.'.$image->getClientOriginalExtension();
+
+                // check image extension
+                $allowedfileExtension=['jpg','png','jpeg'];
+                $extension = $image->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+
+                if(!$check){
+                    flash()->addError('Le fichier doit être une image de type jpg, jpeg ou png');
+                    return redirect()->back();
+                }
+
+                //check image size
+                $size = $image->getSize();
+                if($size > 5000000){
+                    flash()->addError('La taille de l\'image ne doit pas dépasser 5Mo');
+                    return redirect()->back();
+                }
+
+                //check image dimension
+                $dimensions = getimagesize($image);
+                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                    flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
+                    return redirect()->back();
+                }
+
+                $image_name = Str::slug($request->titre , "_").'_'.$request->date_event.'.'.$extension;
                 $image->move(public_path('images/events'), $image_name);
             }
             else{
-                $image_name = 'default.png';
+                $image_name = 'default_event.png';
             }
         }
-        catch (\Exception $e) {
-            $image_name = 'default.png';
+        catch (Exception $e) {
+            $image_name = 'default_event.png';
         }
 
         try{
             Evenement::create([
                 'id_categorie'=>$request->categorie,
-                'id_localite'=>$request->localite,
                 'id_structure'=>$request->structure,
                 'libelle'=>$request->titre,
-                'url_img'=>$request->image,
+                'url_img'=>$image_name,
                 'date_event'=>$request->date_event,
                 'slug'=>Str::slug($request->titre , "_"),
                 'description'=>$request->description,
@@ -104,7 +125,7 @@ class EventController extends Controller
         }
 
         flash()->addSuccess('Evénement enregistré avec succès');
-        return redirect()->route('events.index');
+        return redirect()->route('evenements.index');
     }
 
     /**
@@ -112,9 +133,22 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
-        // $event = Evenement::where('id', $id)->first();
-        // return view('events.show', compact('event'));
-        return view('backend.events.index');
+        $evenements = Evenement::where('id', $id)
+                                ->where('is_delete', FALSE)
+                                ->with('categorie', 'structure')
+                                ->first();
+
+        if(!$evenements){
+            return response()->json([
+                'success' => false,
+                'message' => 'Cet événement n\'existe pas'
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'data' => $evenements
+        ], 200);
     }
 
     /**
@@ -122,17 +156,19 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
-        $event = Evenement::where('id', $id)->first();
+        $event = Evenement::where('id', $id)
+                            ->where('is_delete', FALSE)
+                            ->first();
+
         if(!$event){
             flash()->addError('Cet événement n\'existe pas');
             return redirect()->back();
         }
 
         $categories = Categorie::where('is_delete', FALSE)->get();
-        $localites = Localite::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
 
-        return view('backend.events.edit', compact('event', 'categories', 'localites', 'structures'));
+        return view('backend.events.edit', compact('event', 'categories', 'structures'));
     }
 
     /**
@@ -143,40 +179,74 @@ class EventController extends Controller
         $this->validate($request, [
             'titre'=>'required',
             'categorie'=>'required|exists:categories,id',
-            'localite'=>'required|exists:localites,id',
             'structure'=>'required|exists:structures,id',
             'date_event'=>'required|date',
             'description'=>'required'
         ]);
 
-        $event = Evenement::where('id', $id)->first();
+        $event = Evenement::where('id', $id)
+                            ->where('is_delete', FALSE)
+                            ->first();
 
         if(!$event){
             flash()->addError('Cet événement n\'existe pas');
             return redirect()->back();
         }
 
+        $event_exist = Evenement::where('slug', Str::slug($request->titre , "_"))
+                                ->where('date_event', $request->date_event)
+                                ->first();
+
+        if($event_exist && $event_exist->id != $event->id){
+            flash()->addError('Cet événement existe déjà');
+            return redirect()->back();
+        }
+
         try {
             if($request->file('image')){
                 $image = $request->file('image');
-                $image_name = time().'.'.$image->getClientOriginalExtension();
+
+                // check image extension
+                $allowedfileExtension=['jpg','png','jpeg'];
+                $extension = $image->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+
+                if(!$check){
+                    flash()->addError('Le fichier doit être une image de type jpg, jpeg ou png');
+                    return redirect()->back();
+                }
+
+                //check image size
+                $size = $image->getSize();
+                if($size > 5000000){
+                    flash()->addError('La taille de l\'image ne doit pas dépasser 5Mo');
+                    return redirect()->back();
+                }
+
+                //check image dimension
+                $dimensions = getimagesize($image);
+                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                    flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
+                    return redirect()->back();
+                }
+
+                $image_name = Str::slug($request->titre , "_").'_'.$request->date_event.'.'.$extension;
                 $image->move(public_path('images/events'), $image_name);
             }
             else{
-                $image_name = $event->url_img;
+                $image_name = $event->url_img ? $event->url_img : 'default_event.png';
             }
         }
-        catch (\Exception $e) {
-            $image_name = $event->url_img;
+        catch (Exception $e) {
+            $image_name = $event->url_img ? $event->url_img : 'default_event.png';
         }
 
         try{
             $event->update([
                 'id_categorie'=>$request->categorie,
-                'id_localite'=>$request->localite,
                 'id_structure'=>$request->structure,
                 'libelle'=>$request->titre,
-                'url_img'=>$request->image,
+                'url_img'=>$image_name,
                 'date_event'=>$request->date_event,
                 'slug'=>Str::slug($request->titre , "_"),
                 'description'=>$request->description,
@@ -190,7 +260,7 @@ class EventController extends Controller
         }
 
         flash()->addSuccess('Evénement mis à jour avec succès');
-        return redirect()->route('events.index');
+        return redirect()->route('evenements.index');
     }
 
     /**
@@ -198,6 +268,36 @@ class EventController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        return view('backend.events.index');
+    }
+
+    /**
+     * Delete the specified resource from storage.
+     */
+    public function delete(string $id)
+    {
+        $event = Evenement::where('id', $id)
+                            ->where('is_delete', FALSE)
+                            ->first();
+
+        if(!$event){
+            flash()->addError('Cet événement n\'existe pas');
+            return redirect()->back();
+        }
+
+        try{
+            $event->update([
+                'is_delete'=>TRUE,
+                'id_user_deleted'=>Auth::user()->id,
+            ]);
+        }
+        catch(\Exception $e){
+            Log::error('Erreur lors de la suppression de l\'événement: '.$e->getMessage());
+            flash()->addError('Une erreur est survenue lors de la suppression de l\'événement');
+            return redirect()->back();
+        }
+
+        flash()->addSuccess('Evénement supprimé avec succès');
+        return redirect()->route('evenements.index');
     }
 }

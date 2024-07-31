@@ -14,7 +14,6 @@ class Structure extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_localite',
         'parent_id',
         'code_structure',
         'nom_structure',
@@ -22,6 +21,7 @@ class Structure extends Model
         'id_type_structure',
         'is_public_structure',
         'slug',
+        'type_structure',
         'is_delete',
         'id_user_created',
         'id_user_modified',

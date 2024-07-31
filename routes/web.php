@@ -4,8 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DossierController;
 use App\Http\Controllers\admin\Auth\LoginController;
 use App\Http\Controllers\user\Auth\LoginsController;
-use App\Http\Controllers\user\Auth\HomeController;
-use App\Http\Controllers\user\Auth\FrontendLogController;
+use App\Http\Controllers\user\FrontendLogController;
 use App\Http\Controllers\admin\BackendController;
 use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\OffreController;
@@ -19,7 +18,6 @@ use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ParametreController;
 use App\Http\Controllers\admin\ValeurController;
 use App\Http\Controllers\admin\StructureController;
-use App\Http\Controllers\admin\LocaliteController;
 use App\Http\Controllers\user\FrontendController;
 
 /*
@@ -59,9 +57,10 @@ Route::get('/connexions', [LoginsController::class, 'showLoginForm'])->name('log
 Route::post('/connexion', [LoginsController::class, 'login']);
 Route::get('frontend/logout', [LoginsController::class, 'logout'])->name('user.logout');
 
-// RESOURCES
-Route::resource('admin/events', EventController::class);
-Route::get('admin/events/{id}/delete', [EventController::class, 'delete'])->name('events.delete');
+// EVENEMENTS
+Route::get('admin/evenements/{id}/delete', [EventController::class, 'delete'])->name('evenements.delete');
+Route::resource('admin/evenements', EventController::class);
+
 Route::resource('admin/offres', OffreController::class);
 Route::resource('admin/formations', FormationController::class);
 Route::resource('admin/categories', CategorieController::class);
@@ -72,8 +71,11 @@ Route::resource('admin/permissions', PermissionController::class);
 Route::resource('admin/admins', AdminController::class);
 Route::resource('admin/parametres', ParametreController::class);
 Route::resource('admin/valeurs', ValeurController::class);
+
+// STRUCTURES
+Route::post('admin/structures/list', [StructureController::class, 'structuresList'])->name('structures.list');
+Route::get('admin/structures/{id}/delete', [StructureController::class, 'delete'])->name('structures.delete');
 Route::resource('admin/structures', StructureController::class);
-Route::resource('admin/localites', LocaliteController::class);
 
 // DELETE
 Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');
@@ -86,21 +88,17 @@ Route::get('inscription', [FrontendController::class, 'create'])->name('inscript
 // STORE INSCRIPTION
 Route::post('inscription', [FrontendController::class, 'store'])->name('inscription.store');
 // PROFILE PASSWORD
-Route::get('edit/profile', [HomeController::class, 'editProfile'])->name('profile.password');
+Route::get('edit/profile', [FrontendController::class, 'editProfile'])->name('profile.password');
 // PROFILE EDIT
-Route::get('/employee/edit', [HomeController::class, 'editEmploye'])->name('profile.edit');
+Route::get('/employee/edit', [FrontendController::class, 'editEmploye'])->name('profile.edit');
 // UPDATE PROFILE
-Route::post('update/profile', [HomeController::class, 'updateProfile'])->name('update.profile');
+Route::post('update/profile', [FrontendController::class, 'updateProfile'])->name('update.profile');
 // Liste de mes candidatures
 Route::get('profile/mescandidatures', [FrontendLogController::class, 'mescandidatures'])->name('frontend.mescandidatures');
 // Liste de mes candidatures
 Route::get('profile/messtages', [FrontendLogController::class, 'messtages'])->name('frontend.messtages');
-// La redirection vers le provider
-Route::get("redirect/{provider}", "user\SocialiteController@redirect")->name('socialite.redirect');
-// Le callback du provider
-Route::get("callback/{provider}", "user\SocialiteController@callback")->name('socialite.callback');
 // VERIFY EMAIL
-Route::get('/email/verify', 'user\FrontendLogController@verif')->name('user.verification');
+Route::get('/email/verify', [FrontendLogController::class, 'verif'])->name('user.verification');
 
 // MENU
 Route::get('corus/mission', [FrontendController::class, 'mission'])->name('corus.mission');

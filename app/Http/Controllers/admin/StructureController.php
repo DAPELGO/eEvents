@@ -5,10 +5,11 @@ namespace App\Http\Controllers\admin;
 use Exception;
 use DataTables;
 use App\Models\admin\Valeur;
-use App\Models\admin\Structure;
 use Illuminate\Http\Request;
+use App\Models\admin\Structure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class StructureController extends Controller
@@ -83,7 +84,7 @@ class StructureController extends Controller
                         elseif($origData == 'parent'){
                             $origData = 'parent.nom_structure';
                         }
-                        elseif($origData == 'code'){
+                        elseif($origData == 'code_structure'){
                             $origData = 'structures.code_structure';
                         }
 
@@ -120,32 +121,21 @@ class StructureController extends Controller
 
                 $filteredRecords = $totalRecords = $structures->count();
 
-                if($request->has('search') && !empty($request->input('search')['value'])){
-                    $searchValue = $request->input('search.value');
-                    $structures = $structures->filter(function($structure) use ($searchValue){
-                        return stripos($structure->nom_structure, $searchValue) !== false ||
-                                stripos($structure->niveau, $searchValue) !== false ||
-                                stripos($structure->type, $searchValue) !== false ||
-                                stripos($structure->nature, $searchValue) !== false ||
-                                stripos($structure->parent, $searchValue) !== false ||
-                                stripos($structure->code_structure, $searchValue) !== false;
-                    });
-
-                    $filteredRecords = $structures->count();
-                }
-
                 $structures = $structures->skip($request->input('start'))->take($request->input('length'))->values();
 
                 $structures->transform(function($structure, $key){
-                    $structure->nature = $structure->nature ? '<span class="badge bg-primary">Public</span>' : '<span class="badge bg-secondary">Privé</span>';
+                    $structure->nature = $structure->nature ? '<span class="badge bg-primary text-white">Public</span>' : '<span class="badge bg-secondary text-white">Privé</span>';
                     $structure->parent = $structure->parent ? $structure->parent : '---';
-                    if(Auth::user()->can('structures.update') || Auth::user()->can('structures.delete')){
+                    if(Auth::user()->can('structures.view') || Auth::user()->can('structures.update') || Auth::user()->can('structures.delete')){
                         $structure->actions = '<div class="btn-group">';
+                            if(Auth::user()->can('structures.view')){
+                                $structure->actions .= '<a href="#" class="btn btn-sm btn-info" title="Voir les détails de la structure" onclick="viewEvent('.$structure->id.')"><i class="fa fa-eye"></i></a>';
+                            }
                             if(Auth::user()->can('structures.update')){
-                                $structure->actions .= '<a href="'.route('structures.edit', $structure->id).'" class="btn btn-primary btn-sm" title="Modifier la structure"><i class="fas fa-edit"></i></a>';
+                                $structure->actions .= '<a href="'.route('structures.edit', $structure->id).'" class="btn btn-primary btn-sm" title="Modifier la structure"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('structures.delete')){
-                                $structure->actions .= '<a class="btn btn-sm btn-delete btn-danger" title="Supprimer la structure" href="'.route('structures.delete', $structure->id).'"><i class="fas fa-trash"></i></a>';
+                                $structure->actions .= '<a class="btn btn-sm btn-delete btn-danger" title="Supprimer la structure" href="'.route('structures.delete', $structure->id).'"><i class="fa fa-trash"></i></a>';
                             }
                         $structure->actions .= '</div>';
                     }
