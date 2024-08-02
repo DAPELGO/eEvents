@@ -1,24 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DossierController;
-use App\Http\Controllers\admin\Auth\LoginController;
-use App\Http\Controllers\user\Auth\LoginsController;
-use App\Http\Controllers\user\FrontendLogController;
-use App\Http\Controllers\admin\BackendController;
+use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\OffreController;
-use App\Http\Controllers\admin\FormationController;
-use App\Http\Controllers\admin\CategorieController;
-use App\Http\Controllers\admin\ArticleController;
-use App\Http\Controllers\admin\MediathequeController;
-use App\Http\Controllers\admin\RoleController;
-use App\Http\Controllers\admin\PermissionController;
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\ParametreController;
 use App\Http\Controllers\admin\ValeurController;
-use App\Http\Controllers\admin\StructureController;
+use App\Http\Controllers\admin\ArticleController;
+use App\Http\Controllers\admin\BackendController;
 use App\Http\Controllers\user\FrontendController;
+use App\Http\Controllers\admin\CategorieController;
+use App\Http\Controllers\admin\FormationController;
+use App\Http\Controllers\admin\ParametreController;
+use App\Http\Controllers\admin\StructureController;
+use App\Http\Controllers\admin\Auth\LoginController;
+use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\user\Auth\LoginsController;
+use App\Http\Controllers\user\FrontendLogController;
+use App\Http\Controllers\admin\MediathequeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -109,4 +110,5 @@ Route::get('urgence/{submenu}', [FrontendController::class, 'urgence'])->name('m
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');
