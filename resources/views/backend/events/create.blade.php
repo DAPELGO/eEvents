@@ -64,10 +64,10 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-4 col-form-label" for="structure">Structure <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                     <div class="col-sm-8">
-                                        <select class="custom-select @error('structure') is-invalid @enderror" id="structure" name="structure" required>
+                                        <select class="custom-select @error('structure') is-invalid @enderror select2" id="structure" name="structure" required>
                                             <option value="">Choisir une structure...</option>
                                             @foreach($structures as $structure)
-                                                <option value="{{ $structure->id }}">{{ $structure->nom_structure }}</option>
+                                                <option value="{{ $structure->id }}">{{ mb_strtoupper($structure->niveau_structure->libelle).' - '.$structure->nom_structure }}</option>
                                             @endforeach
                                         </select>
                                         @error('structure')

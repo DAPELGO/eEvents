@@ -36,12 +36,12 @@
                     <hr>
                     <div class="row g-4">
                         <div class="col-12 col-xl-10 order-1 order-xl-0">
-                            <form action="{{ route('structures.store') }}" method="POST" class="g-3 border p-4 rounded-2">
+                            <form action="{{ route('structures.store') }}" method="POST" class="g-3 border p-4 rounded-2" novalidate="">
                                 @csrf
                                 <div class="row mb-3">
                                     <label class="col-sm-4 col-form-label" for="id_valeur_niveaustructure">Niveau Structure <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                     <div class="col-sm-8">
-                                        <select class="custom-select @error('id_valeur_niveaustructure') is-invalid @enderror" id="id_valeur_niveaustructure" name="id_valeur_niveaustructure" onchange="changeValue('id_valeur_niveaustructure', 'id_valeur_typestructure', 'type_structure');" required>
+                                        <select class="custom-select @error('id_valeur_niveaustructure') is-invalid @enderror select2" id="id_valeur_niveaustructure" name="id_valeur_niveaustructure" onchange="changeValue('id_valeur_niveaustructure', 'id_valeur_typestructure', 'type_structure');" required>
                                             <option value="0" selected disabled>Selectionner un niveau de structure...</option>
                                             @foreach($valeurs_niveau_structures as $valeur_niveau_structures)
                                                 <option value="{{ $valeur_niveau_structures->id }}">{{ $valeur_niveau_structures->libelle }}</option>
@@ -55,7 +55,7 @@
                                 <div class="row mb-3" id="type_structure_display" style="display: none;">
                                   <label class="col-sm-4 col-form-label" for="id_valeur_typestructure">Type Structure <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                   <div class="col-sm-8">
-                                    <select class="custom-select @error('id_valeur_typestructure') is-invalid @enderror" id="id_valeur_typestructure" name="id_valeur_typestructure" required>
+                                    <select class="custom-select @error('id_valeur_typestructure') is-invalid @enderror select2" id="id_valeur_typestructure" name="id_valeur_typestructure" required>
                                         <option value="">Selectionner un type de structure ...</option>
                                     </select>
                                     @error('id_valeur_typestructure')
@@ -66,12 +66,12 @@
                                 <div class="row mb-3">
                                   <label class="col-sm-4 col-form-label" for="parent_id">Structure Parente</label>
                                   <div class="col-sm-8">
-                                    <select class="custom-select @error('parent_id') is-invalid @enderror" id="parent_id" name="parent_id" data-choices="data-choices">
+                                    <select class="custom-select @error('parent_id') is-invalid @enderror select2" id="parent_id" name="parent_id">
                                         <option value="">Selectionner une structure...</option>
                                         @foreach ($valeurs_structures_non_fs as $niveau_structures_non_fs => $valeurs_structures_non_fs)
-                                            <optgroup label="{{ strtoupper($niveau_structures_non_fs) }}">
+                                            <optgroup label="{{ mb_strtoupper($niveau_structures_non_fs) }}">
                                                 @foreach ($valeurs_structures_non_fs as $valeur_structures_non_fs)
-                                                    <option value="{{ $valeur_structures_non_fs->id }}">{{ strtoupper($valeur_structures_non_fs->niveau_structure->libelle).' - '.$valeur_structures_non_fs->nom_structure }}</option>
+                                                    <option value="{{ $valeur_structures_non_fs->id }}">{{ mb_strtoupper($valeur_structures_non_fs->niveau_structure->libelle).' - '.$valeur_structures_non_fs->nom_structure }}</option>
                                                 @endforeach
                                             </optgroup>
                                         @endforeach
@@ -101,7 +101,6 @@
                                 </div>
                                 <hr>
                                 <div class="row mb-3">
-
                                     <div class="switch">
                                         <label class="col-form-label" for="private_structure">
                                             Structure privée

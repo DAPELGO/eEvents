@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Exception;
 use DataTables;
+use Illuminate\Support\Str;
 use App\Models\admin\Valeur;
 use Illuminate\Http\Request;
 use App\Models\admin\Structure;
@@ -301,8 +302,8 @@ class StructureController extends Controller
                 flash()->addError('Structure non trouvée');
                 return redirect()->route('structures.index');
             }
-            $valeurs_niveau_structures = Valeur::where(['id_parametre'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
-            $valeurs_type_structures = Valeur::where(['id_parametre'=>env('PARAM_TYPE_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
+            $valeurs_niveau_structures = Valeur::where(['id_param'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
+            $valeurs_type_structures = Valeur::where(['id_param'=>env('PARAM_TYPE_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
 
             $valeurs_structures_non_fs = Structure::where([
                 'is_delete'=>FALSE
@@ -375,7 +376,7 @@ class StructureController extends Controller
                 $structure->id_type_structure = $request->id_valeur_typestructure ? $request->id_valeur_typestructure : NULL;
                 $structure->code_structure = $request->code_structure ? $request->code_structure : NULL;
                 $structure->is_public_structure = $public_structure;
-                $structure->id_user_updated = Auth::user()->id;
+                $structure->id_user_modified = Auth::user()->id;
                 $structure->save();
             }
             catch(Exception $e){
@@ -414,7 +415,7 @@ class StructureController extends Controller
                 }
 
                 $structure->is_delete = TRUE;
-                $structure->id_user_deleted = Auth::user()->id;
+                $structure->id_user_delete = Auth::user()->id;
                 $structure->deleted_at = now();
                 $structure->save();
             }

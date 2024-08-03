@@ -39,7 +39,9 @@ class EventController extends Controller
     public function create()
     {
         $categories = Categorie::where('is_delete', FALSE)->get();
-        $structures = Structure::where('is_delete', FALSE)->get();
+        $structures = Structure::where('is_delete', FALSE)
+                                ->with('niveau_structure')
+                                ->get();
 
         return view('backend.events.create', compact('categories', 'structures'));
     }
@@ -166,7 +168,9 @@ class EventController extends Controller
         }
 
         $categories = Categorie::where('is_delete', FALSE)->get();
-        $structures = Structure::where('is_delete', FALSE)->get();
+        $structures = Structure::where('is_delete', FALSE)
+                                ->with('niveau_structure')
+                                ->get();
 
         return view('backend.events.edit', compact('event', 'categories', 'structures'));
     }
