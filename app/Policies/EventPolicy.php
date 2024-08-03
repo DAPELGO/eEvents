@@ -5,7 +5,7 @@ namespace App\Policies;
 use App\Models\admin\Admin;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CategoriePolicy
+class EventPolicy
 {
     use HandlesAuthorization;
 
@@ -18,47 +18,47 @@ class CategoriePolicy
     }
 
     /**
-     * Determine whether the user can view the categorie.
+     * Determine whether the user can view the event.
      *
      * @param  \App\Admin  $admin
      * @return mixed
      */
     public function view(Admin $admin)
     {
-        return $this->getPermissions($admin, 'categorie.view');
+        return $this->getPermissions($admin, 'event.view');
     }
 
     /**
-     * Determine whether the user can create categorie.
+     * Determine whether the user can create event.
      *
      * @param  \App\Admin  $admin
      * @return mixed
      */
     public function create(Admin $admin)
     {
-        return $this->getPermissions($admin, 'categorie.create');
+        return $this->getPermissions($admin, 'event.create');
     }
 
     /**
-     * Determine whether the user can update the categorie.
+     * Determine whether the user can update the event.
      *
      * @param  \App\Admin  $admin
      * @return mixed
      */
     public function update(Admin $admin)
     {
-        return $this->getPermissions($admin, 'categorie.update');
+        return $this->getPermissions($admin, 'event.update');
     }
 
     /**
-     * Determine whether the user can delete the categorie.
+     * Determine whether the user can delete the event.
      *
      * @param  \App\Admin $admin
      * @return mixed
      */
     public function delete(Admin $admin)
     {
-        return $this->getPermissions($admin, 'categorie.delete');
+        return $this->getPermissions($admin, 'event.delete');
     }
 
 

@@ -64,7 +64,6 @@ Route::resource('admin/evenements', EventController::class);
 
 Route::resource('admin/offres', OffreController::class);
 Route::resource('admin/formations', FormationController::class);
-Route::resource('admin/categories', CategorieController::class);
 Route::resource('admin/articles', ArticleController::class);
 Route::resource('admin/mediatheques', MediathequeController::class);
 Route::resource('admin/roles', RoleController::class);
@@ -77,6 +76,10 @@ Route::resource('admin/valeurs', ValeurController::class);
 Route::post('admin/structures/list', [StructureController::class, 'structuresList'])->name('structures.list');
 Route::get('admin/structures/{id}/delete', [StructureController::class, 'delete'])->name('structures.delete');
 Route::resource('admin/structures', StructureController::class);
+
+// CATETEGORIES
+Route::get('admin/categories/{id}/delete', [CategorieController::class, 'delete'])->name('categories.delete');
+Route::resource('admin/categories', CategorieController::class);
 
 // DELETE
 Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');

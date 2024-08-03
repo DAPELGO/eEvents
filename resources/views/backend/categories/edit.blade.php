@@ -1,6 +1,6 @@
 @extends('backend.layouts.layouts')
 @section('categorie', 'active')
-@section('title', 'Enregistrer une catégorie')
+@section('title', 'Modifier une catégorie')
 @section('content')
 <!-- ============================================================== -->
 <!-- Bread crumb and right sidebar toggle -->
@@ -13,7 +13,7 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="javascript:void(0)">Accueil</a></li>
             <li class="breadcrumb-item">Catégories</li>
-            <li class="breadcrumb-item active">Enregistrer</li>
+            <li class="breadcrumb-item active">Modifier</li>
         </ol>
     </div>
 </div>
@@ -27,24 +27,24 @@
     <!-- ============================================================== -->
     <!-- Start Page Content -->
     <!-- ============================================================== -->
-    <!-- <div class="card-group"> -->
     <div class="row">
         <div class="col-10">
             <div class="card">
                 <div class="card-body collapse show">
-                    <h4 class="card-title">ENREGISTRER UNE CATEGORIE</h4>
+                    <h4 class="card-title">MODIFIER UNE CATEGORIE</h4>
                     <hr>
                     <div class="row g-4">
                         <div class="col-12 col-xl-10 order-1 order-xl-0">
-                            <form class="g-3 border p-4 rounded-2" action="{{ route('categories.store') }}" method="POST">
+                            <form class="g-3 border p-4 rounded-2" action="{{ route('categories.update', $categorie->id) }}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="row mb-3">
                                     <label for="type" class="col-sm-4 control-label">Type catégorie <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                     <div class="col-sm-8">
                                         <select class="custom-select @error('type') is-invalid @enderror" id="type" name="type" required>
                                             <option value="">Selectionner un type...</option>
-                                            <option value="events">Evènements</option>
-                                            <option value="articles">Articles</option>
+                                            <option value="events" {{ $categorie->type_categories == 'events' ? 'selected' : '' }}>Evènements</option>
+                                            <option value="articles" {{ $categorie->type_categories == 'articles' ? 'selected' : '' }}>Articles</option>
                                         </select>
                                         @error('type')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -54,7 +54,7 @@
                                 <div class="row mb-3">
                                     <label for="titre" class="col-sm-4 control-label">Titre <span class="text-danger">*</span></label>
                                     <div class="col-sm-8">
-                                        <input type="text" class="form-control @error('titre') is-invalid @enderror" name="titre" id="titre" placeholder="Nom catégorie...">
+                                        <input type="text" class="form-control @error('titre') is-invalid @enderror" name="titre" id="titre" value="{{ $categorie->nom_categorie }}" required>
                                         @error('titre')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror
@@ -63,7 +63,7 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-4 col-form-label" for="description">Description</label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" maxlength="300" placeholder="Description de la catégorie...">{{ old('description') }}</textarea>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5">{{ $categorie->description }}</textarea>
                                         <small id="charCount" class="text-muted">0 / 300 caractères utilisés</small>
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
@@ -72,7 +72,7 @@
                                 </div>
                                 <hr>
                                 <div class="row">
-                                    <button type="submit" class="btn btn-primary mr-2">Enregistrer</button>
+                                    <button type="submit" class="btn btn-primary mr-2">Modifier</button>
                                     <a href="{{ route('categories.index') }}" class="btn btn-secondary">Annuler</a>
                                 </div>
                             </form>
@@ -84,7 +84,7 @@
     </div>
 </div>
 <!-- ============================================================== -->
-<!-- End PAge Content -->
+<!-- End Container fluid  -->
 <!-- ============================================================== -->
 @endsection
 @section('script')
