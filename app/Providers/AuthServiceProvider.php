@@ -4,10 +4,11 @@ namespace App\Providers;
 use App\Policies\RolePolicy;
 use App\Policies\EventPolicy;
 use App\Policies\ValeurPolicy;
+use App\Policies\ArticlePolicy;
 use App\Policies\CategoriePolicy;
 use App\Policies\ParametrePolicy;
-use App\Policies\StructurePolicy;
 
+use App\Policies\StructurePolicy;
 use App\Policies\MonitoringPolicy;
 use App\Policies\PermissionPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -33,6 +34,7 @@ class AuthServiceProvider extends ServiceProvider
         Gate::resource('events', EventPolicy::class);
         Gate::resource('structures', StructurePolicy::class);
         Gate::resource('categories', CategoriePolicy::class);
+        Gate::resource('articles', ArticlePolicy::class);
         Gate::resource('users', UserPolicy::class);
         Gate::resource('roles', RolePolicy::class);
         Gate::resource('permissions', PermissionPolicy::class);

@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\user\Article;
-use App\Models\user\Categorie;
 use Illuminate\Http\Request;
+use App\Models\admin\Article;
+use App\Models\user\Categorie;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -24,16 +24,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->can('articles.view')) {
-            $articles = DB::table('articles')
-                                ->join('categories', 'categories.id', 'articles.categorie_id')
-                                ->select('articles.*', 'categories.titre as categorie')
-                                ->where('articles.is_delete', 0)
+        if (!Auth::user()->can('articles.view')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
+        }
+
+        $articles = Article::where('is_delete', FALSE)
+                                ->select('id', 'titre', 'slug', 'id_categorie', 'url_img', 'date_article')
+                                ->with('categorie')
                                 ->get();
 
-            return view('backend.articles.index', compact('articles'));
-        }
-        return redirect(route('backend.home'));
+        return view('backend.articles.index', compact('articles'));
     }
 
     /**
@@ -162,7 +163,7 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        return redirect()->route('articles.index');
     }
 
     public function delete(Request $request)

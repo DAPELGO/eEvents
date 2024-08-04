@@ -64,7 +64,6 @@ Route::resource('admin/evenements', EventController::class);
 
 Route::resource('admin/offres', OffreController::class);
 Route::resource('admin/formations', FormationController::class);
-Route::resource('admin/articles', ArticleController::class);
 Route::resource('admin/mediatheques', MediathequeController::class);
 Route::resource('admin/roles', RoleController::class);
 Route::resource('admin/permissions', PermissionController::class);
@@ -80,6 +79,10 @@ Route::resource('admin/structures', StructureController::class);
 // CATETEGORIES
 Route::get('admin/categories/{id}/delete', [CategorieController::class, 'delete'])->name('categories.delete');
 Route::resource('admin/categories', CategorieController::class);
+
+// ARTICLES
+Route::get('admin/articles/{id}/delete', [ArticleController::class, 'delete'])->name('articles.delete');
+Route::resource('admin/articles', ArticleController::class);
 
 // DELETE
 Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');
