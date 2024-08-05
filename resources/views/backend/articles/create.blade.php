@@ -88,7 +88,8 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="col-form-label">Image</label>
-                                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image">
+                                            <input type="file" class="form-control @error('image') is-invalid @enderror" id="image" name="image" onchange="previewImage(event)">
+                                            <img id="imagePreview" src="{{ asset('images/articles/default_article.png') }}" class="mt-2 mb-2" style="max-width: 100%; border: 1px solid #ddd; padding: 5px;">
                                             @error('image')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -120,6 +121,47 @@
 <script src="{{ asset('backend/assets/plugins/tinymce/tinymce.min.js') }}"></script>
 <!-- ============================================================== -->
 <script>
+    function previewImage(event) {
+        const input = event.target;
+        const file = input.files[0];
+        if (file.size > 5 * 1024 * 1024) {
+            swal({
+                title: 'Attention !',
+                text: 'L\'image ne doit pas dépasser 5 Mo.',
+                icon: 'warning',
+                button: 'Fermer'
+            });
+
+            input.value = '';
+            return;
+        }
+
+        const img = new Image();
+        img.src = URL.createObjectURL(file);
+        img.onload = function() {
+            if (img.width < 1920 || img.height < 1080) {
+                swal({
+                    title: 'Attention !',
+                    text: 'Les dimensions de l\'image doivent être de 1920x1080 pixels au minimum.',
+                    icon: 'warning',
+                    button: 'Fermer'
+                });
+
+                input.value = '';
+                return;
+            }
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imagePreview = document.getElementById('imagePreview');
+                    imagePreview.src = e.target.result;
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+    }
+
     $(document).ready(function() {
         function f_image_upload_handler (blobInfo, success, failure, progress) {
             var xhr, formData;
