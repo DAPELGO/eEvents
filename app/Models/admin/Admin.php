@@ -3,6 +3,7 @@
 namespace App\Models\admin;
 
 use App\Models\admin\Role;
+use App\Models\admin\Article;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -22,5 +23,10 @@ class Admin extends Authenticatable
             return true;
         }
         return false;
+    }
+
+    public function article()
+    {
+        return $this->hasMany(Article::class, 'id_user_created');
     }
 }

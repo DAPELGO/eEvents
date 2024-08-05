@@ -16,9 +16,9 @@ return new class extends Migration
             $table->string('nom_role')->nullable();
             $table->string('slug')->nullable();
             $table->boolean('is_delete')->nullable()->default(false);
-            $table->integer('id_user_created')->nullable()->default(0);
-            $table->integer('id_user_modified')->nullable()->default(0);
-            $table->integer('id_user_delete')->nullable()->default(0);
+            $table->integer('id_user_created')->nullable()->default(NULL);
+            $table->integer('id_user_modified')->nullable()->default(NULL);
+            $table->integer('id_user_delete')->nullable()->default(NULL);
             $table->foreign('id_user_created')->on('admins')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('id_user_modified')->on('admins')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');
             $table->foreign('id_user_delete')->on('admins')->references('id')->onDelete('CASCADE')->onUpdate('CASCADE');

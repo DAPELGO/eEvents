@@ -73,6 +73,64 @@
     <!-- ============================================================== -->
     <!-- End Container fluid  -->
     <!-- ============================================================== -->
+    <!-- Modal de détail de structure -->
+    <div class="modal fade" id="viewStructureModal" tabindex="-1" role="dialog" aria-labelledby="viewStructureModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewEventModalLabel">Détails de la structure</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Nom</td>
+                                <td id="structureNom"></td>
+                            </tr>
+                            <tr>
+                                <td>Slug</td>
+                                <td id="structureSlug"></td>
+                            </tr>
+                            <tr>
+                                <td>Niveau</td>
+                                <td id="structureNiveau"></td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td id="structureType"></td>
+                            </tr>
+                            <tr>
+                                <td>Nature</td>
+                                <td id="structureNature"></td>
+                            </tr>
+                            <tr>
+                                <td>Parent</td>
+                                <td id="structureParent"></td>
+                            </tr>
+                            <tr>
+                                <td>Code structure</td>
+                                <td id="structureCode"></td>
+                            </tr>
+                            <tr>
+                                <td>Créé le</td>
+                                <td id="structureCreatedAt"></td>
+                            </tr>
+                            <tr>
+                                <td>Modifié le</td>
+                                <td id="structureUpdatedAt"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
   <script>
@@ -247,5 +305,42 @@
             }
         });
     });
+
+    function viewStructure(id) {
+        $.ajax({
+            url: "{{ route('structures.show', ':id') }}".replace(':id', id),
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                if(response.success === false) {
+                    swal({
+                        title: 'Attention !',
+                        text: response.message,
+                        icon: 'error',
+                        button: 'Fermer'
+                    });
+                    return;
+                }
+                $('#structureNom').text(response.data.nom_structure);
+                $('#structureSlug').text(response.data.slug);
+                $('#structureNiveau').text(response.data.niveau_structure ? response.data.niveau_structure.libelle : '---');
+                $('#structureType').text(response.data.type_structure ? response.data.type_structure.libelle : '---');
+                $('#structureNature').text(response.data.is_type_structure === 1 ? 'Public' : 'Privé');
+                $('#structureParent').text(response.data.parent ? response.data.parent.nom_structure : '---');
+                $('#structureCode').text(response.data.code_structure);
+                $('#structureCreatedAt').text(new Date(response.data.created_at).toLocaleString('fr-FR'));
+                $('#structureUpdatedAt').text(new Date(response.data.updated_at).toLocaleString('fr-FR'));
+                $('#viewStructureModal').modal('show');
+            },
+            error: function() {
+                swal({
+                    title: 'Attention !',
+                    text: 'Une erreur est survenue lors de la récupération des données',
+                    icon: 'error',
+                    button: 'Fermer'
+                });
+            }
+        });
+    }
   </script>
 @endsection

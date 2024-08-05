@@ -13,6 +13,8 @@ class Categorie extends Model
     protected $fillable = [
         'nom_categorie',
         'slug',
+        'type_categories',
+        'description',
         'is_delete',
         'id_user_created',
         'id_user_modified',
@@ -21,6 +23,13 @@ class Categorie extends Model
 
     public function evenements()
     {
-        return $this->hasMany(Evenement::class, 'id_categorie');
+        return $this->hasMany(Evenement::class, 'id_categorie')
+                    ->where('type_categories', 'events');
+    }
+
+    public function articles()
+    {
+        return $this->hasMany(Evenement::class, 'id_categorie')
+                    ->where('type_categories', 'articles');
     }
 }

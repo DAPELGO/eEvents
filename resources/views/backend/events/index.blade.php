@@ -123,6 +123,14 @@
                                 <th>Image</th>
                                 <td id="eventImage"></td>
                             </tr>
+                            <tr>
+                                <td>Créé le</td>
+                                <td id="eventCreatedAt"></td>
+                            </tr>
+                            <tr>
+                                <td>Modifié le</td>
+                                <td id="eventUpdatedAt"></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -223,6 +231,8 @@
                 else{
                     $('#eventImage').html(`<img src="{{ asset('images/events/${response.data.url_img}')}}" class="img-fluid" style="max-width: 300px; border: 1px solid #ddd; padding: 5px;" alt="${response.data.libelle}" />`);
                 }
+                $('#eventCreatedAt').text(new Date(response.data.created_at).toLocaleString('fr-FR'));
+                $('#eventUpdatedAt').text(new Date(response.data.updated_at).toLocaleString('fr-FR'));
                 $('#viewEventModal').modal('show');
             },
             error: function() {

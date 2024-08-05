@@ -106,67 +106,58 @@
     @yield('script')
     <script>
         $(document).ready(function() {
-            $('#myTable').DataTable();
-            $(document).ready(function() {
-                var table = $('#example').DataTable({
-                    "columnDefs": [{
-                        "visible": false,
-                        "targets": 2
-                    }],
-                    "order": [
-                        [2, 'asc']
-                    ],
-                    "displayLength": 25,
-                    "drawCallback": function(settings) {
-                        var api = this.api();
-                        var rows = api.rows({
-                            page: 'current'
-                        }).nodes();
-                        var last = null;
-                        api.column(2, {
-                            page: 'current'
-                        }).data().each(function(group, i) {
-                            if (last !== group) {
-                                $(rows).eq(i).before('<tr class="group"><td colspan="5">' + group + '</td></tr>');
-                                last = group;
-                            }
-                        });
-                    }
-                });
-                // Order by the grouping
-                $('#example tbody').on('click', 'tr.group', function() {
-                    var currentOrder = table.order()[0];
-                    if (currentOrder[0] === 2 && currentOrder[1] === 'asc') {
-                        table.order([2, 'desc']).draw();
-                    } else {
-                        table.order([2, 'asc']).draw();
-                    }
-                });
-            });
             $(".select2").select2();
         });
 
+        function changeValue(parent, child, table_item)
+        {
+            var idparent_val = $("#"+parent).val();
+            var table = table_item;
 
-        function slugify(text) {
-        return text
-            .toString() // Cast to string
-            .toLowerCase() // Convert the string to lowercase letters
-            .normalize('NFD') // The normalize() method returns the Unicode Normalization Form of a given string.
-            .trim() // Remove whitespace from both sides of a string
-            .replace(/\s+/g, '-') // Replace spaces with -
-            .replace(/[^\w\-]+/g, '') // Remove all non-word chars
-            .replace(/\-\-+/g, '-'); // Replace multiple - with single -
-        }
+            var url = "{{ route('data.selection') }}";
 
-        function listingslug(text) {
-            document.getElementById("slug").value = slugify(text);
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: {idparent_val: idparent_val, table:table},
+                dataType: 'json',
+                error:function(data){
+                    Swal({
+                        title: 'Erreur',
+                        text: 'Une erreur s\'est produite lors de la récupération des données',
+                        icon: 'error',
+                        confirmButtonText: 'Fermer'
+                    });
+                },
+                success: function (data) {
+                    var data = data.data;
+                    if(data == null){
+                        var options = '<option value="" selected disabled>--- Choisir une valeur ---</option>';
+                        if(table == 'type_structure'){
+                            $('#type_structure_display').css('display', 'none');
+                        }
+                    }
+                    else{
+                        var options = '<option value="" selected disabled>--- Choisir une valeur ---</option>';
+                        for (var x = 0; x < data.length; x++) {
+                            if(data[x]['id'] !='') {
+                                options += '<option value="' + data[x]['id'] + '">' + data[x]['name'] + '</option>';
+                            }
+                        }
+                        if(table == 'type_structure'){
+                            $('#type_structure_display').css('display', 'flex');
+                        }
+                    }
+                    $('#'+child).html(options);
+                }
+            });
         }
-        </script>
+    </script>
 
     <!-- ============================================================== -->
     <!-- Style switcher -->
     <!-- ============================================================== -->
-    <script src="{{ asset('backend/assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></script>
+    <script src="{{ asset('backend/assets/plugins/styleswitcher/jQuery.style.switcher.js') }}"></scr>
 </body>
 
 </html>

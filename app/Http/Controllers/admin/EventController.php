@@ -29,6 +29,11 @@ class EventController extends Controller
      */
     public function index()
     {
+        if(!Auth::user()->can('events.view')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de voir les événements');
+            return redirect()->route('backend.home');
+        }
+
         $evenements = Evenement::where('is_delete', FALSE)->get();
         return view('backend.events.index' , compact('evenements'));
     }
@@ -38,8 +43,17 @@ class EventController extends Controller
      */
     public function create()
     {
-        $categories = Categorie::where('is_delete', FALSE)->get();
-        $structures = Structure::where('is_delete', FALSE)->get();
+        if(!Auth::user()->can('events.create')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de créer un événement');
+            return redirect()->route('backend.home');
+        }
+
+        $categories = Categorie::where('is_delete', FALSE)
+                                ->where('type_categories', 'events')
+                                ->get();
+        $structures = Structure::where('is_delete', FALSE)
+                                ->with('niveau_structure')
+                                ->get();
 
         return view('backend.events.create', compact('categories', 'structures'));
     }
@@ -49,6 +63,11 @@ class EventController extends Controller
      */
     public function store(Request $request)
     {
+        if(!Auth::user()->can('events.create')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de créer un événement');
+            return redirect()->route('backend.home');
+        }
+
         $this->validate($request, [
             'titre'=>'required',
             'categorie'=>'required|exists:categories,id',
@@ -133,6 +152,14 @@ class EventController extends Controller
      */
     public function show(string $id)
     {
+        if(!Auth::user()->can('events.view')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de voir les événements');
+            return response()->json([
+                'success' => false,
+                'message' => 'Vous n\'avez pas l\'autorisation de voir les événements'
+            ], 403);
+        }
+
         $evenements = Evenement::where('id', $id)
                                 ->where('is_delete', FALSE)
                                 ->with('categorie', 'structure')
@@ -156,6 +183,11 @@ class EventController extends Controller
      */
     public function edit(string $id)
     {
+        if(!Auth::user()->can('events.update')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de modifier un événement');
+            return redirect()->route('backend.home');
+        }
+
         $event = Evenement::where('id', $id)
                             ->where('is_delete', FALSE)
                             ->first();
@@ -165,8 +197,13 @@ class EventController extends Controller
             return redirect()->back();
         }
 
-        $categories = Categorie::where('is_delete', FALSE)->get();
-        $structures = Structure::where('is_delete', FALSE)->get();
+        $categories = Categorie::where('is_delete', FALSE)
+                                ->where('type_categories', 'events')
+                                ->get();
+
+        $structures = Structure::where('is_delete', FALSE)
+                                ->with('niveau_structure')
+                                ->get();
 
         return view('backend.events.edit', compact('event', 'categories', 'structures'));
     }
@@ -176,6 +213,11 @@ class EventController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        if(!Auth::user()->can('events.update')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de modifier un événement');
+            return redirect()->route('backend.home');
+        }
+
         $this->validate($request, [
             'titre'=>'required',
             'categorie'=>'required|exists:categories,id',
@@ -276,6 +318,11 @@ class EventController extends Controller
      */
     public function delete(string $id)
     {
+        if(!Auth::user()->can('events.delete')){
+            flash()->addError('Vous n\'avez pas l\'autorisation de supprimer un événement');
+            return redirect()->route('backend.home');
+        }
+
         $event = Evenement::where('id', $id)
                             ->where('is_delete', FALSE)
                             ->first();

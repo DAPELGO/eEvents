@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\admin;
 
-use App\Models\user\Article;
-use App\Models\user\Categorie;
+use Exception;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\admin\Article;
+use App\Models\admin\Categorie;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,16 +27,17 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        if (Auth::user()->can('articles.view')) {
-            $articles = DB::table('articles')
-                                ->join('categories', 'categories.id', 'articles.categorie_id')
-                                ->select('articles.*', 'categories.titre as categorie')
-                                ->where('articles.is_delete', 0)
+        if (!Auth::user()->can('articles.view')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
+        }
+
+        $articles = Article::where('is_delete', FALSE)
+                                ->select('id', 'titre', 'slug', 'id_categorie', 'date_article', 'is_published', 'id_user_created')
+                                ->with('categorie', 'user_created')
                                 ->get();
 
-            return view('backend.articles.index', compact('articles'));
-        }
-        return redirect(route('backend.home'));
+        return view('backend.articles.index', compact('articles'));
     }
 
     /**
@@ -43,11 +47,16 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('articles.create')) {
-            $categories = Categorie::where('is_delete', 0)->get();
-            return view('backend.articles.create', compact('categories'));
+        if (!Auth::user()->can('articles.create')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
         }
-        return redirect(route('backend.home'));
+
+        $categories = Categorie::where('is_delete', FALSE)
+                                ->where('type_categories', 'articles')
+                                ->get();
+
+        return view('backend.articles.create', compact('categories'));
     }
 
     /**
@@ -58,29 +67,84 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        if (Auth::user()->can('articles.create')) {
-            $this->validate($request, [
-
-                    'titre'=>'required',
-                    ]);
-
-                    $file_urls = '';
-                    if($request->hasFile('file_urls')) {
-                        $file_urls = $request->file_urls->store('public/profile/user');
-                    }
-            $va= Article::create([
-                    'categorie_id'=>$request->id_categorie,
-                    'titre'=>$request->titre,
-                    'soustitre'=>$request->soustitre,
-                    'chapeau'=>$request->chapeau,
-                    'corps'=>$request->corps,
-                    'is_delete'=>0,
-                    'file_urls'=>$file_urls,
-                ]);
-
-            return redirect()->route('articles.index');
+        if (!Auth::user()->can('articles.create')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
         }
-        return redirect(route('backend.home'));
+
+        $this->validate($request, [
+            'titre'=>'required',
+            'categorie'=>'required|exists:categories,id'
+        ]);
+
+        //verify if slug exist
+        $slug = Article::where('slug', Str::slug($request->titre))->first();
+
+        if ($slug) {
+            flash()->addError('Cet article existe déjà');
+            return redirect()->back();
+        }
+
+        $status = $request->status == '1' ? true : false;
+
+        try {
+            if($request->file('image')){
+                $image = $request->file('image');
+
+                // check image extension
+                $allowedfileExtension=['jpg','png','jpeg'];
+                $extension = $image->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+
+                if(!$check){
+                    flash()->addError('Le fichier doit être une image de type jpg, jpeg ou png');
+                    return redirect()->back();
+                }
+
+                //check image size
+                $size = $image->getSize();
+                if($size > 5000000){
+                    flash()->addError('La taille de l\'image ne doit pas dépasser 5Mo');
+                    return redirect()->back();
+                }
+
+                //check image dimension
+                $dimensions = getimagesize($image);
+                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                    flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
+                    return redirect()->back();
+                }
+
+                $image_name = Str::slug($request->titre , "_").'_'.$request->date_article.'.'.$extension;
+                $image->move(public_path('images/articles/cover'), $image_name);
+            }
+            else{
+                $image_name = 'default_article.png';
+            }
+        }
+        catch (Exception $e) {
+            $image_name = 'default_article.png';
+        }
+
+        try{
+            Article::create([
+                'titre'=>$request->titre,
+                'slug'=>Str::slug($request->titre),
+                'id_categorie'=>$request->categorie,
+                'url_img'=>$image_name,
+                'date_article'=>$request->date_article,
+                'content'=>$request->contenu,
+                'is_published'=>$status,
+                'id_user_created'=>Auth::user()->id
+            ]);
+        }
+        catch(Exception $e){
+            Log::error('Erreur lors de l\'enregistrement de l\'article: '.$e->getMessage());
+            flash()->addError('Erreur lors de l\'enregistrement de l\'article');
+        }
+
+        flash()->addSuccess('Article enregistré avec succès');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -89,18 +153,23 @@ class ArticleController extends Controller
      * @param  \App\Article  $article
      * @return \Illuminate\Http\Response
      */
-    public function show( $id)
+    public function show($id)
     {
-        if (Auth::user()->can('articles.view')) {
-            $articles = DB::table('articles')
-                                ->join('categories', 'categories.id', 'articles.categorie_id')
-                                ->select('articles.*', 'categories.titre as categorie')
-                                ->where('articles.is_delete', 0)
-                                ->where('articles.id', $id)
-                                ->get();
-            return view('backend.articles.show', compact('articles'));
+        if(!Auth::user()->can('articles.view')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
         }
-        return redirect(route('backend.home'));
+
+         $article = Article::where('id', $id)
+                            ->with('categorie', 'user_created')
+                            ->first();
+
+        if(!$article){
+            flash()->addError('Article non trouvé');
+            return redirect()->route('articles.index');
+        }
+
+        return view('backend.articles.show', compact('article'));
     }
 
     /**
@@ -111,12 +180,23 @@ class ArticleController extends Controller
      */
     public function edit( $id)
     {
-        if (Auth::user()->can('articles.update')) {
-            $article = Article::where('id',  $id)->first();
-            $categories = Categorie::where('is_delete', 0)->get();
-            return view('backend.articles.edit', compact('article', 'categories'));
+        if (!Auth::user()->can('articles.update')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
         }
-        return redirect(route('backend.home'));
+
+        $article = Article::where('id', $id)->first();
+
+        if(!$article){
+            flash()->addError('Article introuvable');
+            return redirect()->route('articles.index');
+        }
+
+        $categories = Categorie::where('is_delete', FALSE)
+                                ->where('type_categories', 'articles')
+                                ->get();
+
+        return view('backend.articles.edit', compact('article', 'categories'));
     }
 
     /**
@@ -128,30 +208,92 @@ class ArticleController extends Controller
      */
     public function update(Request $request,  $id)
     {
-        if (Auth::user()->can('articles.update')) {
+        if (!Auth::user()->can('articles.update')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
+        }
+
         $this->validate($request, [
+            'titre'=>'required',
+            'categorie'=>'required|exists:categories,id'
+        ]);
 
-                'titre'=>'required',
-            ]);
+        $article = Article::where('id', $id)->first();
 
-            $article = Article::where('id', $id)->first();
-
-            $file_urls = '';
-                 if($request->hasFile('file_urls')) {
-                     $file_urls = $request->file_urls->store('public/profile/user');
-                 }
-            $article->update([
-                'categorie_id'=>$request->id_categorie,
-                'titre'=>$request->titre,
-                'soustitre'=>$request->soustitre,
-                'chapeau'=>$request->chapeau,
-                'corps'=>$request->corps,
-                'file_urls'=>$file_urls,
-            ]);
-
+        if(!$article){
+            flash()->addError('Article introuvable');
             return redirect()->route('articles.index');
         }
-        return redirect(route('backend.home'));
+
+        $slug = Article::where('slug', Str::slug($request->titre))
+                        ->where('id', '!=', $id)
+                        ->first();
+
+        if ($slug) {
+            flash()->addError('Cet article existe déjà');
+            return redirect()->back();
+        }
+
+        $status = $request->status == '1' ? true : false;
+
+        try {
+            if($request->file('image')){
+                $image = $request->file('image');
+
+                // check image extension
+                $allowedfileExtension=['jpg','png','jpeg'];
+                $extension = $image->getClientOriginalExtension();
+                $check=in_array($extension,$allowedfileExtension);
+
+                if(!$check){
+                    flash()->addError('Le fichier doit être une image de type jpg, jpeg ou png');
+                    return redirect()->back();
+                }
+
+                //check image size
+                $size = $image->getSize();
+                if($size > 5000000){
+                    flash()->addError('La taille de l\'image ne doit pas dépasser 5Mo');
+                    return redirect()->back();
+                }
+
+                //check image dimension
+                $dimensions = getimagesize($image);
+                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                    flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
+                    return redirect()->back();
+                }
+
+                $image_name = Str::slug($request->titre , "_").'_'.$request->date_article.'.'.$extension;
+                $image->move(public_path('images/articles/cover'), $image_name);
+            }
+            else{
+                $image_name = $article->url_img;
+            }
+        }
+        catch (Exception $e) {
+            $image_name = $article->url_img;
+        }
+
+        try{
+            $article->update([
+                'titre'=>$request->titre,
+                'slug'=>Str::slug($request->titre),
+                'id_categorie'=>$request->categorie,
+                'url_img'=>$image_name,
+                'date_article'=>$request->date_article,
+                'content'=>$request->contenu,
+                'is_published'=>$status,
+                'id_user_modified'=>Auth::user()->id
+            ]);
+        }
+        catch(Exception $e){
+            Log::error('Erreur lors de la modification de l\'article: '.$e->getMessage());
+            flash()->addError('Erreur lors de la modification de l\'article');
+        }
+
+        flash()->addSuccess('Article modifié avec succès');
+        return redirect()->route('articles.index');
     }
 
     /**
@@ -162,18 +304,35 @@ class ArticleController extends Controller
      */
     public function destroy(Article $article)
     {
-        //
+        return redirect()->route('articles.index');
     }
 
-    public function delete(Request $request)
+    public function delete($id)
     {
+        if (!Auth::user()->can('articles.delete')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
+        }
 
+        try{
+            $article = Article::where('id', $id)->first();
 
-            $id = $request->id;
-            $article = Article::findOrFail($id);
+            if(!$article){
+                flash()->addError('Article introuvable');
+                return redirect()->route('articles.index');
+            }
+
             $article->update([
-                'is_delete' => 1,
+                'is_delete'=>TRUE,
+                'id_user_delete'=>Auth::user()->id
             ]);
+        }
+        catch(Exception $e){
+            Log::error('Erreur lors de la suppression de l\'article: '.$e->getMessage());
+            flash()->addError('Erreur lors de la suppression de l\'article');
+        }
 
+        flash()->addSuccess('Article supprimé avec succès');
+        return redirect()->route('articles.index');
     }
 }

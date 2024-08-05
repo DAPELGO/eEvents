@@ -1,24 +1,25 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\DossierController;
-use App\Http\Controllers\admin\Auth\LoginController;
-use App\Http\Controllers\user\Auth\LoginsController;
-use App\Http\Controllers\user\FrontendLogController;
-use App\Http\Controllers\admin\BackendController;
+use App\Http\Controllers\admin\RoleController;
+use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\EventController;
 use App\Http\Controllers\admin\OffreController;
-use App\Http\Controllers\admin\FormationController;
-use App\Http\Controllers\admin\CategorieController;
-use App\Http\Controllers\admin\ArticleController;
-use App\Http\Controllers\admin\MediathequeController;
-use App\Http\Controllers\admin\RoleController;
-use App\Http\Controllers\admin\PermissionController;
-use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\ParametreController;
 use App\Http\Controllers\admin\ValeurController;
-use App\Http\Controllers\admin\StructureController;
+use App\Http\Controllers\admin\ArticleController;
+use App\Http\Controllers\admin\BackendController;
 use App\Http\Controllers\user\FrontendController;
+use App\Http\Controllers\admin\CategorieController;
+use App\Http\Controllers\admin\FormationController;
+use App\Http\Controllers\admin\ParametreController;
+use App\Http\Controllers\admin\StructureController;
+use App\Http\Controllers\admin\Auth\LoginController;
+use App\Http\Controllers\admin\PermissionController;
+use App\Http\Controllers\user\Auth\LoginsController;
+use App\Http\Controllers\user\FrontendLogController;
+use App\Http\Controllers\admin\MediathequeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,8 +64,6 @@ Route::resource('admin/evenements', EventController::class);
 
 Route::resource('admin/offres', OffreController::class);
 Route::resource('admin/formations', FormationController::class);
-Route::resource('admin/categories', CategorieController::class);
-Route::resource('admin/articles', ArticleController::class);
 Route::resource('admin/mediatheques', MediathequeController::class);
 Route::resource('admin/roles', RoleController::class);
 Route::resource('admin/permissions', PermissionController::class);
@@ -76,6 +75,17 @@ Route::resource('admin/valeurs', ValeurController::class);
 Route::post('admin/structures/list', [StructureController::class, 'structuresList'])->name('structures.list');
 Route::get('admin/structures/{id}/delete', [StructureController::class, 'delete'])->name('structures.delete');
 Route::resource('admin/structures', StructureController::class);
+
+// CATETEGORIES
+Route::get('admin/categories/{id}/delete', [CategorieController::class, 'delete'])->name('categories.delete');
+Route::resource('admin/categories', CategorieController::class);
+
+// ARTICLES
+Route::get('admin/articles/{id}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
+Route::get('admin/articles/{id}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
+Route::get('admin/articles/{id}/delete', [ArticleController::class, 'delete'])->name('articles.delete');
+Route::post('admin/article/upload_image', [BackendController::class, 'uploadEditorImage'])->name('article.upload_image');
+Route::resource('admin/articles', ArticleController::class);
 
 // DELETE
 Route::get('/roles/{id}/delete', [RoleController::class, 'delete'])->name('roles.delete');
@@ -109,4 +119,5 @@ Route::get('urgence/{submenu}', [FrontendController::class, 'urgence'])->name('m
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');
