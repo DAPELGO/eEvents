@@ -59,10 +59,10 @@
                                     <tr>
                                         <td>{{ $article->titre }}</td>
                                         <td>{{ $article->categorie->nom_categorie }}</td>
-                                        <td>{{ $article->date_article->format('d/m/Y') }}</td>
+                                        <td>{{ \Carbon\Carbon::parse($article->date_article)->format('d/m/Y') }}</td>
                                         <td>{{ $article->user_created->name }}</td>
                                         <td>
-                                            @if($article->status == 'published')
+                                            @if($article->is_published == true)
                                                 <span class="badge bg-success">Publié</span>
                                             @else
                                                 <span class="badge bg-warning">Brouillon</span>
@@ -82,7 +82,7 @@
                                                         <i class="fa fa-times"></i>
                                                     </a>
                                                 @endif
-                                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-sm btn-warning" title="Modifier l'évènement">
+                                                <a href="{{ route('articles.edit', $article->id) }}" class="btn btn-sm btn-warning" title="Modifier l'article">
                                                     <i class="fa fa-edit"></i>
                                                 </a>
                                                 <a href="{{ route('articles.delete', $article->id) }}" class="btn btn-sm btn-delete btn-danger sweet-conf" data="Voulez vous supprimer cet article ?" title="Supprimer l'article">

@@ -36,7 +36,7 @@
                     <hr>
                     <div class="row g-4">
                         <div class="col-12">
-                            <form action="{{ route('articles.store') }}" method="POST" class="g-3 border p-4 rounded-2" enctype="multipart/form-data">
+                            <form action="{{ route('articles.store') }}" method="POST" class="g-3 border p-4 rounded-2" enctype="multipart/form-data" novalidate>
                                 @csrf
                                 <div class="row mb-3">
                                     <div class="col-9">
@@ -70,7 +70,7 @@
                                         </div>
                                         <div class="form-group mb-3">
                                             <label class="col-form-label" for="date_article">Date de publication <b><span class="me-1 mb-2 text-danger">*</span></b></label>
-                                            <input type="date" class="form-control @error('date_article') is-invalid @enderror" id="date_article" name="date_article" value="{{ old('date_article') }}" required>
+                                            <input type="date" class="form-control @error('date_article') is-invalid @enderror" id="date_article" name="date_article" value="{{ old('date_article') ?? date('Y-m-d') }}" required>
                                             @error('date_article')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
@@ -79,8 +79,8 @@
                                             <label class="col-form-label" for="status">Status <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                             <select class="custom-select @error('status') is-invalid @enderror" id="status" name="status" required>
                                                 <option value="">Choisir un status...</option>
-                                                <option value="published">Publié</option>
-                                                <option value="draft">Brouillon</option>
+                                                <option value="1" selected="selected">Publié</option>
+                                                <option value="0">Brouillon</option>
                                             </select>
                                             @error('status')
                                                 <div class="invalid-feedback">{{ $message }}</div>
@@ -203,24 +203,33 @@
 
             formData = new FormData();
             formData.append('file', blobInfo.blob(), blobInfo.filename());
+            formData.append('_token', '{{ csrf_token() }}');
 
             xhr.send(formData);
         };
+
+        var useDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
         tinymce.init({
             selector: '#contenu',
             language: 'fr_FR',
             branding: false,
-            plugins: 'print preview paste searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen link table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount textpattern noneditable charmap emoticons',
+            plugins: 'print preview paste searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media table charmap hr pagebreak nonbreaking anchor toc insertdatetime advlist lists wordcount imagetools textpattern noneditable charmap emoticons',
+            imagetools_cors_hosts: ['picsum.photos'],
             menubar: 'file edit view insert format tools table',
-            toolbar: 'restoredraft | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap emoticons | fullscreen  preview print | link',
+            toolbar: 'restoredraft | undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | charmap emoticons | fullscreen  preview print | insertfile image media link',
             toolbar_sticky: true,
+            image_advtab: false,
+            image_caption: true,
             verify_html: false,
             autosave_interval: '30s',
-            autosave_prefix: 'tinymce-annal-autosave-{path}{query}-{id}-',
+            autosave_prefix: 'tinymce-article-autosave-{path}{query}-{id}-',
             autosave_restore_when_empty: false,
             autosave_retention: '120m',
             toolbar_mode: 'sliding',
+            contextmenu: false,
+            skin: useDarkMode ? 'oxide-dark' : 'oxide',
+            content_css: useDarkMode ? 'dark' : 'default',
             contextmenu: false,
             content_style: 'body { font-family:Helvetica,Arial,sans-serif; font-size:14px }',
             relative_urls: false,

@@ -101,10 +101,10 @@ class BackendController extends Controller
 
         $fileName = 'article_img_' . uniqid() . '_' . $file->getClientOriginalName();
 
-        $directory = 'images/articles';
+        $path = $file->move(public_path('images/articles/content'), $fileName);
 
-        $path = $file->storeAs($directory, $fileName, 'public');
-
-        return response()->json(['location' => url("/storage/$path")]);
+        return response()->json([
+            'location' => '/images/articles/content/' . $fileName
+        ]);
     }
 }
