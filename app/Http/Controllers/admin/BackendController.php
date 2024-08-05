@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Models\admin\Valeur;
 use Illuminate\Http\Request;
+use App\Models\admin\Article;
 use App\Models\admin\Evenement;
 use App\Models\admin\Structure;
 use App\Http\Controllers\Controller;
@@ -25,9 +26,12 @@ class BackendController extends Controller
     {
         $evenements = Evenement::where('is_delete', FALSE)->count();
 
-        $evenements = $this->formatNumber($evenements);
+        $articles = Article::where('is_delete', FALSE)->count();
 
-        return view('backend.admin', compact('evenements'));
+        $evenements = $this->formatNumber($evenements);
+        $articles = $this->formatNumber($articles);
+
+        return view('backend.admin', compact('evenements', 'articles'));
 
     }
 

@@ -53,7 +53,7 @@
                 <div class="row">
                     <div class="col-12">
                         <h2 class="m-b-0"><i class="fa fa-file-text text-warning"></i></h2>
-                        <h3 class="">0</h3>
+                        <h3 class="">{{ $articles }}</h3>
                         <h6 class="card-subtitle">Articles</h6>
                     </div>
                 </div>
