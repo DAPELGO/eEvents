@@ -81,7 +81,10 @@ Route::get('admin/categories/{id}/delete', [CategorieController::class, 'delete'
 Route::resource('admin/categories', CategorieController::class);
 
 // ARTICLES
+Route::get('admin/articles/{id}/publish', [ArticleController::class, 'publish'])->name('articles.publish');
+Route::get('admin/articles/{id}/unpublish', [ArticleController::class, 'unpublish'])->name('articles.unpublish');
 Route::get('admin/articles/{id}/delete', [ArticleController::class, 'delete'])->name('articles.delete');
+Route::post('admin/article/upload_image', [BackendController::class, 'uploadEditorImage'])->name('article.upload_image');
 Route::resource('admin/articles', ArticleController::class);
 
 // DELETE

@@ -2,6 +2,7 @@
 
 namespace App\Models\admin;
 
+use App\Models\admin\Admin;
 use App\Models\admin\Categorie;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -16,8 +17,8 @@ class Article extends Model
         'id_categorie',
         'url_img',
         'date_article',
-        'description',
-        'status',
+        'content',
+        'is_published',
         'is_delete',
         'id_user_created',
         'id_user_modified',
@@ -27,6 +28,11 @@ class Article extends Model
     public function categorie()
     {
         return $this->belongsTo(Categorie::class, 'id_categorie');
+    }
+
+    public function user_created()
+    {
+        return $this->belongsTo(Admin::class, 'id_user_created');
     }
 
 }

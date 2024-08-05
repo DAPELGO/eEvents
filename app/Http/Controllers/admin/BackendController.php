@@ -90,4 +90,21 @@ class BackendController extends Controller
         $response['data'] = $array;
         return response()->json($response);
     }
+
+    public function uploadEditorImage(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|file'
+        ]);
+
+        $file = $request->file('file');
+
+        $fileName = 'article_img_' . uniqid() . '_' . $file->getClientOriginalName();
+
+        $directory = 'images/article_images';
+
+        $path = $file->storeAs($directory, $fileName, 'public');
+
+        return response()->json(['location' => url("/storage/$path")]);
+    }
 }

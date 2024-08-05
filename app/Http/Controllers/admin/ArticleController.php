@@ -4,7 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use Illuminate\Http\Request;
 use App\Models\admin\Article;
-use App\Models\user\Categorie;
+use App\Models\admin\Categorie;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -30,8 +30,8 @@ class ArticleController extends Controller
         }
 
         $articles = Article::where('is_delete', FALSE)
-                                ->select('id', 'titre', 'slug', 'id_categorie', 'url_img', 'date_article')
-                                ->with('categorie')
+                                ->select('id', 'titre', 'slug', 'id_categorie', 'date_article', 'is_published')
+                                ->with('categorie', 'user_created')
                                 ->get();
 
         return view('backend.articles.index', compact('articles'));
@@ -44,11 +44,16 @@ class ArticleController extends Controller
      */
     public function create()
     {
-        if (Auth::user()->can('articles.create')) {
-            $categories = Categorie::where('is_delete', 0)->get();
-            return view('backend.articles.create', compact('categories'));
+        if (!Auth::user()->can('articles.create')) {
+            flash()->addError("Vous n'avez pas l'autorisation d'accéder à cette page");
+            return redirect()->route('backend.home');
         }
-        return redirect(route('backend.home'));
+
+        $categories = Categorie::where('is_delete', FALSE)
+                                ->where('type_categories', 'articles')
+                                ->get();
+
+        return view('backend.articles.create', compact('categories'));
     }
 
     /**

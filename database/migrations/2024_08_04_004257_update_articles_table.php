@@ -11,7 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        //
+        Schema::table('articles', function (Blueprint $table) {
+            $table->text('titre')->change();
+            $table->text('slug')->change();
+            $table->dropColumn('description');
+            $table->longText('content')->nullable();
+            $table->boolean('is_published')->default(false);
+            $table->integer('id_user_created')->nullable()->default(NULL)->change();
+            $table->integer('id_user_modified')->nullable()->default(NULL)->change();
+            $table->integer('id_user_delete')->nullable()->default(NULL)->change();
+            $table->softDeletes();
+        });
     }
 
     /**
@@ -19,6 +29,16 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::table('articles', function (Blueprint $table) {
+            $table->string('titre')->change();
+            $table->string('slug')->change();
+            $table->text('description')->nullable();
+            $table->dropColumn('content');
+            $table->dropColumn('is_published');
+            $table->integer('id_user_created')->nullable()->default(0)->change();
+            $table->integer('id_user_modified')->nullable()->default(0)->change();
+            $table->integer('id_user_delete')->nullable()->default(0)->change();
+            $table->dropSoftDeletes();
+        });
     }
 };
