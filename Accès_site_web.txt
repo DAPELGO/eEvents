@@ -1,0 +1,12 @@
+Accès_site_web
+
+VPN
+username: Sitecorus
+Passe: Site@2420
+
+SSH
+Ip_Add : 192.168.1.75
+Username : site-web
+Passe: web@24
+
+sudo ssh

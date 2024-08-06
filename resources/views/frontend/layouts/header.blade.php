@@ -2,8 +2,8 @@
 <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container-fluid d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;" class="me-2"><a href="mailto:infos@corus.bf"> infos@corus.bf</span>
-        <i class="bi bi-phone"></i> <span style="font-size: 0.8rem;"><a href="tel:+22625335183">(+226) 25335183</a></span>
+        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;" class="me-2"><a href="mailto:secretariat.dg@insp.bf"> secretariat.dg@insp.bf</span>
+        <i class="bi bi-phone"></i> <span style="font-size: 0.8rem;"><a href="tel:+22601 90 58 58">(+226) 01 90 58 58</a></span>
         <a href="#" style="margin-left: 1rem; margin-right:0.5rem;">Prévention</a> |
         <a href="#" style="margin-left: 0.5rem;">Préparation et riposte aux urgences de santé publique</a>
       </div>
@@ -48,61 +48,62 @@
   <!-- ======= Header ======= -->
   <header id="header" class="fixed-top">
     <div class="container d-flex align-items-center">
-
-      <h1 class="logo me-auto"><a href="{{ route('frontend.welcome') }}"><img src="{{ asset('backend/assets/images/logocorus.png')}}" alt="LOGO CORUS"></a></h1>
-      <!-- Uncomment below if you prefer to use an image logo -->
-      <!-- <a href="index.html" class="logo me-auto"><img src="{{ asset('frontend/assets/images/logbackend/assets/images/logocorus.png') }}" alt="" class="img-fluid"></a>-->
-
-      <nav id="navbar" class="navbar order-last order-lg-0">
-        <ul>
-          <li class="text-uppercase"><a class="nav-link scrollto @yield('accueil')" href="{{ route('frontend.welcome') }}">Accueil</a></li>
-          <li class="dropdown"><a href="#"  class="@yield('urgence')"><span>Urgences Sanitaires</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-                <li><a href="{{ route('menu.urgence', 'evenement') }}">Evènements en cours </a></li>
-                <li><a href="{{ route('menu.urgence', 'reponse-cours') }}">Réponse sanitaire en cours </a></li>
-                <li><a href="{{ route('menu.urgence', 'reponse-realisee') }}">Réponse sanitaire réalisée </a></li>
-            </ul>
-          </li>
-          <li class="dropdown text-uppercase"><a href="#"  class="@yield('risque')"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Informations publiques</a></li>
-              <li><a href="#">Evaluation des risques </a></li>
-              <li><a href="#">Capacités opérationnelles (ressources pour la préparation et la réponse) </a></li>
-            </ul>
-          </li>
-          <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Formations disponibles</a></li>
-              <li><a href="#">Formations planifiées</a></li>
-              <li><a href="#">Formations réalisées</a></li>
-            </ul>
-          </li>
-          <li class="dropdown text-uppercase"><a href="#"  class="@yield('simulation')"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Exercice de simulations planifiées</a></li>
-              <li><a href="#">Exercices de simulations réalisés</a></li>
-            </ul>
-          </li>
-          <li class="dropdown text-uppercase"><a href="#" class="@yield('ressource')"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Evaluations et recherches opérationnelles</a></li>
-              <li><a href="#">Textes réglementaires</a></li>
-              <li><a href="#">Plans, procédures, directives</a></li>
-              <li><a href="#">Statistiques</a></li>
-              <li><a href="#">Médiathèques</a></li>
-            </ul>
-          </li>
-          <li class="dropdown text-uppercase"><a href="#" class="@yield('corus')"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="{{ route('corus.mission') }}">Mission</a></li>
-              <li><a href="{{ route('corus.vision') }}">Vision</a></li>
-              <li><a href="{{ route('corus.team') }}">Equipe et expertises</a></li>
-            </ul>
-          </li>
-          <li class="text-uppercase"><a class="nav-link scrollto" href="#contact">Actualités</a></li>
-        </ul>
-        <i class="bi bi-list mobile-nav-toggle"></i>
-      </nav><!-- .navbar -->
-
+        <div class="row">
+            <div class="col-lg-2">
+                <h1 class="logo me-auto"><a href="{{ route('frontend.welcome') }}"><img src="{{ asset('backend/assets/images/logocorus.png')}}" alt="LOGO CORUS"></a></h1>
+            </div>
+            <div class="col-lg-9">
+                <nav id="navbar" class="navbar order-last order-lg-0">
+                    <ul>
+                      <li class="text-uppercase" style="padding-left: 30px;"><a class="nav-link scrollto @yield('accueil')" href="{{ route('frontend.welcome') }}">Accueil</a></li>
+                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('urgence')"><span>Urgences Sanitaires</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                            <li><a href="{{ route('menu.urgence', 'evenement') }}" class="@yield('evenement')">Evènements en cours </a></li>
+                            <li><a href="{{ route('menu.urgence', 'reponse-cours') }}" class="@yield('reponse-cours')">Réponse sanitaire en cours </a></li>
+                            <li><a href="{{ route('menu.urgence', 'reponse-realisee') }}" class="@yield('reponse-realisee')">Réponse sanitaire réalisée </a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('risque')"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                          <li><a href="{{ route('menu.risque', 'information') }}" class="@yield('information')">Informations publiques</a></li>
+                          <li><a href="{{ route('menu.risque', 'evaluation') }}" class="@yield('evaluation')">Evaluation des risques </a></li>
+                          <li><a href="{{ route('menu.risque', 'capacite') }}" class="@yield('capacite')">Capacités opérationnelles (ressources pour la préparation et la réponse) </a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                          <li><a href="{{ route('menu.formation', 'formation-disponible') }}" class="@yield('formation-disponible')">Formations disponibles</a></li>
+                          <li><a href="{{ route('menu.formation', 'formation-planifiee') }}" class="@yield('formation-planifiee')">Formations planifiées</a></li>
+                          <li><a href="{{ route('menu.formation', 'formation-realisee') }}" class="@yield('formation-realisee')">Formations réalisées</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('simulation')"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                          <li><a href="{{ route('menu.simulation', 'exercice-planifie') }}" class="@yield('exercice-planifie')">Exercice de simulations planifiées</a></li>
+                          <li><a href="{{ route('menu.simulation', 'exercice-realise') }}" class="@yield('exercice-realise')">Exercices de simulations réalisés</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown text-uppercase"><a href="#" class="@yield('ressource')"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                          <li><a href="{{ route('menu.ressource', 'evaluation') }}" class="@yield('evaluation')">Evaluations et recherches opérationnelles</a></li>
+                          <li><a href="{{ route('menu.ressource', 'texte') }}" class="@yield('texte')">Textes réglementaires</a></li>
+                          <li><a href="{{ route('menu.ressource', 'plan') }}" class="@yield('plan')">Plans, procédures, directives</a></li>
+                          <li><a href="{{ route('menu.ressource', 'statistique') }}" class="@yield('statistique')">Statistiques</a></li>
+                          <li><a href="{{ route('menu.ressource', 'mediatheque') }}" class="@yield('mediatheque')">Médiathèques</a></li>
+                        </ul>
+                      </li>
+                      <li class="dropdown text-uppercase"><a href="#" class="@yield('corus')"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
+                        <ul>
+                          <li><a href="{{ route('menu.corus', 'mission') }}" class="@yield('mission')">Mission</a></li>
+                          <li><a href="{{ route('menu.corus', 'vision') }}" class="@yield('vision')">Vision</a></li>
+                          <li><a href="{{ route('menu.corus', 'team') }}" class="@yield('team')">Equipe et expertises</a></li>
+                        </ul>
+                      </li>
+                      <li class="text-uppercase"><a class="nav-link scrollto @yield('actualite')" href="#contact">Actualités</a></li>
+                    </ul>
+                    <i class="bi bi-list mobile-nav-toggle"></i>
+                  </nav><!-- .navbar -->
+            </div>
+        </div>
     </div>
   </header><!-- End Header -->

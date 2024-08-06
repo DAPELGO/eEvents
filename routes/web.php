@@ -102,10 +102,12 @@ Route::get("callback/{provider}", "user\SocialiteController@callback")->name('so
 Route::get('/email/verify', 'user\FrontendLogController@verif')->name('user.verification');
 
 // MENU
-Route::get('corus/mission', [FrontendController::class, 'mission'])->name('corus.mission');
-Route::get('corus/vision', [FrontendController::class, 'vision'])->name('corus.vision');
-Route::get('corus/team', [FrontendController::class, 'team'])->name('corus.team');
 Route::get('urgence/{submenu}', [FrontendController::class, 'urgence'])->name('menu.urgence');
+Route::get('risque/{submenu}', [FrontendController::class, 'risque'])->name('menu.risque');
+Route::get('formation/{submenu}', [FrontendController::class, 'formation'])->name('menu.formation');
+Route::get('simulation/{submenu}', [FrontendController::class, 'simulation'])->name('menu.simulation');
+Route::get('ressource/{submenu}', [FrontendController::class, 'ressource'])->name('menu.ressource');
+Route::get('corus/{submenu}', [FrontendController::class, 'corus'])->name('menu.corus');
 
 
 Auth::routes();

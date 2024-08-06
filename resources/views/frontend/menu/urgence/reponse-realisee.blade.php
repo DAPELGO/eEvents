@@ -1,6 +1,7 @@
 @extends('frontend.layouts.layouts')
-@section('content')
+@section('reponse-realisee', 'actived')
 @section('urgence', 'active')
+@section('content')
 <section id="mission" style="padding-top: 120px; padding-bottom: 0;">
     <div class="container">
         <div class="row">

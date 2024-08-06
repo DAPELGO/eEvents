@@ -1,10 +1,11 @@
 @extends('frontend.layouts.layouts')
-@section('content')
+@section('evenement', 'actived')
 @section('urgence', 'active')
-<section id="mission" style="padding-top: 120px; padding-bottom: 0;">
+@section('content')
+<section id="events" class="doctors" style="padding-top: 120px; padding-bottom: 0;">
     <div class="container">
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2" style="background: #f2f2f2;">
                 <div class="sub-title">Autres menus</div>
                 <div class="menu">
                     <ul>
@@ -39,13 +40,45 @@
                     </p>
                 </div>
             </div>
-            <div class="col-lg-7 mission" style="background: #f2f2f2; padding: 1rem;">
-                <h2 class="title">LES EVENEMENTS EN COURS</h2>
-                <p>En construction ...</p>
-            </div>
-            <div class="col-lg-3" style="padding-top: 0.5rem;">
-                <div class="title">La vision</div>
-                <p style="font-size: 13px; line-height: 18px; color: #333; margin-bottom: 10px;"> Assurer le leadership dans la préparation collective, la coordination et la gestion des opérations liées aux risques et urgences sanitaires au Burkina Faso à l’horizon 2023</p>
+            <div class="col-lg-10 mission pb-2">
+                <h2 class="title" style="text-align: center;">LES EVENEMENTS EN COURS</h2>
+                <hr>
+                <div class="row">
+                    <div class="col-lg-4"><img src="{{ asset('frontend/assets/img/marigot.jpg') }}" class="img-fluid" alt=""></div>
+                    <div class="col-lg-8">
+                        <h4><a href="#">Marigot Houet : Plus de 200 poissons sacrés  meurent dans les eaux</a></h4>
+                        <p>Plus de 200 poissons notamment les silures sacrés  sont morts dans les eaux du marigot  Houet  à la hauteur du pont à coté du musée communal.
+                            Les poissons morts ont été découverts entre le 24 et le 25 février 2023 dans des eaux noirâtres, laissant supposer une pollution.
+                            Cette pollution du marigot Houet, cause de la mort des silures, serait due,  selon une source communale, aux eaux sales ...</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-4"><img src="{{ asset('frontend/assets/img/marigot.jpg') }}" class="img-fluid" alt=""></div>
+                    <div class="col-lg-8">
+                        <h4><a href="#">Marigot Houet : Plus de 200 poissons sacrés  meurent dans les eaux</a></h4>
+                        <p>Plus de 200 poissons notamment les silures sacrés  sont morts dans les eaux du marigot  Houet  à la hauteur du pont à coté du musée communal.
+                            Les poissons morts ont été découverts entre le 24 et le 25 février 2023 dans des eaux noirâtres, laissant supposer une pollution.
+                            Cette pollution du marigot Houet, cause de la mort des silures, serait due,  selon une source communale, aux eaux sales ...</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-4"><img src="{{ asset('frontend/assets/img/marigot.jpg') }}" class="img-fluid" alt=""></div>
+                    <div class="col-lg-8">
+                        <h4><a href="#">Marigot Houet : Plus de 200 poissons sacrés  meurent dans les eaux</a></h4>
+                        <p>Plus de 200 poissons notamment les silures sacrés  sont morts dans les eaux du marigot  Houet  à la hauteur du pont à coté du musée communal.
+                            Les poissons morts ont été découverts entre le 24 et le 25 février 2023 dans des eaux noirâtres, laissant supposer une pollution.
+                            Cette pollution du marigot Houet, cause de la mort des silures, serait due,  selon une source communale, aux eaux sales ...</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-lg-4"><img src="{{ asset('frontend/assets/img/criquet.jpg') }}" class="img-fluid" alt=""></div>
+                    <div class="col-lg-8">
+                        <h4><a href="#">Marigot Houet : Plus de 200 poissons sacrés  meurent dans les eaux</a></h4>
+                        <p>Plus de 200 poissons notamment les silures sacrés  sont morts dans les eaux du marigot  Houet  à la hauteur du pont à coté du musée communal.
+                            Les poissons morts ont été découverts entre le 24 et le 25 février 2023 dans des eaux noirâtres, laissant supposer une pollution.
+                            Cette pollution du marigot Houet, cause de la mort des silures, serait due,  selon une source communale, aux eaux sales ...</p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

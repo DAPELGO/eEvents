@@ -199,7 +199,7 @@
         <div class="container">
 
           <div class="section-title">
-            <h2>Actualités</h2>
+            <h2>L'Actualité du Centre</h2>
           </div>
 
           <div class="row">
@@ -267,32 +267,32 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>Partenaires</h2>
+          <h2 class="text-uppercase">Les Partenaires du CORUS</h2>
         </div>
 
         <div class="row">
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/burkina.webp') }}" alt="MSHP"></div>
               <h4><a href="https://sante.bf" target="_blank">MINISTERE DE LA SANTE ET DE L'HYGIENE PUBLIQUE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/insp.png') }}" alt="INSP"></div>
               <h4><a href="https://insp.bf/" target="_blank">INSTITUT NATIONAL DE SANTE PUBLIQUE du BURKINA FASO</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/bm.png') }}" alt="BM"></div>
               <h4><a href="https://www.banquemondiale.org/fr/home" target="_blank">BANQUE MONDIALE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/logo_anptic_ok.png') }}" alt="ANPTIC"></div>
               <h4><a href="" target="_blank">AGENCE NATIONALE DE PROMOTION DES TIC</a></h4>
@@ -397,31 +397,27 @@
 
           <div class="section-title">
             <h2>Contacter le CORUS</h2>
-            <p>Envoyer un message àl'équipe de CORUS</p>
+            <p>Envoyer un message à l'équipe de CORUS</p>
           </div>
         </div>
-        <div>
-          <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-        </div>
         <div class="container">
-          <div class="row mt-5">
-
+          <div class="row">
             <div class="col-lg-4">
               <div class="info">
                 <div class="address">
                   <i class="bi bi-geo-alt"></i>
                   <h4>Localisation:</h4>
-                  <p>A108 Trypano, Ouagadougou</p>
+                  <p>BP 10 278 Ouagadougou Zogona</p>
                 </div>
                 <div class="email">
                   <i class="bi bi-envelope"></i>
                   <h4>Email:</h4>
-                  <p>info@corus.bf</p>
+                  <p>secretariat.dg@insp.bf</p>
                 </div>
                 <div class="phone">
                   <i class="bi bi-phone"></i>
                   <h4>Téléphone:</h4>
-                  <p>+226 06002255</p>
+                  <p>+226 01 90 58 58</p>
                 </div>
                 <div class="phone">
                     <i class="bi bi-phone-vibrate"></i>
