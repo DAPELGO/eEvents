@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\admin;
 
 use Exception;
+use Illuminate\Http\Request;
 use App\Models\admin\Parametre;
 use App\Models\admin\Structure;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class ParametreController extends Controller

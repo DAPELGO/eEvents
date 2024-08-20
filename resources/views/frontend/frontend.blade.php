@@ -134,7 +134,7 @@
                         <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                       </div>
 
-                      <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                      <form action="#" method="post" role="form" class="php-email-form">
                         <div class="row">
                           <div class="col-md-4 form-group">
                             <input type="text" name="name" class="form-control" id="name" placeholder="Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
@@ -151,39 +151,39 @@
                         </div>
                         <div class="row">
                           <div class="col-md-4 form-group mt-3">
-                            <input type="date" name="date" class="form-control datepicker" id="date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                            <input type="date" name="date_event" class="form-control datepicker" id="date_event" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
-                            <select name="department" id="department" class="form-select">
+                            <select name="department" id="id_categorie" name="id_categorie" class="form-select">
                               <option value="">Catégorie</option>
-                              <option value="Department 1">Department 1</option>
-                              <option value="Department 2">Department 2</option>
-                              <option value="Department 3">Department 3</option>
+                              <option value="1">Department 1</option>
+                              <option value="2">Department 2</option>
+                              <option value="3">Department 3</option>
                             </select>
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
-                            <select name="doctor" id="doctor" class="form-select">
+                            <select name="id_localite" id="id_localite" class="form-select">
                               <option value="">Localité</option>
-                              <option value="Doctor 1">Doctor 1</option>
-                              <option value="Doctor 2">Doctor 2</option>
-                              <option value="Doctor 3">Doctor 3</option>
+                              <option value="1">Doctor 1</option>
+                              <option value="2">Doctor 2</option>
+                              <option value="3">Doctor 3</option>
                             </select>
                             <div class="validate"></div>
                           </div>
                         </div>
 
                         <div class="form-group mt-3">
-                          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+                          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)" id="message"></textarea>
                           <div class="validate"></div>
                         </div>
                         <div class="mb-3">
-                          <div class="loading">Loading</div>
-                          <div class="error-message"></div>
-                          <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+                          <div class="loading" id="loading">Loading</div>
+                          <div class="error-message" id="error-message"></div>
+                          <div class="sent-message" id="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                         </div>
-                        <div class="text-center"><button type="submit">ENvoyer</button></div>
+                        <div class="text-center"><button type="button" id="btn-event">Envoyer</button></div>
                       </form>
                 </div>
                 <div class="col-lg-6 text-center pt-5">

@@ -2,11 +2,16 @@
 
 namespace App\Http\Controllers\user;
 
+use Exception;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\user\User;
 use App\Models\admin\Article;
+use App\Models\admin\Evenement;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class FrontendController extends Controller
 {
@@ -161,6 +166,30 @@ class FrontendController extends Controller
             return view('frontend.menu.corus.team');
                 break;
         }
+
+    }
+
+    // EVENT DECLARE
+    public function declarer(Request $request)
+    {
+        try {
+            Evenement::create([
+                'id_categorie'=>$request->id_categorie,
+                'id_structure'=>$request->id_structure,
+                'libelle'=>$request->name,
+                'url_img'=>'',
+                'date_event'=>$request->date_event,
+                'slug'=>$request->slug($request->date_event, '-'),
+                'description'=>$request->message,
+                'id_user_created'=>Auth::user()->id,
+            ]);
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de l\'enregistrement de l\'évènemennt: '.$e->getMessage());
+            flash()->addError('Erreur lors de l\'enregistrement d\'évènement.');
+            return redirect()->back();
+        }
+
+        flash()->addSuccess('Evènement enregistré avec succès');
 
     }
 }

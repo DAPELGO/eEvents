@@ -4,6 +4,7 @@ namespace App\Models\admin;
 
 use App\Models\admin\Admin;
 use App\Models\admin\Valeur;
+use App\Models\admin\Evenement;
 use Illuminate\Support\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -13,7 +14,6 @@ class Structure extends Model
     use HasFactory;
 
     protected $fillable = [
-        'id_localite',
         'parent_id',
         'code_structure',
         'nom_structure',
@@ -21,6 +21,7 @@ class Structure extends Model
         'id_type_structure',
         'is_public_structure',
         'slug',
+        'type_structure',
         'is_delete',
         'id_user_created',
         'id_user_modified',
@@ -67,5 +68,10 @@ class Structure extends Model
     public function type_structure()
     {
         return $this->belongsTo(Valeur::class, 'id_type_structure', 'id');
+    }
+
+    public function evenements()
+    {
+        return $this->hasMany(Evenement::class, 'id_structure');
     }
 }

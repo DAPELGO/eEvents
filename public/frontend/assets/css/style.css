@@ -1077,6 +1077,19 @@ section {
   background: #c55a15;
 }
 
+.appointment .php-email-form button[type=button] {
+    background: #c55a15;
+    border: 0;
+    padding: 10px 35px;
+    color: #fff;
+    transition: 0.4s;
+    border-radius: 50px;
+  }
+
+  .appointment .php-email-form button[type=button]:hover {
+    background: #c55a15;
+  }
+
 /*--------------------------------------------------------------
 # Departments
 --------------------------------------------------------------*/

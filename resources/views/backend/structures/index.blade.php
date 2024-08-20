@@ -1,57 +1,150 @@
-@extends('layouts.template')
-@section('css')
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/css/sweetalert2.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('assets/DataTables/datatables.css')}}">
-@endsection
+@extends('backend.layouts.layouts')
 @section('structure', 'active')
+@section('title', 'Structures')
 @section('content')
-<div class="mb-4 mt-1">
-    <h4 style="padding: 0.4rem 0 0.4rem 1rem; background-color: #004ebc; color: white !important; font-size: 0.8rem;">STRUCTURES</h4>
-</div>
-  <div id="categories">
-    <div class="row align-items-center justify-content-between g-3 mb-4">
-      <div class="col col-auto">
-      </div>
-      <div class="col-auto">
-        @can('data.create', Auth::user())
-            <div class="d-flex align-items-center">
-                <a href="{{ route('structures.create') }}" class="btn btn-outline-primary btn-sm me-2" style="font-weight: 600;"><span class="fas fa-plus me-2"></span>Ajouter une structure</a>
-                {{-- <a href="#" class="btn btn-outline-primary btn-sm me-2" style="font-weight: 600;"><span class="fas fa-file-excel me-2"></span>import Excel</a> --}}
-                {{-- <a href="#" class="btn btn-outline-primary btn-sm" style="font-weight: 600;"><span class="fas fa-sync me-2"></span>Synchro. MFL</a> --}}
-            </div>
-        @endcan
-      </div>
+<!-- ============================================================== -->
+    <!-- Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <div class="row page-titles">
+        <div class="col-md-5 align-self-center">
+            <h3 class="text-themecolor">Structures</h3>
+        </div>
+        <div class="col-md-7 align-self-center">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Accueil</a></li>
+                <li class="breadcrumb-item">Structures</li>
+                <li class="breadcrumb-item active">Liste</li>
+            </ol>
+        </div>
     </div>
-    <table class="table w-100" style="font-size: .72rem;" id="dataTableFis-structures">
-        <thead>
-            <tr>
-                <th style="min-width:10px; color: #004ebc;">ID</th>
-                <th style="color: #004ebc;">NOM</th>
-                <th style="color: #004ebc;">NIVEAU</th>
-                <th style="color: #004ebc;">TYPE</th>
-                <th style="color: #004ebc;">NATURE</th>
-                <th style="color: #004ebc;">PARENT</th>
-                <th style="color: #004ebc;">CODE STRUCTURE</th>
-                <th style="color: #004ebc;">ACTIONS</th>
-            </tr>
-        </thead>
-        <tbody class="align-middle fw-bold text-td">
-        </tbody>
-    </table>
-  </div>
+    <!-- ============================================================== -->
+    <!-- End Bread crumb and right sidebar toggle -->
+    <!-- ============================================================== -->
+    <!-- ============================================================== -->
+    <!-- Container fluid  -->
+    <!-- ============================================================== -->
+    <div class="container-fluid">
+        <!-- ============================================================== -->
+        <!-- Start Page Content -->
+        <!-- ============================================================== -->
+        <div class="row">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="card-header">
+                            <div class="row m-b-10">
+                                <div class="col-6">
+                                    <h4 class="card-title">Les structures</h4>
+                                    <h6 class="card-subtitle">Liste des structures</h6>
+                                </div>
+                                <div class="col-6 d-flex align-items-center justify-content-end">
+                                    @can('structures.create', Auth::user())
+                                        <a href="{{ route('structures.create') }}" class="btn btn-primary"><i class="fa fa-plus"></i> Ajouter une structure</a>
+                                    @endcan
+                                </div>
+                            </div>
+                        </div>
+                        <div class="table-responsive m-t-0">
+                            <table id="dt" class="display nowrap table table-hover table-striped table-bordered" cellspacing="0" width="100%">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Nom</th>
+                                        <th>Niveau</th>
+                                        <th>Type</th>
+                                        <th>Nature</th>
+                                        <th>Parent</th>
+                                        <th>Code structure</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- ============================================================== -->
+        <!-- End PAge Content -->
+        <!-- ============================================================== -->
+    </div>
+    <!-- ============================================================== -->
+    <!-- End Container fluid  -->
+    <!-- ============================================================== -->
+    <!-- Modal de détail de structure -->
+    <div class="modal fade" id="viewStructureModal" tabindex="-1" role="dialog" aria-labelledby="viewStructureModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-scrollable">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="viewEventModalLabel">Détails de la structure</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <td>Nom</td>
+                                <td id="structureNom"></td>
+                            </tr>
+                            <tr>
+                                <td>Slug</td>
+                                <td id="structureSlug"></td>
+                            </tr>
+                            <tr>
+                                <td>Niveau</td>
+                                <td id="structureNiveau"></td>
+                            </tr>
+                            <tr>
+                                <td>Type</td>
+                                <td id="structureType"></td>
+                            </tr>
+                            <tr>
+                                <td>Nature</td>
+                                <td id="structureNature"></td>
+                            </tr>
+                            <tr>
+                                <td>Parent</td>
+                                <td id="structureParent"></td>
+                            </tr>
+                            <tr>
+                                <td>Code structure</td>
+                                <td id="structureCode"></td>
+                            </tr>
+                            <tr>
+                                <td>Créé le</td>
+                                <td id="structureCreatedAt"></td>
+                            </tr>
+                            <tr>
+                                <td>Modifié le</td>
+                                <td id="structureUpdatedAt"></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('script')
-    <script src="{{ asset('assets/js/sweet-alert/sweetalert.min.js') }}"></script>
-    <script src="{{ asset('assets/js/sweet-alert/app.js') }}"></script>
-    <script src="{{asset('assets/DataTables/datatables.js')}}"></script>
-    <script src="{{ asset('assets/DataTables/plugins/filtering/type-based/diacritics-neutralise.js') }}"></script>
   <script>
     $(document).ready(function() {
-        $('[id^="dataTableFis-"]').DataTable({
+        $('[id^="dt"]').DataTable({
             retrieve: true,
             serverSide: true,
+            searching: false,
             ajax: {
                 "url": "{{ route('structures.list') }}",
+                "type": "POST",
+                "data": {
+                    "_token": "{{ csrf_token() }}"
+                },
                 "error": function (xhr, error, code) {
                     if(xhr.status === 403 || xhr.status === 401){
                         window.location.href = "{{ route('login') }}";
@@ -70,7 +163,7 @@
                 }
             },
             searchBuilder: {
-                columns: [1,3,4,5,6],
+                columns: [1,2,3,4,5,6],
                 depthLimit: 1,
                 conditions:{
                     string: {
@@ -184,8 +277,8 @@
                 "paginate": {
                     "first":      "Début",
                     "last":       "Fin",
-                    "next":       "<i class='fas fa-angles-right'></i>",
-                    "previous":   "<i class='fas fa-angles-left'></i>"
+                    "next":       "<i class='fa fa-angle-right'></i>",
+                    "previous":   "<i class='fa fa-angle-left'></i>"
                 },
                 "aria": {
                     "sortAscending":  ": Cliquez pour activer le tri ascendant",
@@ -194,9 +287,8 @@
             }
         });
     });
-  </script>
-  <script>
-    $('[id^="dataTableFis-"] tbody').on('click', '.btn-delete', function(e) {
+
+    $('[id^="dt"] tbody').on('click', '.btn-delete', function(e) {
         e.preventDefault();
         swal({
             title: 'Attention !',
@@ -213,5 +305,42 @@
             }
         });
     });
-</script>
+
+    function viewStructure(id) {
+        $.ajax({
+            url: "{{ route('structures.show', ':id') }}".replace(':id', id),
+            type: 'GET',
+            success: function(response) {
+                console.log(response);
+                if(response.success === false) {
+                    swal({
+                        title: 'Attention !',
+                        text: response.message,
+                        icon: 'error',
+                        button: 'Fermer'
+                    });
+                    return;
+                }
+                $('#structureNom').text(response.data.nom_structure);
+                $('#structureSlug').text(response.data.slug);
+                $('#structureNiveau').text(response.data.niveau_structure ? response.data.niveau_structure.libelle : '---');
+                $('#structureType').text(response.data.type_structure ? response.data.type_structure.libelle : '---');
+                $('#structureNature').text(response.data.is_type_structure === 1 ? 'Public' : 'Privé');
+                $('#structureParent').text(response.data.parent ? response.data.parent.nom_structure : '---');
+                $('#structureCode').text(response.data.code_structure);
+                $('#structureCreatedAt').text(new Date(response.data.created_at).toLocaleString('fr-FR'));
+                $('#structureUpdatedAt').text(new Date(response.data.updated_at).toLocaleString('fr-FR'));
+                $('#viewStructureModal').modal('show');
+            },
+            error: function() {
+                swal({
+                    title: 'Attention !',
+                    text: 'Une erreur est survenue lors de la récupération des données',
+                    icon: 'error',
+                    button: 'Fermer'
+                });
+            }
+        });
+    }
+  </script>
 @endsection

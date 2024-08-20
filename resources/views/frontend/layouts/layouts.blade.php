@@ -86,6 +86,36 @@
                         }
             });
         });
+
+        // FORM EVENT
+        $("#btn-event").click(function(){
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
+            document.g
+            event.preventDefault();
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var date_event = $("#date_event").val();
+            var id_categorie = $("#id_categorie").val();
+            var id_localite = $("#id_localite").val();
+            var message = $("#message").val();
+            $.ajax({
+                url: "{{ route('alert.declare') }}",
+                type: 'post',
+                data: {"_token": "{{ csrf_token() }}",
+                name:name, email:email, phone:phone, date_event:date_event, id_categorie:id_categorie, id_localite:id_localite, message:message
+            },
+                error:function(data){
+                    alert("ERROR");
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('loading').style.display = 'none';
+                },
+                success: function(data) {
+                    document.location.href = "{{ route('frontend.welcome') }}";
+                        }
+            });
+        });
     });
   </script>
 

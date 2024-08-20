@@ -4,11 +4,13 @@ namespace App\Http\Controllers\admin;
 
 use Exception;
 use DataTables;
+use Illuminate\Support\Str;
 use App\Models\admin\Valeur;
-use App\Models\admin\Structure;
 use Illuminate\Http\Request;
+use App\Models\admin\Structure;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class StructureController extends Controller
@@ -83,7 +85,7 @@ class StructureController extends Controller
                         elseif($origData == 'parent'){
                             $origData = 'parent.nom_structure';
                         }
-                        elseif($origData == 'code'){
+                        elseif($origData == 'code_structure'){
                             $origData = 'structures.code_structure';
                         }
 
@@ -120,32 +122,21 @@ class StructureController extends Controller
 
                 $filteredRecords = $totalRecords = $structures->count();
 
-                if($request->has('search') && !empty($request->input('search')['value'])){
-                    $searchValue = $request->input('search.value');
-                    $structures = $structures->filter(function($structure) use ($searchValue){
-                        return stripos($structure->nom_structure, $searchValue) !== false ||
-                                stripos($structure->niveau, $searchValue) !== false ||
-                                stripos($structure->type, $searchValue) !== false ||
-                                stripos($structure->nature, $searchValue) !== false ||
-                                stripos($structure->parent, $searchValue) !== false ||
-                                stripos($structure->code_structure, $searchValue) !== false;
-                    });
-
-                    $filteredRecords = $structures->count();
-                }
-
                 $structures = $structures->skip($request->input('start'))->take($request->input('length'))->values();
 
                 $structures->transform(function($structure, $key){
-                    $structure->nature = $structure->nature ? '<span class="badge bg-primary">Public</span>' : '<span class="badge bg-secondary">Privé</span>';
+                    $structure->nature = $structure->nature ? '<span class="badge bg-primary text-white">Public</span>' : '<span class="badge bg-secondary text-white">Privé</span>';
                     $structure->parent = $structure->parent ? $structure->parent : '---';
-                    if(Auth::user()->can('structures.update') || Auth::user()->can('structures.delete')){
+                    if(Auth::user()->can('structures.view') || Auth::user()->can('structures.update') || Auth::user()->can('structures.delete')){
                         $structure->actions = '<div class="btn-group">';
+                            if(Auth::user()->can('structures.view')){
+                                $structure->actions .= '<a href="#" class="btn btn-sm btn-info" title="Voir les détails de la structure" onclick="viewStructure('.$structure->id.')"><i class="fa fa-eye"></i></a>';
+                            }
                             if(Auth::user()->can('structures.update')){
-                                $structure->actions .= '<a href="'.route('structures.edit', $structure->id).'" class="btn btn-primary btn-sm" title="Modifier la structure"><i class="fas fa-edit"></i></a>';
+                                $structure->actions .= '<a href="'.route('structures.edit', $structure->id).'" class="btn btn-primary btn-sm" title="Modifier la structure"><i class="fa fa-edit"></i></a>';
                             }
                             if(Auth::user()->can('structures.delete')){
-                                $structure->actions .= '<a class="btn btn-sm btn-delete btn-danger" title="Supprimer la structure" href="'.route('structures.delete', $structure->id).'"><i class="fas fa-trash"></i></a>';
+                                $structure->actions .= '<a class="btn btn-sm btn-delete btn-danger" title="Supprimer la structure" href="'.route('structures.delete', $structure->id).'"><i class="fa fa-trash"></i></a>';
                             }
                         $structure->actions .= '</div>';
                     }
@@ -179,7 +170,7 @@ class StructureController extends Controller
     public function create()
     {
         if(Auth::user()->can('structures.create')){
-            $valeurs_niveau_structures = Valeur::where(['id_parametre'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
+            $valeurs_niveau_structures = Valeur::where(['id_param'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
             $valeurs_structures_non_fs = Structure::where([
                 'is_delete'=>FALSE
             ])
@@ -212,26 +203,26 @@ class StructureController extends Controller
             $valeurs_niveau_fs = Valeur::where(['id' => $request->id_valeur_niveaustructure, 'is_delete'=>FALSE])->first();
 
             if((in_array($valeurs_niveau_fs->libelle, $array_valeurs_niveau_fs))  && !$request->parent_id){
-                toastr()->error('Vous devez selectionner une structure parente pour un(e) '.strtolower($valeurs_niveau_fs->libelle));
+                flash()->addError('Vous devez selectionner une structure parente pour un(e) '.strtolower($valeurs_niveau_fs->libelle));
                 return redirect()->back();
             }
 
             if($valeurs_niveau_fs->libelle == env('FS') && !$request->id_valeur_typestructure){
-                toastr()->error('Vous devez selectionner un type de structure pour une formation sanitaire');
+                flash()->addError('Vous devez selectionner un type de structure pour une formation sanitaire');
                 return redirect()->back();
             }
 
             $structure = Structure::where(['nom_structure'=>$request->nom_structure, 'id_niveau_structure'=>$request->id_valeur_niveaustructure])->first();
 
             if($structure && $structure->is_delete == FALSE){
-                toastr()->error('Une structure avec le meme nom et le meme niveau existe deja');
+                flash()->addError('Une structure avec le meme nom et le meme niveau existe deja');
                 return redirect()->back();
             }
 
             if($structure && $structure->is_delete == TRUE){
                 $structure->is_delete = FALSE;
                 $structure->save();
-                toastr()->success('Structure enregistrée avec succès');
+                flash()->addSuccess('Structure enregistrée avec succès');
                 return redirect()->route('structures.index');
             }
 
@@ -246,6 +237,7 @@ class StructureController extends Controller
                 $structure = Structure::create([
                     'parent_id'=>$request->parent_id ? $request->parent_id : NULL,
                     'nom_structure'=>$request->nom_structure,
+                    'slug'=>Str::slug($request->nom_structure, '_'),
                     'id_niveau_structure'=>$request->id_valeur_niveaustructure,
                     'id_type_structure'=>$request->id_valeur_typestructure ? $request->id_valeur_typestructure : NULL,
                     'code_structure'=>$request->code_structure ? $request->code_structure : NULL,
@@ -256,11 +248,11 @@ class StructureController extends Controller
             }
             catch(Exception $e){
                 Log::error('Erreur lors de l\'enregistrement de la structure: '.$e->getMessage());
-                toastr()->error('Erreur lors de l\'enregistrement de la structure.');
+                flash()->addError('Erreur lors de l\'enregistrement de la structure.');
                 return redirect()->back();
             }
 
-            toastr()->success('Structure enregistrée avec succès');
+            flash()->addSuccess('Structure enregistrée avec succès');
             return redirect()->route('structures.index');
         }
 
@@ -275,7 +267,25 @@ class StructureController extends Controller
      */
     public function show($id)
     {
-        return redirect()->route('structures.index');
+        if(Auth::user()->can('structures.view')){
+            $structure = Structure::where('id', $id)
+                                    ->with('niveau_structure', 'type_structure', 'parent')
+                                    ->first();
+
+            if(!$structure){
+                return response()->json([
+                    'success' => false,
+                    'message' => 'Cette structure n\'existe pas'
+                ], 404);
+            }
+
+            return response()->json([
+                'success' => true,
+                'data' => $structure
+            ], 200);
+        }
+
+        return redirect()->route('backend.home');
     }
 
     /**
@@ -289,11 +299,11 @@ class StructureController extends Controller
         if(Auth::user()->can('structures.update')){
             $structure = Structure::find($id);
             if(!$structure){
-                toastr()->error('Structure non trouvée');
+                flash()->addError('Structure non trouvée');
                 return redirect()->route('structures.index');
             }
-            $valeurs_niveau_structures = Valeur::where(['id_parametre'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
-            $valeurs_type_structures = Valeur::where(['id_parametre'=>env('PARAM_TYPE_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
+            $valeurs_niveau_structures = Valeur::where(['id_param'=>env('PARAM_NIVEAU_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
+            $valeurs_type_structures = Valeur::where(['id_param'=>env('PARAM_TYPE_STRUCTURE'), 'is_delete'=>FALSE])->orderBy('libelle', 'ASC')->get();
 
             $valeurs_structures_non_fs = Structure::where([
                 'is_delete'=>FALSE
@@ -328,12 +338,12 @@ class StructureController extends Controller
             $valeurs_niveau_fs = Valeur::where(['id' => $request->id_valeur_niveaustructure, 'is_delete'=>FALSE])->first();
 
             if((in_array($valeurs_niveau_fs->libelle, $array_valeurs_niveau_fs))  && !$request->parent_id){
-                toastr()->error('Vous devez selectionner une structure parente pour un(e) '.strtolower($valeurs_niveau_fs->libelle));
+                flash()->addError('Vous devez selectionner une structure parente pour un(e) '.strtolower($valeurs_niveau_fs->libelle));
                 return redirect()->back();
             }
 
             if($valeurs_niveau_fs->libelle == env('FS') && !$request->id_valeur_typestructure){
-                toastr()->error('Vous devez selectionner un type de structure pour une formation sanitaire');
+                flash()->addError('Vous devez selectionner un type de structure pour une formation sanitaire');
                 return redirect()->back();
             }
 
@@ -341,7 +351,7 @@ class StructureController extends Controller
                                     ->where('id', '!=', $id)->first();
 
             if($verif_structure){
-                toastr()->error('Une structure avec le meme nom et le meme niveau existe deja');
+                flash()->addError('Une structure avec le meme nom et le meme niveau existe deja');
                 return redirect()->back();
             }
 
@@ -355,26 +365,27 @@ class StructureController extends Controller
             try{
                 $structure = Structure::find($id);
                 if(!$structure){
-                    toastr()->error('Structure non trouvée');
+                    flash()->addError('Structure non trouvée');
                     return redirect()->route('structures.index');
                 }
 
                 $structure->parent_id = $request->parent_id ? $request->parent_id : NULL;
                 $structure->nom_structure = $request->nom_structure;
+                $structure->slug = Str::slug($request->nom_structure, '_');
                 $structure->id_niveau_structure = $request->id_valeur_niveaustructure;
                 $structure->id_type_structure = $request->id_valeur_typestructure ? $request->id_valeur_typestructure : NULL;
                 $structure->code_structure = $request->code_structure ? $request->code_structure : NULL;
                 $structure->is_public_structure = $public_structure;
-                $structure->id_user_updated = Auth::user()->id;
+                $structure->id_user_modified = Auth::user()->id;
                 $structure->save();
             }
             catch(Exception $e){
                 Log::error('Erreur lors de la modification de la structure: '.$e->getMessage());
-                toastr()->error('Erreur lors de la modification de la structure');
+                flash()->addError('Erreur lors de la modification de la structure');
                 return redirect()->back();
             }
 
-            toastr()->success('Structure modifiée avec succès');
+            flash()->addSuccess('Structure modifiée avec succès');
             return redirect()->route('structures.index');
         }
 
@@ -399,22 +410,22 @@ class StructureController extends Controller
                 $structure = Structure::find($id);
 
                 if(!$structure){
-                    toastr()->error('Structure non trouvée');
+                    flash()->addError('Structure non trouvée');
                     return redirect()->route('structures.index');
                 }
 
                 $structure->is_delete = TRUE;
-                $structure->id_user_deleted = Auth::user()->id;
+                $structure->id_user_delete = Auth::user()->id;
                 $structure->deleted_at = now();
                 $structure->save();
             }
             catch(Exception $e){
                 Log::error('Erreur lors de la suppression de la structure: '.$e->getMessage());
-                toastr()->error('Erreur lors de la suppression de la structure');
+                flash()->addError('Erreur lors de la suppression de la structure');
                 return redirect()->back();
             }
 
-            toastr()->success('Structure supprimée avec succès');
+            flash()->addSuccess('Structure supprimée avec succès');
             return redirect()->route('structures.index');
         }
 
