@@ -196,60 +196,20 @@
           </div>
 
           <div class="row">
+            @foreach($actus as $actu)
+
 
             <div class="col-lg-3">
                 <div class="member">
-                    <img src="{{ asset('frontend/assets/img/corus.png') }}" class="img-fluid" alt="">
-                    <h4>Santé au Burkina : Le Centre des opérations de réponse...</h4>
+                    <img src="{{ asset(Storage::disk('local')->url($actu->url_img)) }}" class="img-fluid" alt="">
+                    <h4>{{ $actu->titre }}</h4>
                     <span><small>{{ date('d/m/Y') }}</small></span>
-                    <p>Le Burkina Faso dispose désormais d’un Centre des opérations de réponse aux urgences sanitaires (CORUS).
-                        Bâti sur l’ex-siège de l’Organisation mondiale de la santé...
+                    <p>{!! $actu->titre !!}
                     </p>
                     <a href="#" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
                 </div>
-
             </div>
-
-            <div class="col-lg-3 mt-0 mt-lg-0">
-                <div class="member">
-                    <img src="{{ asset('frontend/assets/img/news1.jpg') }}" class="img-fluid" alt="">
-                    <h4>Dengue au Burkina Faso : La tendance des cas en...</h4>
-                    <span><small>{{ date('d/m/Y') }}</small> | Anesthesiologist</span>
-                    <p>Dr Joseph Soubeiga, médecin épidémiologiste et bio statisticien,
-                        Directeur du Centre des opérations de réponse aux urgences sanitaires (CORUS) a présenté la situation
-                        de...
-                    </p>
-                        <a href="#" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
-                </div>
-
-
-            </div>
-
-            <div class="col-lg-3 mt-0">
-                <div class="member">
-                    <img src="{{ asset('frontend/assets/img/news2.jpg') }}" class="img-fluid" alt="">
-                    <h4>Burkina Faso : Un centre de santé pour Zékézé </h4>
-                    <span><small>{{ date('d/m/Y') }}</small> | Cardiology</span>
-                    <p>Le samedi 12 septembre 2020, Zékézé dans commune de Bittou province du Boulgou,
-                        a bénéficié d’un centre de santé et de promotion sociale. Financé par le budget de...
-                    </p>
-                    <a href="#" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
-                </div>
-
-            </div>
-
-            <div class="col-lg-3 mt-0">
-                <div class="member">
-                    <img src="{{ asset('frontend/assets/img/news3.jpg') }}" class="img-fluid" alt="">
-                    <h4>Covid-19 : L’Organisation Ouest-africaine de la Santé...</h4>
-                    <span><small>{{ date('d/m/Y') }}</small> | Neurosurgeon</span>
-                    <p>La CEDEAO, à travers son institution spécialisée qu’est l’Organisation Ouest-africaine de la Santé (OOAS),
-                        a procédé, ce 8 avril 2020, à la remise d’un don au... </p>
-                        <a href="#" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
-                </div>
-
-            </div>
-
+            @endforeach
           </div>
 
         </div>
