@@ -155,20 +155,20 @@
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
-                            <select name="department" id="id_categorie" name="id_categorie" class="form-select">
+                            <select id="id_categorie" name="id_categorie" class="form-select">
                               <option value="">Catégorie</option>
-                              <option value="1">Department 1</option>
-                              <option value="2">Department 2</option>
-                              <option value="3">Department 3</option>
+                              @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id}}">{{ $categorie->nom_categorie }}</option>
+                              @endforeach
                             </select>
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
                             <select name="id_localite" id="id_localite" class="form-select">
                               <option value="">Localité</option>
-                              <option value="1">Doctor 1</option>
-                              <option value="2">Doctor 2</option>
-                              <option value="3">Doctor 3</option>
+                              @foreach($structures as $structure)
+                                <option value="{{ $structure->id}}">{{ $structure->nom_structure }}</option>
+                              @endforeach
                             </select>
                             <div class="validate"></div>
                           </div>
@@ -431,27 +431,27 @@
 
             <div class="col-lg-8 mt-5 mt-lg-0">
 
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <form method="post" role="form" class="php-email-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    <input type="text" name="name_contact" class="form-control" id="name_contact" placeholder="Nom" required>
                   </div>
                   <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                    <input type="email" class="form-control" name="email_contact" id="email_contact" placeholder="Email" required>
                   </div>
                 </div>
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Objet" required>
                 </div>
                 <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  <textarea class="form-control" name="message_contact" id="message_contact" rows="5" placeholder="Message" required></textarea>
                 </div>
                 <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
+                  <div class="loading-contact">Loading</div>
+                  <div class="error-message-contact"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Envoyer Message</button></div>
+                <div class="text-center"><button type="button" id="btn-contact">Envoyer Message</button></div>
               </form>
 
             </div>

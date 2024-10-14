@@ -13,6 +13,7 @@ class Evenement extends Model
 
     protected $fillable = [
         'id_categorie',
+        'code_alert',
         'id_structure',
         'libelle',
         'url_img',

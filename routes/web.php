@@ -123,4 +123,7 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::post('/alert', [FrontendController::class, 'declarer'])->name('alert.declare');
+Route::get('/alert/{code_alert}', [FrontendController::class, 'successAlert'])->name('alert.success');
+Route::post('/contact', [FrontendController::class, 'contacter'])->name('store.contact');
+Route::get('/contact/{code_contact}', [FrontendController::class, 'successContact'])->name('contact.success');
 Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');

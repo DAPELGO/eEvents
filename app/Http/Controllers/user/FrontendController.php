@@ -3,11 +3,15 @@
 namespace App\Http\Controllers\user;
 
 use Exception;
+use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 use App\Models\user\User;
+use App\Models\user\Contact;
 use App\Models\admin\Article;
+use App\Models\admin\Categorie;
+use App\Models\admin\Structure;
 use App\Models\admin\Evenement;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -17,7 +21,9 @@ class FrontendController extends Controller
 {
     public function frontend()
     {
-        return view('frontend.frontend');
+        $categories = Categorie::where('is_delete', FALSE)->get();
+        $structures = Structure::where('is_delete', FALSE)->get();
+        return view('frontend.frontend', compact('categories', 'structures'));
     }
 
     // INSCRIPTION
@@ -173,23 +179,57 @@ class FrontendController extends Controller
     public function declarer(Request $request)
     {
         try {
-            Evenement::create([
+            $evenement = Evenement::create([
+                'code_alert'=>strtoupper(Time()),
                 'id_categorie'=>$request->id_categorie,
-                'id_structure'=>$request->id_structure,
+                'id_structure'=>$request->id_localite,
                 'libelle'=>$request->name,
                 'url_img'=>'',
                 'date_event'=>$request->date_event,
-                'slug'=>$request->slug($request->date_event, '-'),
+                'slug'=>Str::slug($request->date_event, '-'),
                 'description'=>$request->message,
-                'id_user_created'=>Auth::user()->id,
             ]);
+
         } catch (\Exception $e) {
             Log::error('Erreur lors de l\'enregistrement de l\'évènemennt: '.$e->getMessage());
             flash()->addError('Erreur lors de l\'enregistrement d\'évènement.');
-            return redirect()->back();
         }
 
-        flash()->addSuccess('Evènement enregistré avec succès');
+        return response()->json(['code_alert'=>$evenement->code_alert]);
 
     }
+
+    public function successAlert($code_alert)
+    {
+        $evenement = Evenement::where('code_alert', $code_alert)->first();
+        return view('frontend.success-alert', compact('evenement'));
+    }
+
+
+    // CONTACT
+    public function contacter(Request $request)
+    {
+        try {
+            $contact = Contact::create([
+                'code_contact'=>strtoupper(Time()),
+                'name'=>$request->name_contact,
+                'email'=>$request->email_contact,
+                'objet'=>$request->subject,
+                'message'=>$request->message_contact,
+            ]);
+
+        } catch (\Exception $e) {
+            Log::error('Erreur lors de l\'enregistrement du contact: '.$e->getMessage());
+            flash()->addError('Erreur lors de l\'enregistrement du contact.');
+        }
+
+        return response()->json(['code_contact'=>$contact->code_contact]);
+
+    }
+
+    public function successContact($code_contact)
+    {
+        dd(0);
+    }
+
 }

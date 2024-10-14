@@ -112,7 +112,35 @@
                     document.getElementById('loading').style.display = 'none';
                 },
                 success: function(data) {
-                    document.location.href = "{{ route('frontend.welcome') }}";
+                    document.location.href = "alert/"+data.code_alert;
+                        }
+            });
+        });
+
+        // FORM CONTACT
+        $("#btn-contact").click(function(){
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
+            document.g
+            event.preventDefault();
+            var name_contact = $("#name_contact").val();
+            var email_contact = $("#email_contact").val();
+            var subject = $("#subject").val();
+            var message_contact = $("#message_contact").val();
+            $.ajax({
+                url: "{{ route('store.contact') }}",
+                type: 'post',
+                data: {"_token": "{{ csrf_token() }}",
+                name_contact:name_contact, email_contact:email_contact, subject:subject, message_contact:message_contact
+            },
+                error:function(data){
+                    alert("ERROR");
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('loading').style.display = 'none';
+                },
+                success: function(data) {
+                    alert
+                    document.location.href = "contact/"+data.code_contact;
                         }
             });
         });
