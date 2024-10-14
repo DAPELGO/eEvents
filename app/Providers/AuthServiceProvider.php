@@ -7,7 +7,7 @@ use App\Policies\ValeurPolicy;
 use App\Policies\ArticlePolicy;
 use App\Policies\CategoriePolicy;
 use App\Policies\ParametrePolicy;
-
+use App\Policies\UserPolicy;
 use App\Policies\StructurePolicy;
 use App\Policies\MonitoringPolicy;
 use App\Policies\PermissionPolicy;

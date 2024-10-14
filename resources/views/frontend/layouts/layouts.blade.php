@@ -86,6 +86,64 @@
                         }
             });
         });
+
+        // FORM EVENT
+        $("#btn-event").click(function(){
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
+            document.g
+            event.preventDefault();
+            var name = $("#name").val();
+            var email = $("#email").val();
+            var phone = $("#phone").val();
+            var date_event = $("#date_event").val();
+            var id_categorie = $("#id_categorie").val();
+            var id_localite = $("#id_localite").val();
+            var message = $("#message").val();
+            $.ajax({
+                url: "{{ route('alert.declare') }}",
+                type: 'post',
+                data: {"_token": "{{ csrf_token() }}",
+                name:name, email:email, phone:phone, date_event:date_event, id_categorie:id_categorie, id_localite:id_localite, message:message
+            },
+                error:function(data){
+                    alert("ERROR");
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('loading').style.display = 'none';
+                },
+                success: function(data) {
+                    document.location.href = "alert/"+data.code_alert;
+                        }
+            });
+        });
+
+        // FORM CONTACT
+        $("#btn-contact").click(function(){
+            document.getElementById('error-message').style.display = 'block';
+            document.getElementById('loading').style.display = 'block';
+            document.g
+            event.preventDefault();
+            var name_contact = $("#name_contact").val();
+            var email_contact = $("#email_contact").val();
+            var subject = $("#subject").val();
+            var message_contact = $("#message_contact").val();
+            $.ajax({
+                url: "{{ route('store.contact') }}",
+                type: 'post',
+                data: {"_token": "{{ csrf_token() }}",
+                name_contact:name_contact, email_contact:email_contact, subject:subject, message_contact:message_contact
+            },
+                error:function(data){
+                    alert("ERROR");
+                    document.getElementById('error-message').style.display = 'none';
+                    document.getElementById('loading').style.display = 'none';
+                },
+                success: function(data) {
+                    alert
+                    document.location.href = "contact/"+data.code_contact;
+                        }
+            });
+        });
     });
   </script>
 

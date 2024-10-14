@@ -41,27 +41,26 @@
                 </div>
             </div>
             <div class="col-lg-10 mission">
-                <h2 class="title" style="text-align: center;">EQUIPE ET EXPERTISE</h2>
+                <h2 class="title" style="text-align: center;">CONTACT CORUS</h2>
                 <hr>
                   <div class="row">
 
                     <div class="col-lg-6">
                       <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="{{ asset('frontend/assets/img/bere.png') }}" class="img-fluid" alt="" style="height: 8rem;"></div>
+                        <div class="pic"><img src="{{ asset('frontend/assets/img/contact.png') }}" class="img-fluid" alt="" style="height: 8rem;"></div>
                         <div class="member-info">
-                          <h4>TRAORE Mahamoudou</h4>
-                          <span>Médécin généraliste</span>
-                          <p>Explicabo voluptatem mollitia et repellat qui dolorum quasi</p>
+                          <h4>Bonjour M./Mme {{ $evenement->name }}</h4>
+                          <span>{{ $evenement->email }}/{{ $evenement->name }}</span>
+                          <p>Merci d'avoir contacter l'équipe du CORUS</p>
                         </div>
                       </div>
                     </div>
 
                     <div class="col-lg-6 mt-4 mt-lg-0">
                       <div class="member d-flex align-items-start">
-                        <div class="pic"><img src="{{ asset('frontend/assets/img/doctors/doctors-2.jpg') }}" class="img-fluid" alt=""></div>
                         <div class="member-info">
-                          <h4>Sarah Kandolo</h4>
-                          <span>Epidémiologiste</span>
+                          <h4>Objet</h4>
+                          <span>{{ $evenement->objet }}</span>
                           <p>Aut maiores voluptates amet et quis praesentium qui senda para</p>
                         </div>
                       </div>

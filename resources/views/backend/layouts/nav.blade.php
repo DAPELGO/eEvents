@@ -8,7 +8,7 @@
         <nav class="sidebar-nav">
             <ul id="sidebarnav">
                 <li class="nav-devider"></li>
-                <li> <a href="{{ route('frontend.welcome') }}"><span class="hide-menu"><i class="fa fa-level-up"></i>Accueil site web</span></a>
+                <li> <a href="{{ route('frontend.welcome') }}" target="_blank"><span class="hide-menu"><i class="fa fa-level-up"></i>Accueil site web</span></a>
                 <li> <a class="@yield('home')" href="{{ route('backend.home') }}"><span class="hide-menu"><i class="fa fa-home"></i>Tableau de bord</span></a>
                 <li class="nav-devider"></li>
                 <li class="nav-small-cap">APPLICATION</li>

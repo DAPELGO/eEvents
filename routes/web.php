@@ -34,9 +34,9 @@ use App\Http\Controllers\admin\MediathequeController;
 
 // Route::resource('dossiers', DossierController::class);
 
-Route::get('/', function () {
+/*Route::get('/', function () {
     return view('welcome');
-});
+});*/
 
 // Route::get('/admin/login', [App\Http\Controllers\admin\Auth\LoginController::class, 'showLoginForm'])->name('admin.login');
 // Route::post('/admin', [App\Http\Controllers\admin\Auth\LoginController::class, 'login'])->name('admin.connexion');
@@ -111,13 +111,19 @@ Route::get('profile/messtages', [FrontendLogController::class, 'messtages'])->na
 Route::get('/email/verify', [FrontendLogController::class, 'verif'])->name('user.verification');
 
 // MENU
-Route::get('corus/mission', [FrontendController::class, 'mission'])->name('corus.mission');
-Route::get('corus/vision', [FrontendController::class, 'vision'])->name('corus.vision');
-Route::get('corus/team', [FrontendController::class, 'team'])->name('corus.team');
 Route::get('urgence/{submenu}', [FrontendController::class, 'urgence'])->name('menu.urgence');
+Route::get('risque/{submenu}', [FrontendController::class, 'risque'])->name('menu.risque');
+Route::get('formation/{submenu}', [FrontendController::class, 'formation'])->name('menu.formation');
+Route::get('simulation/{submenu}', [FrontendController::class, 'simulation'])->name('menu.simulation');
+Route::get('ressource/{submenu}', [FrontendController::class, 'ressource'])->name('menu.ressource');
+Route::get('corus/{submenu}', [FrontendController::class, 'corus'])->name('menu.corus');
 
 
 Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::post('/alert', [FrontendController::class, 'declarer'])->name('alert.declare');
+Route::get('/alert/{code_alert}', [FrontendController::class, 'successAlert'])->name('alert.success');
+Route::post('/contact', [FrontendController::class, 'contacter'])->name('store.contact');
+Route::get('/contact/{code_contact}', [FrontendController::class, 'successContact'])->name('contact.success');
 Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');

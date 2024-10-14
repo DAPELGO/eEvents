@@ -51,34 +51,15 @@
           <div class="col-lg-12 d-flex align-items-stretch">
             <div class="icon-boxes d-flex justify-content-center">
               <div class="row">
+                @foreach($urgences as $urgence)
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <img src="{{ asset('frontend/assets/img/urgence1.jpg') }}" alt="URGENCE">
-                    <h4>Urgence 1</h4>
+                    <h4>{{ $urgence->libelle }}</h4>
                     <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
                   </div>
                 </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('frontend/assets/img/urgence2.jpeg') }}" alt="URGENCE">
-                    <h4>Urgence 2</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                  </div>
-                </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('frontend/assets/img/urgence3.jpeg') }}" alt="URGENCE">
-                    <h4>Urgence 3</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                  </div>
-                </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                    <div class="icon-box mt-4 mt-xl-0">
-                      <img src="{{ asset('frontend/assets/img/urgence4.jpeg') }}" alt="URGENCE">
-                      <h4>Urgence 4</h4>
-                      <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                    </div>
-                  </div>
+                @endforeach
               </div>
             </div><!-- End .content-->
           </div>
@@ -93,33 +74,45 @@
 
           <div class="row">
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-6">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Doctors</p>
+                <span data-purecounter-start="0" data-purecounter-end="19" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre d’activation total</p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-md-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Departments</p>
+                <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Régions à défis sécuritaires et humanitaires</p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Research Labs</p>
+                <span data-purecounter-start="0" data-purecounter-end="1018" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre de formés en Système des Gestions d’Incident de base </p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Awards</p>
+                <span data-purecounter-start="0" data-purecounter-end="128" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre de formés en Système des Gestions d’Incident intermédiaire </p>
               </div>
             </div>
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <span data-purecounter-start="0" data-purecounter-end="09" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Nombre de formés en Système des Gestions d’Incident niveau avancé </p>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Nombre d’exercices de simulation grandeur nature</p>
+                </div>
+              </div>
           </div>
         </div>
       </section><!-- End Counts Section -->
@@ -134,7 +127,7 @@
                         <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
                       </div>
 
-                      <form action="forms/appointment.php" method="post" role="form" class="php-email-form">
+                      <form action="#" method="post" role="form" class="php-email-form">
                         <div class="row">
                           <div class="col-md-4 form-group">
                             <input type="text" name="name" class="form-control" id="name" placeholder="Nom" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
@@ -151,39 +144,39 @@
                         </div>
                         <div class="row">
                           <div class="col-md-4 form-group mt-3">
-                            <input type="date" name="date" class="form-control datepicker" id="date" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
+                            <input type="date" name="date_event" class="form-control datepicker" id="date_event" data-rule="minlen:4" data-msg="Please enter at least 4 chars">
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
-                            <select name="department" id="department" class="form-select">
+                            <select id="id_categorie" name="id_categorie" class="form-select">
                               <option value="">Catégorie</option>
-                              <option value="Department 1">Department 1</option>
-                              <option value="Department 2">Department 2</option>
-                              <option value="Department 3">Department 3</option>
+                              @foreach($categories as $categorie)
+                                <option value="{{ $categorie->id}}">{{ $categorie->nom_categorie }}</option>
+                              @endforeach
                             </select>
                             <div class="validate"></div>
                           </div>
                           <div class="col-md-4 form-group mt-3">
-                            <select name="doctor" id="doctor" class="form-select">
+                            <select name="id_localite" id="id_localite" class="form-select">
                               <option value="">Localité</option>
-                              <option value="Doctor 1">Doctor 1</option>
-                              <option value="Doctor 2">Doctor 2</option>
-                              <option value="Doctor 3">Doctor 3</option>
+                              @foreach($structures as $structure)
+                                <option value="{{ $structure->id}}">{{ $structure->nom_structure }}</option>
+                              @endforeach
                             </select>
                             <div class="validate"></div>
                           </div>
                         </div>
 
                         <div class="form-group mt-3">
-                          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)"></textarea>
+                          <textarea class="form-control" name="message" rows="5" placeholder="Message (Optional)" id="message"></textarea>
                           <div class="validate"></div>
                         </div>
                         <div class="mb-3">
-                          <div class="loading">Loading</div>
-                          <div class="error-message"></div>
-                          <div class="sent-message">Your appointment request has been sent successfully. Thank you!</div>
+                          <div class="loading" id="loading">Loading</div>
+                          <div class="error-message" id="error-message"></div>
+                          <div class="sent-message" id="sent-message">Your appointment request has been sent successfully. Thank you!</div>
                         </div>
-                        <div class="text-center"><button type="submit">ENvoyer</button></div>
+                        <div class="text-center"><button type="button" id="btn-event">Envoyer</button></div>
                       </form>
                 </div>
                 <div class="col-lg-6 text-center pt-5">
@@ -199,7 +192,7 @@
         <div class="container">
 
           <div class="section-title">
-            <h2>Actualités</h2>
+            <h2>L'Actualité du Centre</h2>
           </div>
 
           <div class="row">
@@ -267,32 +260,32 @@
       <div class="container">
 
         <div class="section-title">
-          <h2>Partenaires</h2>
+          <h2 class="text-uppercase">Les Partenaires du CORUS</h2>
         </div>
 
         <div class="row">
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/burkina.webp') }}" alt="MSHP"></div>
               <h4><a href="https://sante.bf" target="_blank">MINISTERE DE LA SANTE ET DE L'HYGIENE PUBLIQUE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/insp.png') }}" alt="INSP"></div>
               <h4><a href="https://insp.bf/" target="_blank">INSTITUT NATIONAL DE SANTE PUBLIQUE du BURKINA FASO</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff; border-right: 0;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/bm.png') }}" alt="BM"></div>
               <h4><a href="https://www.banquemondiale.org/fr/home" target="_blank">BANQUE MONDIALE</a></h4>
             </div>
           </div>
 
-          <div class="col-lg-3 col-md-6 d-flex align-items-stretch" style="border: 2px solid #fff;">
+          <div class="col-lg-3 col-md-6 align-items-stretch" style="border: 2px solid #fff;">
             <div class="icon-box">
               <div class="icon"><img src="{{ asset('frontend/assets/img/logo_anptic_ok.png') }}" alt="ANPTIC"></div>
               <h4><a href="" target="_blank">AGENCE NATIONALE DE PROMOTION DES TIC</a></h4>
@@ -397,31 +390,27 @@
 
           <div class="section-title">
             <h2>Contacter le CORUS</h2>
-            <p>Envoyer un message àl'équipe de CORUS</p>
+            <p>Envoyer un message à l'équipe de CORUS</p>
           </div>
         </div>
-        <div>
-          <iframe style="border:0; width: 100%; height: 350px;" src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d12097.433213460943!2d-74.0062269!3d40.7101282!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xb89d1fe6bc499443!2sDowntown+Conference+Center!5e0!3m2!1smk!2sbg!4v1539943755621" frameborder="0" allowfullscreen></iframe>
-        </div>
         <div class="container">
-          <div class="row mt-5">
-
+          <div class="row">
             <div class="col-lg-4">
               <div class="info">
                 <div class="address">
                   <i class="bi bi-geo-alt"></i>
                   <h4>Localisation:</h4>
-                  <p>A108 Trypano, Ouagadougou</p>
+                  <p>BP 10 278 Ouagadougou Zogona</p>
                 </div>
                 <div class="email">
                   <i class="bi bi-envelope"></i>
                   <h4>Email:</h4>
-                  <p>info@corus.bf</p>
+                  <p>secretariat.dg@insp.bf</p>
                 </div>
                 <div class="phone">
                   <i class="bi bi-phone"></i>
                   <h4>Téléphone:</h4>
-                  <p>+226 06002255</p>
+                  <p>+226 01 90 58 58</p>
                 </div>
                 <div class="phone">
                     <i class="bi bi-phone-vibrate"></i>
@@ -435,27 +424,27 @@
 
             <div class="col-lg-8 mt-5 mt-lg-0">
 
-              <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+              <form method="post" role="form" class="php-email-form">
                 <div class="row">
                   <div class="col-md-6 form-group">
-                    <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+                    <input type="text" name="name_contact" class="form-control" id="name_contact" placeholder="Nom" required>
                   </div>
                   <div class="col-md-6 form-group mt-3 mt-md-0">
-                    <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+                    <input type="email" class="form-control" name="email_contact" id="email_contact" placeholder="Email" required>
                   </div>
                 </div>
                 <div class="form-group mt-3">
-                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+                  <input type="text" class="form-control" name="subject" id="subject" placeholder="Objet" required>
                 </div>
                 <div class="form-group mt-3">
-                  <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+                  <textarea class="form-control" name="message_contact" id="message_contact" rows="5" placeholder="Message" required></textarea>
                 </div>
                 <div class="my-3">
-                  <div class="loading">Loading</div>
-                  <div class="error-message"></div>
+                  <div class="loading-contact">Loading</div>
+                  <div class="error-message-contact"></div>
                   <div class="sent-message">Your message has been sent. Thank you!</div>
                 </div>
-                <div class="text-center"><button type="submit">Envoyer Message</button></div>
+                <div class="text-center"><button type="button" id="btn-contact">Envoyer Message</button></div>
               </form>
 
             </div>
