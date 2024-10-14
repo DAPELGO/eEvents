@@ -2,7 +2,7 @@
 <div id="topbar" class="d-flex align-items-center fixed-top">
     <div class="container-fluid d-flex justify-content-between">
       <div class="contact-info d-flex align-items-center">
-        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;" class="me-2"><a href="mailto:secretariat.dg@insp.bf"> secretariat.dg@insp.bf</span>
+        <i class="bi bi-envelope"></i> <span style="font-size: 0.8rem;" class="me-2"><a href="mailto:alerte.operation@corus-insp.gov.bf"> alerte.operation@corus-insp.gov.bf</span>
         <i class="bi bi-phone"></i> <span style="font-size: 0.8rem;"><a href="tel:+22601 90 58 58">(+226) 01 90 58 58</a></span>
         <a href="#" style="margin-left: 1rem; margin-right:0.5rem;">Prévention</a> |
         <a href="#" style="margin-left: 0.5rem;">Préparation et riposte aux urgences de santé publique</a>

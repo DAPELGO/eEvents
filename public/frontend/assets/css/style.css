@@ -893,6 +893,7 @@ section {
   position: relative;
   text-align: center;
   background: #c65c18;
+  height: 10rem;
 }
 
 .counts .count-box i {

@@ -51,34 +51,15 @@
           <div class="col-lg-12 d-flex align-items-stretch">
             <div class="icon-boxes d-flex justify-content-center">
               <div class="row">
+                @foreach($urgences as $urgence)
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <img src="{{ asset('frontend/assets/img/urgence1.jpg') }}" alt="URGENCE">
-                    <h4>Urgence 1</h4>
+                    <h4>{{ $urgence->libelle }}</h4>
                     <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
                   </div>
                 </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('frontend/assets/img/urgence2.jpeg') }}" alt="URGENCE">
-                    <h4>Urgence 2</h4>
-                    <p>Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt</p>
-                  </div>
-                </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                  <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('frontend/assets/img/urgence3.jpeg') }}" alt="URGENCE">
-                    <h4>Urgence 3</h4>
-                    <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                  </div>
-                </div>
-                <div class="col-xl-3 d-flex align-items-stretch">
-                    <div class="icon-box mt-4 mt-xl-0">
-                      <img src="{{ asset('frontend/assets/img/urgence4.jpeg') }}" alt="URGENCE">
-                      <h4>Urgence 4</h4>
-                      <p>Aut suscipit aut cum nemo deleniti aut omnis. Doloribus ut maiores omnis facere</p>
-                    </div>
-                  </div>
+                @endforeach
               </div>
             </div><!-- End .content-->
           </div>
@@ -93,33 +74,45 @@
 
           <div class="row">
 
-            <div class="col-lg-3 col-md-6">
+            <div class="col-lg-2 col-md-6">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Doctors</p>
+                <span data-purecounter-start="0" data-purecounter-end="19" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre d’activation total</p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-md-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-md-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Departments</p>
+                <span data-purecounter-start="0" data-purecounter-end="10" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Régions à défis sécuritaires et humanitaires</p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="12" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Research Labs</p>
+                <span data-purecounter-start="0" data-purecounter-end="1018" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre de formés en Système des Gestions d’Incident de base </p>
               </div>
             </div>
 
-            <div class="col-lg-3 col-md-6 mt-5 mt-lg-0">
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="150" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Awards</p>
+                <span data-purecounter-start="0" data-purecounter-end="128" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre de formés en Système des Gestions d’Incident intermédiaire </p>
               </div>
             </div>
+            <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <span data-purecounter-start="0" data-purecounter-end="09" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Nombre de formés en Système des Gestions d’Incident niveau avancé </p>
+                </div>
+              </div>
+              <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
+                <div class="count-box">
+                  <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
+                  <p>Nombre d’exercices de simulation grandeur nature</p>
+                </div>
+              </div>
           </div>
         </div>
       </section><!-- End Counts Section -->
