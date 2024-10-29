@@ -6,32 +6,22 @@
   <div class="container" style="z-index: 1; text-align:center;">
     <div class="row">
       <div class="col-lg-6 offset-3" style="margin-top: 5rem;">
-          <h1>Alertes ou urgences en cours </h1>
+          <h1>Actualités corus </h1>
           <!-- ======= Testimonials Section ======= -->
           <div id="testimonials" class="testimonials">
               <div class="container">
                   <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
                       <div class="swiper-wrapper">
-                      <div class="swiper-slide">
-                          <div class="testimonial-wrap">
-                          <div class="testimonial-item">
-                              <h2>Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper.</h2>
-                              <a href="#about" class="btn-get-started scrollto">En savoir plus</a>
-                          </div>
-                          </div>
-                      </div><!-- End testimonial item -->
-
-                      <div class="swiper-slide">
-                          <div class="testimonial-wrap">
-                          <div class="testimonial-item">
-                              <h2>
-                              Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa.
-                              </h2>
-                              <a href="#about" class="btn-get-started scrollto">En savoir plus</a>
-                          </div>
-                          </div>
-                      </div><!-- End testimonial item -->
-
+                        @foreach($actus as $actu)
+                        <div class="swiper-slide">
+                            <div class="testimonial-wrap">
+                            <div class="testimonial-item">
+                                <h2>{{ $actu->titre }}</h2>
+                                <a href="{{ route('article.show', $actu->slug)}}" class="btn-get-started scrollto">En savoir plus</a>
+                            </div>
+                            </div>
+                        </div><!-- End testimonial item -->
+                        @endforeach
                       </div>
                   </div>
               </div>
@@ -54,7 +44,7 @@
                 @foreach($urgences as $urgence)
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('frontend/assets/img/urgence1.jpg') }}" alt="URGENCE">
+                    <img src="{{ asset('images/events/'.$urgence->url_img) }}" alt="URGENCE">
                     <h4>{{ $urgence->libelle }}</h4>
                     <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
                   </div>
@@ -201,12 +191,12 @@
 
             <div class="col-lg-3">
                 <div class="member">
-                    <img src="{{ asset(Storage::disk('local')->url($actu->url_img)) }}" class="img-fluid" alt="">
+                    <img src="{{ asset('images/articles/cover/'.$actu->url_img) }}" class="img-fluid" alt="">
                     <h4>{{ $actu->titre }}</h4>
                     <span><small>{{ date('d/m/Y') }}</small></span>
                     <p>{!! $actu->titre !!}
                     </p>
-                    <a href="#" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
+                    <a href="{{ route('article.show', $actu->slug)}}" class="btn">Lire la suite <i class="bi bi-chevron-right"></i></a>
                 </div>
             </div>
             @endforeach

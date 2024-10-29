@@ -63,7 +63,7 @@
                             <li><a href="{{ route('menu.urgence', 'reponse-realisee') }}" class="@yield('reponse-realisee')">Réponse sanitaire réalisée </a></li>
                         </ul>
                       </li>
-                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('risque')"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
+                      <li class="dropdown text-uppercase" style="display: none;"><a href="#"  class="@yield('risque')"><span>Risques sanitaires </span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                           <li><a href="{{ route('menu.risque', 'information') }}" class="@yield('information')">Informations publiques</a></li>
                           <li><a href="{{ route('menu.risque', 'evaluation') }}" class="@yield('evaluation')">Evaluation des risques </a></li>
@@ -73,8 +73,8 @@
                       <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                           <li><a href="{{ route('menu.formation', 'formation-disponible') }}" class="@yield('formation-disponible')">Formations disponibles</a></li>
-                          <li><a href="{{ route('menu.formation', 'formation-planifiee') }}" class="@yield('formation-planifiee')">Formations planifiées</a></li>
-                          <li><a href="{{ route('menu.formation', 'formation-realisee') }}" class="@yield('formation-realisee')">Formations réalisées</a></li>
+                          <li><a href="{{ route('menu.formation', 'formation-planifiee') }}" class="@yield('formation-planifiee')">Catalogue de formation</a></li>
+                          <li><a href="{{ route('menu.formation', 'formation-realisee') }}" class="@yield('formation-realisee')">Programme de formations</a></li>
                         </ul>
                       </li>
                       <li class="dropdown text-uppercase"><a href="#"  class="@yield('simulation')"><span>Simulations</span> <i class="bi bi-chevron-down"></i></a>
@@ -86,10 +86,10 @@
                       <li class="dropdown text-uppercase"><a href="#" class="@yield('ressource')"><span>Ressources</span> <i class="bi bi-chevron-down"></i></a>
                         <ul>
                           <li><a href="{{ route('menu.ressource', 'evaluation') }}" class="@yield('evaluation')">Evaluations et recherches opérationnelles</a></li>
-                          <li><a href="{{ route('menu.ressource', 'texte') }}" class="@yield('texte')">Textes réglementaires</a></li>
+                          <li style="display: none"><a href="{{ route('menu.ressource', 'texte') }}" class="@yield('texte')">Textes réglementaires</a></li>
                           <li><a href="{{ route('menu.ressource', 'plan') }}" class="@yield('plan')">Plans, procédures, directives</a></li>
                           <li><a href="{{ route('menu.ressource', 'statistique') }}" class="@yield('statistique')">Statistiques</a></li>
-                          <li><a href="{{ route('menu.ressource', 'mediatheque') }}" class="@yield('mediatheque')">Médiathèques</a></li>
+                          <li style="display: none"><a href="{{ route('menu.ressource', 'mediatheque') }}" class="@yield('mediatheque')">Médiathèques</a></li>
                         </ul>
                       </li>
                       <li class="dropdown text-uppercase"><a href="#" class="@yield('corus')"><span>Le CORUS</span> <i class="bi bi-chevron-down"></i></a>
@@ -99,7 +99,7 @@
                           <li><a href="{{ route('menu.corus', 'team') }}" class="@yield('team')">Equipe et expertises</a></li>
                         </ul>
                       </li>
-                      <li class="text-uppercase"><a class="nav-link scrollto @yield('actualite')" href="#contact">Actualités</a></li>
+                      <li style="display: none" class="text-uppercase"><a class="nav-link scrollto @yield('actualite')" href="#contact">Actualités</a></li>
                     </ul>
                     <i class="bi bi-list mobile-nav-toggle"></i>
                   </nav><!-- .navbar -->

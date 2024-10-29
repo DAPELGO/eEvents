@@ -127,3 +127,6 @@ Route::get('/alert/{code_alert}', [FrontendController::class, 'successAlert'])->
 Route::post('/contact', [FrontendController::class, 'contacter'])->name('store.contact');
 Route::get('/contact/{code_contact}', [FrontendController::class, 'successContact'])->name('contact.success');
 Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');
+
+// SHOW ARTICLES & EVENTS
+Route::get('/article/{slug}', [ArticleController::class, 'showArticle'])->name('article.show');
