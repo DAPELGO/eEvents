@@ -24,7 +24,8 @@ class FrontendController extends Controller
         $categories = Categorie::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
         $urgences = Evenement::where('id_categorie', env('ID_CATEGORIE_URGENCE'))->limit(4)->get();
-        return view('frontend.frontend', compact('categories', 'structures', 'urgences'));
+        $actus = Article::where(['id_categorie'=>env('ID_CATEGORIE_ACTUALITE'), 'is_published'=>TRUE])->limit(4)->orderBy('created_at', 'DESC')->get();
+        return view('frontend.frontend', compact('categories', 'structures', 'urgences', 'actus'));
     }
 
     // INSCRIPTION
