@@ -335,4 +335,10 @@ class ArticleController extends Controller
         flash()->addSuccess('Article supprimé avec succès');
         return redirect()->route('articles.index');
     }
+
+    public function showArticle($slug)
+    {
+        $article = Article::where('slug', $slug)->first();
+        return view('frontend.article', compact('article'));
+    }
 }

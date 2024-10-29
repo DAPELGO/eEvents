@@ -259,7 +259,7 @@ class EventController extends Controller
                 }
 
                 //check image size
-                $size = $image->getSize();
+                /*$size = $image->getSize();
                 if($size > 5000000){
                     flash()->addError('La taille de l\'image ne doit pas dépasser 5Mo');
                     return redirect()->back();
@@ -270,7 +270,7 @@ class EventController extends Controller
                 if($dimensions[0] < 1920 || $dimensions[1] < 1080){
                     flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
                     return redirect()->back();
-                }
+                }*/
 
                 $image_name = Str::slug($request->titre , "_").'_'.$request->date_event.'.'.$extension;
                 $image->move(public_path('images/events'), $image_name);
