@@ -88,8 +88,8 @@
                                 <div class="row mb-3">
                                     <label class="col-sm-4 col-form-label" for="description">Description <b><span class="me-1 mb-2 text-danger">*</span></b></label>
                                     <div class="col-sm-8">
-                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" maxlength="300" placeholder="Description de l'évènement..." required>{{ old('description') ? old('description') : $event->description }}</textarea>
-                                        <small id="charCount" class="text-muted">0 / 300 caractères utilisés</small>
+                                        <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" rows="5" maxlength="600" placeholder="Description de l'évènement..." required>{{ old('description') ? old('description') : $event->description }}</textarea>
+                                        <small id="charCount" class="text-muted">0 / 600 caractères utilisés</small>
                                         @error('description')
                                             <div class="invalid-feedback">{{ $message }}</div>
                                         @enderror

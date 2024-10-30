@@ -45,8 +45,8 @@
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <img src="{{ asset('images/events/'.$urgence->url_img) }}" alt="URGENCE">
-                    <h4>{{ $urgence->libelle }}</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                    <h4><a href="{{ route('evenement.show', $urgence->slug) }}">{{ $urgence->libelle }}</a></h4>
+                    <p>{{ \Illuminate\Support\Str::limit($urgence->description, 100, $end = '...') }}</p>
                   </div>
                 </div>
                 @endforeach
