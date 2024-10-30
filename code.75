@@ -1,0 +1,4 @@
+ssh site-web@192.168.1.75
+Web@24
+sudo -i -u postgres
+psql corusdb
