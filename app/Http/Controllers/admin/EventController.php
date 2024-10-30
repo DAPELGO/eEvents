@@ -123,6 +123,7 @@ class EventController extends Controller
         }
         catch (Exception $e) {
             $image_name = 'default_event.png';
+            Log::error('Erreur lors de l\'enregistrement de l\'image de l\'événement: '.$e->getMessage());
         }
 
         try{
@@ -281,6 +282,7 @@ class EventController extends Controller
         }
         catch (Exception $e) {
             $image_name = $event->url_img ? $event->url_img : 'default_event.png';
+            Log::error('Erreur lors de la mise à jour de l\'image de l\'événement: '.$e->getMessage());
         }
 
         try{
