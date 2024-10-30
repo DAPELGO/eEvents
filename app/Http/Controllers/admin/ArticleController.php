@@ -124,6 +124,7 @@ class ArticleController extends Controller
         }
         catch (Exception $e) {
             $image_name = 'default_article.png';
+            Log::error('Erreur lors de l\'enregistrement de l\'image: '.$e->getMessage());
         }
 
         try{
