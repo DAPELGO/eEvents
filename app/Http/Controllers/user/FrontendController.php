@@ -234,4 +234,10 @@ class FrontendController extends Controller
         dd(0);
     }
 
+    public function showArticle($slug)
+    {
+        $article = Article::where('slug', $slug)->first();
+        return view('frontend.article', compact('article'));
+    }
+
 }
