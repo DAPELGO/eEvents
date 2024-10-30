@@ -129,4 +129,4 @@ Route::get('/contact/{code_contact}', [FrontendController::class, 'successContac
 Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');
 
 // SHOW ARTICLES & EVENTS
-Route::get('/article/{slug}', [ArticleController::class, 'showArticle'])->name('article.show');
+Route::get('/article/{slug}', [FrontendController::class, 'showArticle'])->name('article.show');
