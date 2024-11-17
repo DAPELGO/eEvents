@@ -70,7 +70,8 @@
                           <li><a href="{{ route('menu.risque', 'capacite') }}" class="@yield('capacite')">Capacités opérationnelles (ressources pour la préparation et la réponse) </a></li>
                         </ul>
                       </li>
-                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down"></i></a>
+                      <li class="text-uppercase"><a class="nav-link scrollto @yield('actualite')" href="#contact">Formations</a></li>
+                      <li class="dropdown text-uppercase"><a href="#"  class="@yield('formation')"><span>Formations</span> <i class="bi bi-chevron-down" style="display: none;"></i></a>
                         <ul>
                           <li><a href="{{ route('menu.formation', 'formation-disponible') }}" class="@yield('formation-disponible')">Formations disponibles</a></li>
                           <li><a href="{{ route('menu.formation', 'formation-planifiee') }}" class="@yield('formation-planifiee')">Catalogue de formation</a></li>

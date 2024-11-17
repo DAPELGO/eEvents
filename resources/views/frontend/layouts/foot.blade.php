@@ -15,10 +15,10 @@
           <div class="col-lg-2 col-md-6 footer-links">
             <h4>Liens utiles</h4>
             <ul>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">MSHP</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">INSP</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">CNTS</a></li>
-              <li><i class="bx bx-chevron-right"></i> <a href="#">AGSP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.sante.gov.bf/">MSHP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://insp.bf/">INSP</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://www.cnts.bf/">CNTS</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="https://agsp.bf/">AGSP</a></li>
               <li><i class="bx bx-chevron-right"></i> <a href="#">ENSP</a></li>
             </ul>
           </div>
@@ -27,9 +27,10 @@
             <h4>Contact</h4>
             <p>
               A108 Trypano,<br>
-              Ouagadougou, RUE 535022<br>
+              RUE 535022<br>
+              03 BP 7009 Ouagadougou
               Burkina Faso <br><br>
-                <strong>Tél:</strong> +226 06002255<br>
+                <strong>Tél:</strong> +226 25 3351 03 / 03 13 28 50<br>
                 <strong>Email:</strong> info@corus.com<br>
               </p>
           </div>
