@@ -1,0 +1,30 @@
+# name: Deploy Laravel App
+
+# # Déclenchement du workflow lorsqu'un push est effectué sur la branche deploy
+# on:
+#     push:
+#         branches:
+#             - deploy
+
+# # Jobs du workflow
+# jobs:
+#     deploy:
+#         runs-on: ubuntu-latest
+
+#         # Etapes du job : connexion au vpn forticlient, connexion au serveur par ssh, déploiement via le script .scripts/deploy.sh
+#         # Pour forticlient, il faut ajouter les variables d'environnement VPN_IP, VPN_PORT, VPN_USERNAME et VPN_PASS dans les secrets du repository
+#         steps:
+#             - name: Checkout repository
+#               uses: actions/checkout@v2
+
+#             - name: Setup FortiClient VPN
+#               uses: M4hmoudAly/Forticlient-VPN@v1.0.0
+
+#             - name: Setup SSH
+#               uses: appleboy/ssh-action@master
+#               with:
+#                 host: ${{ secrets.SSH_HOST }}
+#                 username: ${{ secrets.SSH_USERNAME }}
+#                 port: ${{ secrets.SSH_PORT }}
+#                 password: ${{ secrets.SSH_PASSWORD }}
+#                 script: "cd /var/www/html/ && ./.scripts/deploy.sh"
