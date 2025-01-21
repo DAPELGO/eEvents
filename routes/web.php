@@ -128,5 +128,7 @@ Route::post('/contact', [FrontendController::class, 'contacter'])->name('store.c
 Route::get('/contact/{code_contact}', [FrontendController::class, 'successContact'])->name('contact.success');
 Route::get('/data/selection', [BackendController::class, 'dataSelection'])->name('data.selection');
 
-// SHOW ARTICLES & EVENTS
+// SHOW ARTICLES
 Route::get('/article/{slug}', [FrontendController::class, 'showArticle'])->name('article.show');
+// SHOW EVENTS
+Route::get('/evenement/{slug}', [FrontendController::class, 'showEvenement'])->name('evenement.show');

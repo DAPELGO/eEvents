@@ -45,8 +45,8 @@
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
                     <img src="{{ asset('images/events/'.$urgence->url_img) }}" alt="URGENCE">
-                    <h4>{{ $urgence->libelle }}</h4>
-                    <p>Consequuntur sunt aut quasi enim aliquam quae harum pariatur laboris nisi ut aliquip</p>
+                    <h4><a href="{{ route('evenement.show', $urgence->slug) }}">{{ $urgence->libelle }}</a></h4>
+                    <p>{{ \Illuminate\Support\Str::limit($urgence->description, 100, $end = '...') }}</p>
                   </div>
                 </div>
                 @endforeach
@@ -66,8 +66,8 @@
 
             <div class="col-lg-2 col-md-6">
               <div class="count-box">
-                <span data-purecounter-start="0" data-purecounter-end="19" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Nombre d’activation total</p>
+                <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+                <p>Nombre d’activation en cours</p>
               </div>
             </div>
 
@@ -81,26 +81,26 @@
             <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
                 <span data-purecounter-start="0" data-purecounter-end="1018" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Nombre de formés en Système des Gestions d’Incident de base </p>
+                <p>Nombre d'agents formés sur la gestion des urgences de santé publique et des catastrophes selon le modèle SGI, Niveau de base </p>
               </div>
             </div>
 
             <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
               <div class="count-box">
                 <span data-purecounter-start="0" data-purecounter-end="128" data-purecounter-duration="1" class="purecounter"></span>
-                <p>Nombre de formés en Système des Gestions d’Incident intermédiaire </p>
+                <p>Nombre d'agents formés en gestion des urgences de santé publique et des catastrophes selon le modèle SGI, Niveau intermédiaire </p>
               </div>
             </div>
             <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
                 <div class="count-box">
                   <span data-purecounter-start="0" data-purecounter-end="09" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Nombre de formés en Système des Gestions d’Incident niveau avancé </p>
+                  <p>Nombre d'agents formés sur la gestion des urgences de santé publique et des catastrophes selon le modèle SGI, Niveau avancée </p>
                 </div>
               </div>
               <div class="col-lg-2 col-md-6 mt-5 mt-lg-0">
                 <div class="count-box">
                   <span data-purecounter-start="0" data-purecounter-end="4" data-purecounter-duration="1" class="purecounter"></span>
-                  <p>Nombre d’exercices de simulation grandeur nature</p>
+                  <p>Nombre d’exercices de simulation grandeur nature réalisés</p>
                 </div>
               </div>
           </div>
@@ -113,8 +113,8 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="section-title">
-                        <h2>Déclarer une alerte ou une urgence</h2>
-                        <p>Magnam dolores commodi suscipit. Necessitatibus eius consequatur ex aliquid fuga eum quidem. Sit sint consectetur velit. Quisquam quos quisquam cupiditate. Et nemo qui impedit suscipit alias ea. Quia fugiat sit in iste officiis commodi quidem hic quas.</p>
+                        <h2>Déclarez un événement</h2>
+                        <p><strong>Evénement : </strong>« une manifestation d’une maladie ou un événement qui crée un potentiel de maladie ». Il peut s'agir d'événements d'origine infectieuse, zoonotique, de sécurité alimentaire, chimique, radiologique ou nucléaire et transmis par des personnes, des vecteurs, des animaux, des biens/aliments ou par l'environnement.</p>
                       </div>
 
                       <form action="#" method="post" role="form" class="php-email-form">
@@ -206,7 +206,7 @@
       </section><!-- End Doctors Section -->
 
     <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
+    <section id="services" class="services" style="display: none;">
       <div class="container">
 
         <div class="section-title">
@@ -364,7 +364,7 @@
                 </div>
                 <div class="phone">
                     <i class="bi bi-phone-vibrate"></i>
-                    <h4>Urgence</h4>
+                    <h4>Centre d'appel (numéro vert)</h4>
                     <p>3535</p>
                   </div>
 
@@ -421,64 +421,64 @@
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/news1.jpg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/news1.jpg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img1.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img1.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/news2.jpg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/news2.jpg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img2.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img2.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/urgence1.jpg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/urgence1.jpg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img3.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img3.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/urgence2.jpeg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/urgence2.jpeg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img4.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img4.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/urgence3.jpeg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/urgence3.jpeg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img5.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img5.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/urgence4.jpeg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/urgence4.jpeg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img6.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img6.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/gallery/gallery-7.jpg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/gallery/gallery-7.jpg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img7.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img7.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>
 
           <div class="col-lg-3 col-md-4">
             <div class="gallery-item">
-              <a href="{{ asset('frontend/assets/img/gallery/gallery-8.jpg') }}" class="galelry-lightbox">
-                <img src="{{ asset('frontend/assets/img/gallery/gallery-8.jpg') }}" alt="" class="img-fluid">
+              <a href="{{ asset('frontend/assets/img/gallery/img8.jpg') }}" class="galelry-lightbox">
+                <img src="{{ asset('frontend/assets/img/gallery/img8.jpg') }}" alt="" class="img-fluid">
               </a>
             </div>
           </div>

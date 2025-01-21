@@ -24,7 +24,7 @@ class FrontendController extends Controller
         $categories = Categorie::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
         $urgences = Evenement::where('id_categorie', env('ID_CATEGORIE_URGENCE'))->limit(4)->get();
-        $actus = Article::where(['id_categorie'=>env('ID_CATEGORIE_ACTUALITE'), 'is_published'=>TRUE])->limit(4)->orderBy('created_at', 'DESC')->get();
+        $actus = Article::where(['id_categorie'=>env('ID_CATEGORIE_ACTUALITE'), 'is_published'=>TRUE, 'is_delete'=>FALSE])->limit(4)->orderBy('created_at', 'DESC')->get();
         return view('frontend.frontend', compact('categories', 'structures', 'urgences', 'actus'));
     }
 
@@ -234,10 +234,18 @@ class FrontendController extends Controller
         dd(0);
     }
 
+    // ARTICLES
     public function showArticle($slug)
     {
         $article = Article::where('slug', $slug)->first();
         return view('frontend.article', compact('article'));
+    }
+
+    // EVENEMENTS
+    public function showEvenement($slug)
+    {
+        $evenement = Evenement::where('slug', $slug)->first();
+        return view('frontend.evenement', compact('evenement'));
     }
 
 }

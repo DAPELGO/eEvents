@@ -124,6 +124,7 @@ class ArticleController extends Controller
         }
         catch (Exception $e) {
             $image_name = 'default_article.png';
+            Log::error('Erreur lors de l\'enregistrement de l\'image: '.$e->getMessage());
         }
 
         try{
@@ -195,6 +196,7 @@ class ArticleController extends Controller
         $categories = Categorie::where('is_delete', FALSE)
                                 ->where('type_categories', 'articles')
                                 ->get();
+
         return view('backend.articles.edit', compact('article', 'categories'));
     }
 
@@ -272,6 +274,7 @@ class ArticleController extends Controller
         }
         catch (Exception $e) {
             $image_name = $article->url_img;
+            Log::error('Erreur lors de l\'enregistrement de l\'image: '.$e->getMessage());
         }
 
         try{
@@ -333,5 +336,11 @@ class ArticleController extends Controller
 
         flash()->addSuccess('Article supprimé avec succès');
         return redirect()->route('articles.index');
+    }
+
+    public function showArticle($slug)
+    {
+        $article = Article::where('slug', $slug)->first();
+        return view('frontend.article', compact('article'));
     }
 }
