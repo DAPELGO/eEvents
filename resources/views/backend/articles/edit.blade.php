@@ -140,7 +140,7 @@
         const img = new Image();
         img.src = URL.createObjectURL(file);
         img.onload = function() {
-            if (img.width < 1920 || img.height < 1080) {
+            if (img.width < 600 || img.height < 400) {
                 swal({
                     title: 'Attention !',
                     text: 'Les dimensions de l\'image doivent être de 1920x1080 pixels au minimum.',

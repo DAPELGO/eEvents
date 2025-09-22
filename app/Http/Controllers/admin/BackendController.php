@@ -6,6 +6,7 @@ use App\Models\admin\Valeur;
 use Illuminate\Http\Request;
 use App\Models\admin\Article;
 use App\Models\admin\Evenement;
+use App\Models\user\User;
 use App\Models\admin\Structure;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -33,6 +34,12 @@ class BackendController extends Controller
 
         return view('backend.admin', compact('evenements', 'articles'));
 
+    }
+
+    public function liste()
+    {
+        $users = User::all();
+        return view('backend.users.index', compact('users'));
     }
 
     private function formatNumber($number)
