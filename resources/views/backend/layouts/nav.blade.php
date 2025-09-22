@@ -28,7 +28,7 @@
                 @can('articles.view', Auth::user())
                     <li> <a href="{{ route('articles.index') }}" class="@yield('article')"><i class="fa fa-file-text mr-1"></i>Articles</a></li>
                 @endcan
-                <li> <a href="{{ route('frontend.welcome') }}" class="@yield('media')"><i class="fa fa-picture-o mr-1"></i>Médiathèque</a></li>
+
                 <li class="nav-small-cap">ADMINISTRATION</li>
                 <li> <a href="{{ route('roles.index') }}" class="@yield('role')"><i class="fa fa-key mr-1"></i>Rôles</a></li>
                 <li> <a href="{{ route('permissions.index') }}" class="@yield('permission')"><i class="fa fa-shield mr-1"></i>Permissions</a></li>

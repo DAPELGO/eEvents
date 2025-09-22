@@ -53,7 +53,7 @@ class ArticleController extends Controller
         }
 
         $categories = Categorie::where('is_delete', FALSE)
-                                ->where('type_categories', 'articles')
+                                // ->where('type_categories', 'articles')
                                 ->get();
 
         return view('backend.articles.create', compact('categories'));
@@ -110,7 +110,7 @@ class ArticleController extends Controller
 
                 //check image dimension
                 $dimensions = getimagesize($image);
-                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                if($dimensions[0] < 600 || $dimensions[1] < 400){
                     flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
                     return redirect()->back();
                 }
@@ -194,7 +194,6 @@ class ArticleController extends Controller
         }
 
         $categories = Categorie::where('is_delete', FALSE)
-                                ->where('type_categories', 'articles')
                                 ->get();
 
         return view('backend.articles.edit', compact('article', 'categories'));
@@ -260,7 +259,7 @@ class ArticleController extends Controller
 
                 //check image dimension
                 $dimensions = getimagesize($image);
-                if($dimensions[0] < 1920 || $dimensions[1] < 1080){
+                if($dimensions[0] < 600 || $dimensions[1] < 400){
                     flash()->addError('Les dimensions de l\'image ne doivent pas dépasser 1920x1080');
                     return redirect()->back();
                 }

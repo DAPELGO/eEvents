@@ -23,7 +23,7 @@ class FrontendController extends Controller
     {
         $categories = Categorie::where('is_delete', FALSE)->get();
         $structures = Structure::where('is_delete', FALSE)->get();
-        $urgences = Evenement::where('id_categorie', env('ID_CATEGORIE_URGENCE'))->limit(4)->get();
+        $urgences = Article::where('id_categorie', env('ID_CATEGORIE_URGENCE'))->limit(4)->get();
         $actus = Article::where(['id_categorie'=>env('ID_CATEGORIE_ACTUALITE'), 'is_published'=>TRUE, 'is_delete'=>FALSE])->limit(4)->orderBy('created_at', 'DESC')->get();
         return view('frontend.frontend', compact('categories', 'structures', 'urgences', 'actus'));
     }
@@ -61,36 +61,22 @@ class FrontendController extends Controller
     {
         switch ($submenu) {
             case 'evenement':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('evenement')])->get();
-                return view('frontend.menu.urgence.evenement', compact('articles'));
+                $title = 'LES EVENEMENTS EN COURS';
+                $submenu = 'evenement';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_EVENEMENT')])->get();
+                return view('frontend.menu.urgence', compact('articles', 'title', 'submenu'));
                 break;
             case 'reponse-cours':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('reponse_cours')])->get();
-                return view('frontend.menu.urgence.reponse-cours', compact('articles'));
+                $title = 'LES REPONSES SANITAIRES EN COURS';
+                $submenu = 'reponse-cours';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_REPONSECOURS')])->get();
+                return view('frontend.menu.urgence', compact('articles', 'title', 'submenu'));
                 break;
             default:
-            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('reponse_realisee')])->get();
-            return view('frontend.menu.urgence.reponse-realisee', compact('articles'));
-                break;
-        }
-
-    }
-
-    // MENU RISQUE
-    public function risque($submenu)
-    {
-        switch ($submenu) {
-            case 'information':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('information')])->get();
-                return view('frontend.menu.risque.information', compact('articles'));
-                break;
-            case 'evaluation':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('evaluation')])->get();
-                return view('frontend.menu.risque.evaluation', compact('articles'));
-                break;
-            default:
-            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('capacite')])->get();
-            return view('frontend.menu.risque.capacite', compact('articles'));
+            $title = 'LES REPONSES SANITAIRES REALISEES';
+            $submenu = 'reponse-realisee';
+            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_REPONSEREALISE')])->get();
+            return view('frontend.menu.urgence', compact('articles', 'title', 'submenu'));
                 break;
         }
 
@@ -101,16 +87,22 @@ class FrontendController extends Controller
     {
         switch ($submenu) {
             case 'formation-disponible':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('formation_disponible')])->get();
-                return view('frontend.menu.formation.formation-disponible', compact('articles'));
+                $title = 'LES FORMATIONS DISPONIBLES';
+                $submenu = 'formation-disponible';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_FORMATIONDISPONIBLE')])->get();
+                return view('frontend.menu.formation', compact('articles', 'title', 'submenu'));
                 break;
             case 'formation-planifiee':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('formation_planifiee')])->get();
-                return view('frontend.menu.formation.formation-planifiee', compact('articles'));
+                $title = 'CATALOGUE DE FORMATIONS';
+                $submenu = 'formation-planifiee';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_CATALOGUEFORMATION')])->get();
+                return view('frontend.menu.formation', compact('articles', 'title', 'submenu'));
                 break;
             default:
-            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('formation_realisee')])->get();
-            return view('frontend.menu.formation.formation-realisee', compact('articles'));
+            $title = 'PROGRAMME DE FORMATIONS';
+            $submenu = 'formation-realisee';
+            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_PROGRAMFORMATION')])->get();
+            return view('frontend.menu.formation', compact('articles', 'title', 'submenu'));
                 break;
         }
 
@@ -121,12 +113,16 @@ class FrontendController extends Controller
     {
         switch ($submenu) {
             case 'exercice-planifie':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('exercice_planifie')])->get();
-                return view('frontend.menu.simulation.exercice-planifie', compact('articles'));
+                $title = 'LES EXERCICES DE SIMULATIONS PLANIFIÉS';
+                $submenu = 'exercice-planifie';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_EXERCICESIMPLAN')])->get();
+                return view('frontend.menu.simulation', compact('articles', 'title', 'submenu'));
                 break;
             default:
-            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('exercice_realise')])->get();
-            return view('frontend.menu.simulation.exercice-realise', compact('articles'));
+            $title = 'LES EXERCICES DE SIMULATIONS RÉALISÉS';
+            $submenu = 'exercice-realise';
+            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_EXERCICESIMREAL')])->get();
+            return view('frontend.menu.simulation', compact('articles', 'title', 'submenu'));
                 break;
         }
 
@@ -137,20 +133,26 @@ class FrontendController extends Controller
     {
         switch ($submenu) {
             case 'evaluation':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('evaluation')])->get();
-                return view('frontend.menu.ressource.evaluation', compact('articles'));
+                $title = 'ÉVALUATIONS ET RECHERCHES OPÉRATIONNELLES';
+                $submenu = 'evaluation';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_RESSOURCESEVAL')])->get();
+                return view('frontend.menu.ressource', compact('articles', 'title', 'submenu'));
                 break;
             case 'texte':
                 $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('texte')])->get();
                 return view('frontend.menu.ressource.texte', compact('articles'));
                 break;
             case 'plan':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('plan')])->get();
-                return view('frontend.menu.ressource.plan', compact('articles'));
+                $title = 'PLANS, PROCÉDURES, DIRECTIVES';
+                $submenu = 'plan';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_RESSOURCESPLANS')])->get();
+                return view('frontend.menu.ressource', compact('articles', 'title', 'submenu'));
                 break;
             case 'statistique':
-                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('statistique')])->get();
-                return view('frontend.menu.ressource.statistique', compact('articles'));
+                $title = 'LES STATISTIQUES';
+                $submenu = 'statistique';
+                $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_RESSOURCESSTATS')])->get();
+                return view('frontend.menu.ressource', compact('articles', 'title', 'submenu'));
                 break;
             default:
             $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('mediatheque')])->get();
@@ -165,13 +167,16 @@ class FrontendController extends Controller
     {
         switch ($submenu) {
             case 'mission':
-                return view('frontend.menu.corus.mission');
+                $article = Article::where(['is_delete'=>FALSE, 'id'=>env('ID_ART_CORUSMISSION')])->first();
+                return view('frontend.menu.corus.mission', compact('article'));
                 break;
             case 'vision':
-                return view('frontend.menu.corus.vision');
+                $article = Article::where(['is_delete'=>FALSE, 'id'=>env('ID_ART_CORUSVISION')])->first();
+                return view('frontend.menu.corus.vision', compact('article'));
                 break;
             default:
-            return view('frontend.menu.corus.team');
+            $articles = Article::where(['is_delete'=>FALSE, 'id_categorie'=>env('ID_CAT_CORUTEAM')])->get();
+            return view('frontend.menu.corus.team', compact('articles'));
                 break;
         }
 

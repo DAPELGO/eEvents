@@ -44,9 +44,9 @@
                 @foreach($urgences as $urgence)
                 <div class="col-xl-3 d-flex align-items-stretch">
                   <div class="icon-box mt-4 mt-xl-0">
-                    <img src="{{ asset('images/events/'.$urgence->url_img) }}" alt="URGENCE">
-                    <h4><a href="{{ route('evenement.show', $urgence->slug) }}">{{ $urgence->libelle }}</a></h4>
-                    <p>{{ \Illuminate\Support\Str::limit($urgence->description, 100, $end = '...') }}</p>
+                    <img src="{{ asset('images/articles/cover/'.$urgence->url_img) }}" alt="URGENCE">
+                    <h4><a href="{{ route('evenement.show', $urgence->slug) }}">{{ $urgence->titre }}</a></h4>
+                    <p>{!! \Illuminate\Support\Str::limit($urgence->content, 100, $end = '...') !!}</p>
                   </div>
                 </div>
                 @endforeach

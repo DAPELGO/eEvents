@@ -163,7 +163,7 @@ class CategorieController extends Controller
                 }
 
                 $categorie->update([
-                    'titre'=>$request->titre,
+                    'nom_categorie'=>$request->titre,
                     'slug'=>Str::slug($request->titre),
                     'type_categories'=>$request->type,
                     'description'=>$request->description,
